@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$WorkspaceRoot = "C:\Users\user\NIDS_Workspace",
+    [string]$WorkspaceRoot = "C:\NIDS_Workspace",
     [string]$TargetDir = ""
 )
 

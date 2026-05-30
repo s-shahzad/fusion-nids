@@ -15,7 +15,7 @@ The supported and validated core profile is:
 - optional replay-review metrics when ground truth is supplied
 - optional control-layer access through the local FastAPI wrapper
 
-The detailed boundary is documented in [supported_operating_profile.md](C:/Users/shaik/NIDS_Workspace/docs/supported_operating_profile.md).
+The detailed boundary is documented in [supported_operating_profile.md](C:/NIDS_Workspace/docs/supported_operating_profile.md).
 
 ## Tuned Baseline
 
@@ -28,14 +28,14 @@ The canonical tuned baseline remains the documented replay validation state for 
   - `ml.unsupervised_confirmation_hits = 2`
   - `fusion.min_agreement_count = 3`
 
-This baseline is preserved as the project reference point. It should be read together with the fresh-output replay rule and the SQLite append caveat already documented in [README.md](C:/Users/shaik/NIDS_Workspace/README.md).
+This baseline is preserved as the project reference point. It should be read together with the fresh-output replay rule and the SQLite append caveat already documented in [README.md](C:/NIDS_Workspace/README.md).
 
 ## Comparative Baseline Study
 
 A reproducible comparison run is now available at:
 
-- [comparison_baseline.json](C:/Users/shaik/NIDS_Workspace/docs/generated/comparison_baseline.json)
-- [comparison_baseline.md](C:/Users/shaik/NIDS_Workspace/docs/generated/comparison_baseline.md)
+- [comparison_baseline.json](C:/NIDS_Workspace/docs/generated/comparison_baseline.json)
+- [comparison_baseline.md](C:/NIDS_Workspace/docs/generated/comparison_baseline.md)
 
 That study runs the same replay input through:
 
@@ -47,7 +47,7 @@ That study runs the same replay input through:
 Important note:
 
 - the comparison study is replay-review evidence, not a replacement for the tuned baseline narrative by itself
-- the earlier `8`-alert mismatch has been reconciled in [hybrid_tuned_reconciliation.md](C:/Users/shaik/NIDS_Workspace/docs/generated/hybrid_tuned_reconciliation.md)
+- the earlier `8`-alert mismatch has been reconciled in [hybrid_tuned_reconciliation.md](C:/NIDS_Workspace/docs/generated/hybrid_tuned_reconciliation.md)
 - the current clean comparison rerun now reproduces the canonical `10-alert` tuned baseline
 
 ## Metrics Definitions And Limits
@@ -61,7 +61,7 @@ The replay metrics layer computes:
 - recall
 - F1
 
-These metrics are currently category/label-based replay-review metrics, not event-aligned scientific benchmark metrics. The methodology and limits are documented in [metrics_methodology.md](C:/Users/shaik/NIDS_Workspace/docs/metrics_methodology.md).
+These metrics are currently category/label-based replay-review metrics, not event-aligned scientific benchmark metrics. The methodology and limits are documented in [metrics_methodology.md](C:/NIDS_Workspace/docs/metrics_methodology.md).
 
 ## Fusion Trace Meaning
 
@@ -115,7 +115,7 @@ The taxonomy fields are designed to make scenario intent and detection path easi
 
 ## Validation Breadth
 
-Validation breadth has been formalized in [validation_breadth.md](C:/Users/shaik/NIDS_Workspace/docs/validation_breadth.md). The project now clearly separates:
+Validation breadth has been formalized in [validation_breadth.md](C:/NIDS_Workspace/docs/validation_breadth.md). The project now clearly separates:
 
 - the main serious synthetic baseline replay
 - focused single-family replay inputs such as DNS burst and HTTP login brute force
@@ -128,14 +128,14 @@ This closes part of the prior breadth gap, but it does not turn the project into
 
 Bounded replay performance evidence is summarized in:
 
-- [performance_profile.md](C:/Users/shaik/NIDS_Workspace/docs/performance_profile.md)
-- [performance_profile.json](C:/Users/shaik/NIDS_Workspace/docs/generated/performance_profile.json)
+- [performance_profile.md](C:/NIDS_Workspace/docs/performance_profile.md)
+- [performance_profile.json](C:/NIDS_Workspace/docs/generated/performance_profile.json)
 
 This evidence is intentionally limited to tested replay conditions. It does not claim scalability beyond the observed runs.
 
 ## Failure Handling
 
-Failure behavior is formalized in [failure_mode_matrix.md](C:/Users/shaik/NIDS_Workspace/docs/failure_mode_matrix.md). That matrix covers:
+Failure behavior is formalized in [failure_mode_matrix.md](C:/NIDS_Workspace/docs/failure_mode_matrix.md). That matrix covers:
 
 - replay input issues
 - parser/runtime failure surfaces
@@ -146,7 +146,7 @@ Failure behavior is formalized in [failure_mode_matrix.md](C:/Users/shaik/NIDS_W
 
 ## Validated Vs Experimental Vs Out Of Scope
 
-This split is formalized in [supported_operating_profile.md](C:/Users/shaik/NIDS_Workspace/docs/supported_operating_profile.md):
+This split is formalized in [supported_operating_profile.md](C:/NIDS_Workspace/docs/supported_operating_profile.md):
 
 - validated and supported: offline replay, replay metrics, fusion trace, scenario bundles, robustness matrix, taxonomy layer, bounded API wrapper
 - experimental: wider deployment paths, some cloud and dashboard surfaces, prepared-environment/live-related assets outside the offline-first claim set
