@@ -1,0 +1,22 @@
+﻿{
+    "lab_root":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab",
+    "iso_path":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab\\isos\\ubuntu-24.04.4-live-server-amd64.iso",
+    "script_template_path":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab\\templates\\ubuntu_autoinstall_nids_user_data",
+    "nat_update_adapters":  true,
+    "dry_run":  false,
+    "credentials":  {
+                        "username":  "<set-via-LAB_VM_USER>",
+                        "password":  "<redacted>",
+                        "password_source":  "LAB_VM_PASS or -UserPassword"
+                    },
+    "guests":  [
+                   {
+                       "name":  "nids-ubuntu-target",
+                       "hostname":  "nids-ubuntu-target.nidslab"
+                   },
+                   {
+                       "name":  "nids-ubuntu-sensor",
+                       "hostname":  "nids-ubuntu-sensor.nidslab"
+                   }
+               ]
+}

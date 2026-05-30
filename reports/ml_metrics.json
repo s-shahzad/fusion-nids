@@ -1,0 +1,168 @@
+{
+  "generated_at": "2026-03-10T16:54:16+00:00",
+  "samples_total": 25000,
+  "samples_train": 18750,
+  "samples_test": 6250,
+  "labels": [
+    "dos",
+    "normal",
+    "probe",
+    "r2l",
+    "u2r"
+  ],
+  "algorithms": [
+    "random_forest",
+    "extra_trees",
+    "hist_gradient_boosting",
+    "xgboost"
+  ],
+  "accuracy": 0.99536,
+  "precision_weighted": 0.9961489589236263,
+  "recall_weighted": 0.99536,
+  "f1_weighted": 0.9955958464117263,
+  "avg_prediction_score": 0.9934928933512815,
+  "classification_report": {
+    "dos": {
+      "precision": 0.9987819732034104,
+      "recall": 0.9957498482088646,
+      "f1-score": 0.9972636059592581,
+      "support": 4941.0
+    },
+    "normal": {
+      "precision": 0.9975806451612903,
+      "recall": 0.995172968624296,
+      "f1-score": 0.9963753523962948,
+      "support": 1243.0
+    },
+    "probe": {
+      "precision": 0.7246376811594203,
+      "recall": 0.9803921568627451,
+      "f1-score": 0.8333333333333334,
+      "support": 51.0
+    },
+    "r2l": {
+      "precision": 0.9333333333333333,
+      "recall": 0.9333333333333333,
+      "f1-score": 0.9333333333333333,
+      "support": 15.0
+    },
+    "accuracy": 0.99536,
+    "macro avg": {
+      "precision": 0.9135834082143637,
+      "recall": 0.9761620767573098,
+      "f1-score": 0.9400764062555549,
+      "support": 6250.0
+    },
+    "weighted avg": {
+      "precision": 0.9961489589236263,
+      "recall": 0.99536,
+      "f1-score": 0.9955958464117263,
+      "support": 6250.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      4920,
+      2,
+      19,
+      0,
+      0
+    ],
+    [
+      5,
+      1237,
+      0,
+      1,
+      0
+    ],
+    [
+      1,
+      0,
+      50,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      14,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "feature_columns": [
+    "packet_len",
+    "payload_len",
+    "src_port",
+    "dst_port",
+    "is_tcp",
+    "is_udp",
+    "is_icmp",
+    "tcp_syn",
+    "tcp_ack",
+    "packet_rate_dst",
+    "unique_dst_ports_src_window",
+    "unique_dst_hosts_src_window",
+    "has_dns_qname",
+    "has_http_host",
+    "has_tls_sni"
+  ],
+  "ensemble": {
+    "algorithms": [
+      "random_forest",
+      "extra_trees",
+      "hist_gradient_boosting",
+      "xgboost"
+    ],
+    "weights": {
+      "random_forest": 0.2503342839170572,
+      "extra_trees": 0.25009304987693776,
+      "hist_gradient_boosting": 0.24934958961208759,
+      "xgboost": 0.2502230765939174
+    },
+    "candidate_metrics": {
+      "random_forest": {
+        "accuracy": 0.99584,
+        "precision_weighted": 0.995946310391363,
+        "recall_weighted": 0.99584,
+        "f1_weighted": 0.9958763852126015,
+        "avg_prediction_score": 0.9948851266239316
+      },
+      "extra_trees": {
+        "accuracy": 0.99488,
+        "precision_weighted": 0.9950807557959015,
+        "recall_weighted": 0.99488,
+        "f1_weighted": 0.9949167112913738,
+        "avg_prediction_score": 0.9947682630805048
+      },
+      "hist_gradient_boosting": {
+        "accuracy": 0.99104,
+        "precision_weighted": 0.9938363669104474,
+        "recall_weighted": 0.99104,
+        "f1_weighted": 0.9919590879506032,
+        "avg_prediction_score": 0.9931535100110268
+      },
+      "xgboost": {
+        "accuracy": 0.9952,
+        "precision_weighted": 0.9960204756883204,
+        "recall_weighted": 0.9952,
+        "f1_weighted": 0.9954339817781029,
+        "avg_prediction_score": 0.9973726502895355
+      }
+    },
+    "ensemble_metrics": {
+      "accuracy": 0.99536,
+      "precision_weighted": 0.9961489589236263,
+      "recall_weighted": 0.99536,
+      "f1_weighted": 0.9955958464117263,
+      "avg_prediction_score": 0.9934928933512815
+    }
+  }
+}

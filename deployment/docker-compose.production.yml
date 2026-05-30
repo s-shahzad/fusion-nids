@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  nids-api:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.production
+    environment:
+      NIDS_ENV: local
+      NIDS_OUTPUT_DIR: /app/output
+      NIDS_SQLITE_PATH: /app/output/nids.db
+      NIDS_API_HOST: 0.0.0.0
+      NIDS_API_PORT: 8080
+      NIDS_ALLOW_REMOTE_API: "false"
+      NIDS_ALLOW_MUTATING_ROUTES: "false"
+      NIDS_STORAGE_BACKEND: sqlite
+      NIDS_LOG_LEVEL: INFO
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ../output:/app/output
+      - ../reports:/app/reports
+      - ../state:/app/state
+      - ../models:/app/models
+      - ../config:/app/config:ro
+      - ../rules:/app/rules:ro
+    restart: unless-stopped

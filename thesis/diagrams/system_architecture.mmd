@@ -1,0 +1,17 @@
+flowchart LR
+    A[Live Capture] --> P[Parser and Feature Extraction]
+    B[Offline PCAP Replay] --> P
+    C[Suricata and Zeek Adapters] --> P
+    D[Artifact Intake] --> E[Artifact Parsers and Analyzer]
+    P --> F[Signature Engine]
+    P --> G[Statistical Anomaly Engine]
+    P --> H[ML Router]
+    H --> I[Supervised Ensemble]
+    H --> J[Unsupervised Hybrid Detector]
+    F --> K[Fusion Engine]
+    G --> K
+    I --> K
+    J --> K
+    K --> L[Alert Suppression and Storage]
+    L --> M[Dashboard, Charts, Reports]
+    E --> L

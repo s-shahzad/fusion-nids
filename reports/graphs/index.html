@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIDS Graphical Analytics</title>
+  <style>
+    .nids-analytics-root {
+      --bg: #f6f8fb;
+      --panel: #ffffff;
+      --line: #d7dfea;
+      --text: #1f2937;
+      --muted: #64748b;
+      --link: #1d4ed8;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      padding: 1rem;
+    }
+    .nids-analytics-root .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      gap: 1rem;
+    }
+    .nids-analytics-root .hero {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+    .nids-analytics-root h1 {
+      margin: 0 0 0.4rem;
+      font-size: 1.5rem;
+    }
+    .nids-analytics-root p {
+      margin: 0;
+      color: var(--muted);
+    }
+    .nids-analytics-root .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+      padding: 0.8rem;
+      display: grid;
+      gap: 0.7rem;
+    }
+    .nids-analytics-root .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .nids-analytics-root .card-head h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+    .nids-analytics-root .actions {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      font-size: 0.86rem;
+    }
+    .nids-analytics-root .link {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .nids-analytics-root .muted {
+      color: var(--muted);
+    }
+    .nids-analytics-root iframe {
+      width: 100%;
+      min-height: 560px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <main class="nids-analytics-root">
+    <div class="wrap">
+      <header class="hero">
+        <h1>Universal NIDS Graphical Analytics</h1>
+        <p>Generated: 2026-03-07 01:13:52 UTC</p>
+      </header>
+      
+            <section class="card" id="time_series_alerts_traffic">
+              <div class="card-head">
+                <h2>Time Series: Alerts + Traffic</h2>
+                <div class="actions">
+                  <a class="link" href="time_series_alerts_traffic.html">HTML</a>
+                  <a class="link" href="time_series_alerts_traffic.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="time_series_alerts_traffic.html" title="Time Series: Alerts + Traffic"></iframe>
+            </section>
+            
+            <section class="card" id="top_source_ips">
+              <div class="card-head">
+                <h2>Top Source IPs</h2>
+                <div class="actions">
+                  <a class="link" href="top_source_ips.html">HTML</a>
+                  <a class="link" href="top_source_ips.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="top_source_ips.html" title="Top Source IPs"></iframe>
+            </section>
+            
+            <section class="card" id="top_destination_ports">
+              <div class="card-head">
+                <h2>Top Destination Ports</h2>
+                <div class="actions">
+                  <a class="link" href="top_destination_ports.html">HTML</a>
+                  <a class="link" href="top_destination_ports.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="top_destination_ports.html" title="Top Destination Ports"></iframe>
+            </section>
+            
+            <section class="card" id="severity_stacked_over_time">
+              <div class="card-head">
+                <h2>Severity Over Time</h2>
+                <div class="actions">
+                  <a class="link" href="severity_stacked_over_time.html">HTML</a>
+                  <a class="link" href="severity_stacked_over_time.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="severity_stacked_over_time.html" title="Severity Over Time"></iframe>
+            </section>
+            
+            <section class="card" id="engine_share_donut">
+              <div class="card-head">
+                <h2>Engine Share Donut</h2>
+                <div class="actions">
+                  <a class="link" href="engine_share_donut.html">HTML</a>
+                  <a class="link" href="engine_share_donut.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="engine_share_donut.html" title="Engine Share Donut"></iframe>
+            </section>
+            
+            <section class="card" id="src_vs_dstport_heatmap">
+              <div class="card-head">
+                <h2>Source vs Port Heatmap</h2>
+                <div class="actions">
+                  <a class="link" href="src_vs_dstport_heatmap.html">HTML</a>
+                  <a class="link" href="src_vs_dstport_heatmap.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="src_vs_dstport_heatmap.html" title="Source vs Port Heatmap"></iframe>
+            </section>
+            
+            <section class="card" id="distribution_histogram">
+              <div class="card-head">
+                <h2>Distribution Histogram</h2>
+                <div class="actions">
+                  <a class="link" href="distribution_histogram.html">HTML</a>
+                  <a class="link" href="distribution_histogram.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="distribution_histogram.html" title="Distribution Histogram"></iframe>
+            </section>
+            
+            <section class="card" id="host_activity_scatter">
+              <div class="card-head">
+                <h2>Host Activity Scatter</h2>
+                <div class="actions">
+                  <a class="link" href="host_activity_scatter.html">HTML</a>
+                  <a class="link" href="host_activity_scatter.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="host_activity_scatter.html" title="Host Activity Scatter"></iframe>
+            </section>
+            
+            <section class="card" id="traffic_sankey">
+              <div class="card-head">
+                <h2>Traffic Sankey</h2>
+                <div class="actions">
+                  <a class="link" href="traffic_sankey.html">HTML</a>
+                  <a class="link" href="traffic_sankey.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="traffic_sankey.html" title="Traffic Sankey"></iframe>
+            </section>
+            
+            <section class="card" id="network_graph">
+              <div class="card-head">
+                <h2>Network Graph</h2>
+                <div class="actions">
+                  <a class="link" href="network_graph.html">HTML</a>
+                  <a class="link" href="network_graph.png">PNG</a>
+                </div>
+              </div>
+              <iframe src="network_graph.html" title="Network Graph"></iframe>
+            </section>
+            
+    </div>
+  </main>
+</body>
+</html>

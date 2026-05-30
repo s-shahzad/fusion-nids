@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-03-10T17:17:28Z",
+  "lookback_days": 3650,
+  "window_start": "2016-03-12T17:17:28Z",
+  "window_end": "2026-03-10T17:17:28Z",
+  "totals": {
+    "flows": 25000,
+    "alerts": 0,
+    "labeled_flows": 25000,
+    "labeled_attack_flows": 25000,
+    "labeled_benign_flows": 0
+  },
+  "score_stats": {
+    "supervised_score": {
+      "count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "unsupervised_score": {
+      "count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "unsupervised_isolation_score": {
+      "count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "unsupervised_autoencoder_score": {
+      "count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "fusion_score": {
+      "count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    }
+  },
+  "threshold_recommendations": {
+    "supervised_score": {
+      "method": "no_score_data",
+      "labeled_attack_samples": 0,
+      "labeled_benign_samples": 0,
+      "balanced_threshold": null,
+      "high_precision_threshold": null
+    },
+    "unsupervised_score": {
+      "method": "no_score_data",
+      "labeled_attack_samples": 0,
+      "labeled_benign_samples": 0,
+      "balanced_threshold": null,
+      "high_precision_threshold": null
+    },
+    "unsupervised_isolation_score": {
+      "method": "no_score_data",
+      "labeled_attack_samples": 0,
+      "labeled_benign_samples": 0,
+      "balanced_threshold": null,
+      "high_precision_threshold": null
+    },
+    "unsupervised_autoencoder_score": {
+      "method": "no_score_data",
+      "labeled_attack_samples": 0,
+      "labeled_benign_samples": 0,
+      "balanced_threshold": null,
+      "high_precision_threshold": null
+    },
+    "fusion_score": {
+      "method": "no_score_data",
+      "labeled_attack_samples": 0,
+      "labeled_benign_samples": 0,
+      "balanced_threshold": null,
+      "high_precision_threshold": null
+    }
+  },
+  "recommended_config": {},
+  "scenario_grid": {
+    "supervised_score": [],
+    "unsupervised_score": [],
+    "unsupervised_isolation_score": [],
+    "unsupervised_autoencoder_score": [],
+    "fusion_score": []
+  }
+}

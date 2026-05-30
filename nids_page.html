@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Universal NIDS Console</title>
+  <link rel="stylesheet" href="nids_page.css" />
+</head>
+<body>
+  <div class="grain"></div>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Universal NIDS Console</p>
+      <h1>File Drop + Live Network Intrusion Monitor</h1>
+      <p class="subtitle">
+        Drop a file, scan it for corruption and attack indicators, then run live network monitoring for DoS,
+        DDoS, MITM heuristics, port scans, and unauthorized access attempts.
+      </p>
+      <div class="hero-actions">
+        <button id="startScanBtn" class="btn primary" type="button">Run Network Scan</button>
+        <button id="stopScanBtn" class="btn ghost" type="button" disabled>Stop Scan</button>
+        <span id="scanStatus" class="status-pill idle">Status: Idle</span>
+      </div>
+    </header>
+
+    <section class="layout-grid">
+      <article class="panel">
+        <div class="panel-head">
+          <h2>File Drop Scanner</h2>
+          <p>Upload any file type (PDF, image, Word, archive, or other) for threat and integrity checks.</p>
+        </div>
+
+        <label id="dropZone" class="drop-zone" for="archiveInput">
+          <strong>Drop File Here</strong>
+          <span>or click to select any file</span>
+          <small id="selectedFileLabel">No file selected</small>
+        </label>
+        <input id="archiveInput" type="file" hidden />
+
+        <div class="action-row">
+          <button id="scanFileBtn" class="btn primary" type="button">Scan Dropped File</button>
+          <p id="fileStatus" class="muted">Waiting for file input.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="label">Files Scanned</span>
+            <strong id="filesScanned">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Corrupted</span>
+            <strong id="corruptedFiles">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Suspicious</span>
+            <strong id="suspiciousFiles">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Risk Score</span>
+            <strong id="riskScore">0</strong>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Finding</th>
+                <th>Value</th>
+                <th>Severity</th>
+              </tr>
+            </thead>
+            <tbody id="fileFindingsBody"></tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Live Network Scan</h2>
+          <p>Real-time intrusion heuristics from local network telemetry.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="label">Active Connections</span>
+            <strong id="activeConnections">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">External IPs</span>
+            <strong id="externalIps">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Unauthorized Attempts</span>
+            <strong id="unauthAttempts">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Suspicious Events</span>
+            <strong id="suspiciousEvents">0</strong>
+          </div>
+        </div>
+
+        <div class="stats-grid compact">
+          <div class="stat-card">
+            <span class="label">DoS/DDoS Score</span>
+            <strong id="dosScore">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">MITM Score</span>
+            <strong id="mitmScore">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Port Scan Score</span>
+            <strong id="portScanScore">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Top Remote Host</span>
+            <strong id="topRemote">-</strong>
+          </div>
+        </div>
+
+        <h3 class="subhead">Attack Matrix</h3>
+        <div id="attackMatrix" class="attack-matrix"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Threat Trend (Recent Snapshots)</h2>
+        <p>Risk progression across recent polling windows.</p>
+      </div>
+      <div id="trendBars" class="trend-bars"></div>
+      <p id="trendMeta" class="muted">No trend data yet.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Live Intrusion Events</h2>
+        <p>Recent events generated while scan is running.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Type</th>
+              <th>Severity</th>
+              <th>Summary</th>
+            </tr>
+          </thead>
+          <tbody id="eventTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <p id="footerStamp">Universal NIDS local console.</p>
+    </footer>
+  </main>
+
+  <script src="nids_page.js"></script>
+</body>
+</html>
+
+
+
+
+

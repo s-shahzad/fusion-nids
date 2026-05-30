@@ -1,0 +1,45 @@
+services:
+  nids-runtime:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nids-runtime-cloud
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: ["sh", "/app/scripts/run_runtime_container.sh"]
+    environment:
+      NIDS_CONFIG_PATH: ${NIDS_CONFIG_PATH:-config/nids_cloud_single_node.yml}
+      NIDS_OUTPUT_DIR: /data/runtime/output
+      NIDS_NOTIFY_DEAD_LETTER: /data/runtime/logs/notification_failures.jsonl
+    volumes:
+      - ${NIDS_CLOUD_RUNTIME_OUTPUT_DIR:-./cloud_data/runtime/output}:/data/runtime/output
+      - ${NIDS_CLOUD_RUNTIME_LOG_DIR:-./cloud_data/runtime/logs}:/data/runtime/logs
+      - ${NIDS_CLOUD_RUNTIME_REPORTS_DIR:-./cloud_data/runtime/reports}:/data/runtime/reports
+      - ${NIDS_CLOUD_RUNTIME_ARTIFACTS_DIR:-./cloud_data/runtime/artifacts}:/data/runtime/artifacts
+      - ${NIDS_CLOUD_LAB_BUNDLES_DIR:-./cloud_data/lab_generated/bundles}:/data/lab_generated/bundles
+      - ${NIDS_CLOUD_REPLAY_DIR:-./cloud_data/replay/staging}:/data/replay/staging
+      - ./rules:/app/rules:ro
+      - ./config:/app/config:ro
+      - ./models:/app/models:ro
+
+  nids-dashboard:
+    profiles: ["dashboard"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nids-dashboard-cloud
+    restart: unless-stopped
+    depends_on:
+      - nids-runtime
+    env_file:
+      - .env
+    command: ["sh", "/app/scripts/run_dashboard_container.sh"]
+    environment:
+      NIDS_DB_PATH: /data/runtime/output/nids.db
+    ports:
+      - "127.0.0.1:${DASHBOARD_PORT:-8000}:8000"
+    volumes:
+      - ${NIDS_CLOUD_RUNTIME_OUTPUT_DIR:-./cloud_data/runtime/output}:/data/runtime/output
+      - ${NIDS_CLOUD_RUNTIME_REPORTS_DIR:-./cloud_data/runtime/reports}:/data/runtime/reports
+      - ./config:/app/config:ro

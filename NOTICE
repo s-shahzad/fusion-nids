@@ -1,0 +1,25 @@
+Universal NIDS Notice
+
+Date: March 13, 2026
+
+This repository includes or depends on third-party software components.
+Applicable third-party license terms, attributions, and notices must be
+preserved where required.
+
+Current project status:
+
+- the final outbound license for Universal NIDS has not yet been finalized
+- the public redistribution posture for this repository is still under review
+- dependency and third-party review material is being prepared in:
+  - `THIRD_PARTY.md`
+  - `dependency_inventory.md`
+
+Important caution:
+
+- local dependency metadata reviewed during the Phase 11 preparation pass shows
+  that `scapy 2.7.0` reports `GPL-2.0-only`
+- that item requires explicit review before any public or commercial
+  redistribution posture is treated as settled
+
+This notice is informational only. It does not replace the final project
+license, and it does not override third-party license terms.

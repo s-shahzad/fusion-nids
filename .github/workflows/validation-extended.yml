@@ -1,0 +1,102 @@
+name: Extended Validation
+
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+    inputs:
+      run_lab_validation:
+        description: "Run self-hosted lab validation jobs when an appropriate runner is available"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  extended-python-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Prepare validation artifact directories
+        run: |
+          mkdir -p artifacts/test-results
+          mkdir -p artifacts/coverage
+
+      - name: Run default suite with coverage
+        run: |
+          pytest \
+            --cov=src/NIDS \
+            --cov-config=.coveragerc \
+            --cov-report=term-missing:skip-covered \
+            --cov-report=xml:artifacts/coverage/extended-coverage.xml \
+            --cov-report=html:artifacts/coverage/html-extended \
+            --junitxml=artifacts/test-results/junit-extended.xml
+
+      - name: Run extended marked tests
+        run: |
+          pytest -m "(integration or slow) and not live and not environment and not lab" --junitxml=artifacts/test-results/junit-integration.xml
+
+      - name: Upload extended validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: extended-validation-artifacts
+          path: |
+            artifacts/coverage
+            artifacts/test-results
+          if-no-files-found: warn
+
+  optional-lab-validation:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_lab_validation }}
+    runs-on: [self-hosted, windows, nids-lab]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Prepare lab artifact directories
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifacts/test-results | Out-Null
+          New-Item -ItemType Directory -Force -Path artifacts/lab | Out-Null
+
+      - name: Run optional lab-marked pytest suite
+        shell: pwsh
+        run: |
+          pytest -m "lab" --junitxml=artifacts/test-results/junit-lab.xml
+
+      - name: Upload lab artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lab-validation-artifacts
+          path: |
+            artifacts/test-results
+            artifacts/lab
+            NIDS_TestLab/reports
+          if-no-files-found: warn
