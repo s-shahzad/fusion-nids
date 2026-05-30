@@ -1,0 +1,79 @@
+scenario_id: LAB-SCN-004
+name: Mixed Benign And Malicious Offline Replay
+slug: mixed-traffic-offline
+description: Replay benign HTTP and DNS activity together with scan, burst, and brute-force traffic to approximate a more realistic mixed-traffic review.
+objective: Validate that multiple detector families can survive the same replay window while benign traffic remains present in the evidence set.
+environment:
+  primary_mode: offline_replay
+  planned_modes:
+    - mode: live_vm
+      reason: Requires the full isolated VM lab for concurrency-backed live evidence.
+      prerequisites:
+        - Built NIDS_TestLab VirtualBox topology
+        - Attacker and sensor VMs reachable
+runtime:
+  config: NIDS_TestLab/config/offline_replay_profile.yml
+  rules: rules/rules.yml
+  model_path: models/model.pkl
+  sensor_id: nids-phase3-offline
+  use_model: true
+  enable_unsupervised: true
+  metrics_interval: 1
+  threshold_lookback_days: 3650
+expected:
+  required_rules:
+    - DNS Burst / DGA-like Activity
+    - HTTP Login Brute Force Threshold
+    - Suspicious Port Scan
+    - Port Scan Threshold
+  expected_engines:
+    - signature
+    - anomaly
+  fusion_behavior: Fusion should be observed if the current model stack agrees with at least one malicious component, but mixed-scenario pass status depends only on the required rule set.
+network:
+  components:
+    - kind: benign_dns
+      src_ip: 10.77.0.12
+      dst_ip: 10.77.0.30
+      src_port_start: 52000
+      qname: news.example.org
+      count: 10
+      start_time_sec: 0.0
+      interval_ms: 250
+    - kind: benign_http_get
+      src_ip: 10.77.0.13
+      dst_ip: 10.77.0.30
+      src_port_start: 46000
+      dst_port: 8080
+      uri: /health
+      count: 6
+      start_time_sec: 0.2
+      interval_ms: 220
+    - kind: tcp_scan
+      src_ip: 10.77.0.23
+      dst_ip: 10.77.0.30
+      src_port_start: 47000
+      start_port: 10
+      count: 25
+      extra_ports:
+        - 3389
+      start_time_sec: 1.0
+      interval_ms: 30
+    - kind: dns_burst
+      src_ip: 10.77.0.24
+      dst_ip: 10.77.0.30
+      src_port_start: 55000
+      domain: overlap.example
+      count: 32
+      unique: true
+      start_time_sec: 1.4
+      interval_ms: 110
+    - kind: http_login_bruteforce
+      src_ip: 10.77.0.25
+      dst_ip: 10.77.0.30
+      src_port_start: 48000
+      dst_port: 8080
+      uri: /login
+      count: 8
+      start_time_sec: 1.8
+      interval_ms: 1000

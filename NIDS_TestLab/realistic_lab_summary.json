@@ -1,0 +1,52 @@
+﻿{
+    "lab_root":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab",
+    "realistic_lab":  {
+                          "network":  {
+                                          "mode":  "VirtualBox Internal Network",
+                                          "name":  "nidslab",
+                                          "host_visible":  false
+                                      },
+                          "attacker":  {
+                                           "source_vm":  "kali",
+                                           "lab_vm":  "nids-kali-attacker",
+                                           "role":  "Traffic generator / attacker",
+                                           "adapters":  [
+                                                            "Adapter 1: Internal Network (nidslab)"
+                                                        ]
+                                       },
+                          "target":  {
+                                         "vm":  "nids-ubuntu-target",
+                                         "role":  "Victim / service host",
+                                         "adapters":  [
+                                                          "Adapter 1: Internal Network (nidslab)",
+                                                          "Adapter 2: NAT for package updates only"
+                                                      ]
+                                     },
+                          "sensor":  {
+                                         "vm":  "nids-ubuntu-sensor",
+                                         "role":  "NIDS sensor / packet capture node",
+                                         "adapters":  [
+                                                          "Adapter 1: Internal Network (nidslab), promiscuous allow-all",
+                                                          "Adapter 2: NAT for package updates only"
+                                                      ]
+                                     }
+                      },
+    "ubuntu_iso":  {
+                       "path":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab\\isos\\ubuntu-24.04.4-live-server-amd64.iso",
+                       "exists":  true,
+                       "attached_to_ubuntu_vms":  true,
+                       "official_download":  "https://releases.ubuntu.com/noble/ubuntu-24.04.4-live-server-amd64.iso"
+                   },
+    "security_posture":  [
+                             "No Host-Only adapters configured",
+                             "No Bridged adapters configured",
+                             "Clipboard disabled on lab VMs",
+                             "Drag and drop disabled on lab VMs",
+                             "VRDE disabled on lab VMs"
+                         ],
+    "next_steps":  [
+                       "Install Ubuntu Server on nids-ubuntu-target and nids-ubuntu-sensor if the ISO is attached.",
+                       "Assign static internal IPs such as 10.77.0.10 (attacker), 10.77.0.20 (target), 10.77.0.30 (sensor).",
+                       "Run the NIDS stack inside nids-ubuntu-sensor or replay PCAPs from the host against captures exported from the sensor."
+                   ]
+}

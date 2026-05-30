@@ -1,0 +1,10 @@
+{
+    "scenario_id":  "PREP-ENV-007",
+    "launched_at":  "2026-03-12T16:38:00.9866539-04:00",
+    "pid":  25000,
+    "stdout_log":  "NIDS_TestLab\\reports\\phase8\\prep-env-007-full-soak-20260312-163800.stdout.log",
+    "stderr_log":  "NIDS_TestLab\\reports\\phase8\\prep-env-007-full-soak-20260312-163800.stderr.log",
+    "rc1_config_hash":  "7D2370D88C751A9A76C65B82DF2C9AAE8CE2FBC941EC475D52E44D0FE4B68A9A",
+    "rc1_rules_hash":  "DEF0BE0F11BB35796DF77DF3F8EE3BBED4394DC57C5015EE49AA606E10349D86",
+    "rc1_model_hash":  "7A6E20179160D456778A6AB3F28F96B2C0323B36FF6C0384C75DA92EDCB90532"
+}

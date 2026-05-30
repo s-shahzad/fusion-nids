@@ -1,0 +1,18 @@
+﻿{
+    "launched_at":  "2026-03-13T16:50:43.0365799Z",
+    "pid":  4616,
+    "run_stamp":  "20260313-165040",
+    "stdout_path":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab\\reports\\phase10\\prep-env-007-rerun-20260313-165040.stdout.log",
+    "stderr_path":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab\\reports\\phase10\\prep-env-007-rerun-20260313-165040.stderr.log",
+    "planned_result_dir":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab\\results\\phase6-soak\\phase6-full-duration-soak-20260313-165040",
+    "command":  [
+                    "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+                    "scripts\\prepared_env_validation.py",
+                    "--scenario",
+                    "PREP-ENV-007",
+                    "--write-index",
+                    "--run-stamp",
+                    "20260313-165040"
+                ],
+    "process_alive":  true
+}

@@ -1,0 +1,138 @@
+name: Security
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      https_url:
+        description: "Optional HTTPS dashboard URL for TLS audit (example: https://nids.example.com)"
+        required: false
+        type: string
+      min_days_valid:
+        description: "Minimum TLS certificate validity window in days"
+        required: false
+        default: "14"
+        type: string
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pip-audit
+
+      - name: Dependency vulnerability audit
+        run: pip-audit -r requirements.txt --strict
+
+  static-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Bandit
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit
+
+      - name: Bandit scan
+        run: bandit -q -r src scripts -x tests
+
+  secrets-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dashboard-runtime-security-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Dashboard security and load smoke
+        run: |
+          set -euo pipefail
+          python scripts/create_dashboard_fixture_db.py --out output/ci_dashboard_fixture.db
+
+          python -m nids dashboard --from-db output/ci_dashboard_fixture.db --host 127.0.0.1 --port 8000 --token ci-view-token --action-token ci-action-token > dashboard-ci.log 2>&1 &
+          dashboard_pid=$!
+
+          cleanup() {
+            if kill -0 "$dashboard_pid" >/dev/null 2>&1; then
+              kill "$dashboard_pid" >/dev/null 2>&1 || true
+              wait "$dashboard_pid" 2>/dev/null || true
+            fi
+          }
+          trap cleanup EXIT
+
+          for _ in $(seq 1 40); do
+            if curl -fsS "http://127.0.0.1:8000/healthz" >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl -fsS "http://127.0.0.1:8000/healthz" >/dev/null
+
+          python scripts/dashboard_security_smoke.py --host 127.0.0.1 --port 8000 --view-token ci-view-token --action-token ci-action-token
+          python scripts/dashboard_load_probe.py --host 127.0.0.1 --port 8000 --path /api/realtime --token ci-view-token --requests 80 --warmup 10 --p95-max-ms 900 --max-error-rate 0.01
+
+  tls-endpoint-audit:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.https_url != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: TLS endpoint audit
+        run: |
+          python scripts/tls_endpoint_audit.py --url "${{ inputs.https_url }}" --min-days-valid "${{ inputs.min_days_valid }}"

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Case Study | EVCS DoS NIDS Threat Lab</title>
+    <meta
+      name="description"
+      content="Interactive EVCS DoS NIDS web lab: upload CSV, JSON, XML, XLSX, or ZIP samples, run multiple ML algorithms, and score threat predictions."
+    />
+    <link rel="stylesheet" href="case-study.css" />
+    <script src="evcs-threat-lab.js" defer></script>
+  </head>
+  <body>
+    <main class="page">
+      <div class="top-actions">
+        <a class="back-link" href="../index.html#featured" aria-label="Back to portfolio featured work"><- Back to portfolio</a>
+      </div>
+
+      <article class="panel">
+        <p class="eyebrow">Security / ML / Interactive Demo</p>
+        <h1>EVCS DoS NIDS Threat Lab</h1>
+        <p class="meta">Upload mixed-format traffic samples, train multiple ML algorithms, and run threat scoring from one browser workflow.</p>
+        <p class="lede">Built for EVCS cybersecurity demos and portfolio interviews where you need practical model comparisons, not just static slides.</p>
+
+        <div class="summary-grid" aria-label="Lab summary">
+          <div class="summary-card">
+            <h3>Formats</h3>
+            <strong>CSV, JSON, XML, XLSX, ZIP</strong>
+            <p>ZIP archives can include multiple supported tabular files.</p>
+          </div>
+          <div class="summary-card">
+            <h3>Algorithms</h3>
+            <strong>Multi-model evaluation</strong>
+            <p>Compare baseline and advanced ML models in one run.</p>
+          </div>
+          <div class="summary-card">
+            <h3>Output</h3>
+            <strong>Metrics + threat scoring</strong>
+            <p>Get confusion matrix metrics and reusable model IDs for prediction.</p>
+          </div>
+        </div>
+
+        <h2>1. Train Models</h2>
+        <form id="evcsTrainForm" class="evcs-form" novalidate>
+          <div class="field-grid">
+            <label>
+              Training Files
+              <input id="trainFiles" type="file" multiple required accept=".csv,.tsv,.json,.jsonl,.xml,.xlsx,.xls,.zip" />
+            </label>
+            <label>
+              Target Column (optional)
+              <input id="targetColumn" type="text" placeholder="Label or Attack" />
+            </label>
+            <label>
+              Positive Labels (optional)
+              <input id="positiveLabels" type="text" placeholder="DoS,Attack,Malicious" />
+            </label>
+            <label>
+              Test Size
+              <input id="testSize" type="number" min="0.1" max="0.45" step="0.05" value="0.2" />
+            </label>
+            <label>
+              Sample Rows (optional)
+              <input id="sampleRows" type="number" min="200" step="100" placeholder="50000" />
+            </label>
+          </div>
+
+          <div>
+            <h3>Algorithms</h3>
+            <p class="meta" id="algorithmsStatus">Loading algorithm availability...</p>
+            <div id="algorithmsList" class="alg-grid" aria-live="polite"></div>
+          </div>
+
+          <div class="panel-actions">
+            <button class="button-link button-link--solid" id="trainBtn" type="submit">Run Training</button>
+          </div>
+        </form>
+
+        <p class="status-line" id="trainStatus" aria-live="polite"></p>
+        <section id="trainResults" class="results-block" hidden>
+          <div class="kpis" aria-label="Training summary">
+            <div class="kpi"><strong id="kpiDatasetRows">0</strong><p>Dataset rows</p></div>
+            <div class="kpi"><strong id="kpiFeatureCount">0</strong><p>Feature count</p></div>
+            <div class="kpi"><strong id="kpiBestModel">-</strong><p>Best model</p></div>
+          </div>
+
+          <label>
+            Model ID (for prediction)
+            <input id="modelId" type="text" readonly />
+          </label>
+
+          <div class="table-wrap">
+            <table id="resultsTable" class="results-table">
+              <thead>
+                <tr>
+                  <th>Algorithm</th>
+                  <th>Status</th>
+                  <th>Accuracy</th>
+                  <th>Precision</th>
+                  <th>Recall</th>
+                  <th>F1</th>
+                  <th>AUROC</th>
+                  <th>Confusion Matrix</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <h2>2. Predict Threats</h2>
+        <form id="evcsPredictForm" class="evcs-form" novalidate>
+          <div class="field-grid">
+            <label>
+              Model ID
+              <input id="predictModelId" type="text" required placeholder="Paste model id from training" />
+            </label>
+            <label>
+              Prediction Files
+              <input id="predictFiles" type="file" multiple required accept=".csv,.tsv,.json,.jsonl,.xml,.xlsx,.xls,.zip" />
+            </label>
+          </div>
+          <div class="panel-actions">
+            <button class="button-link button-link--solid" id="predictBtn" type="submit">Run Prediction</button>
+          </div>
+        </form>
+
+        <p class="status-line" id="predictStatus" aria-live="polite"></p>
+        <section id="predictResults" class="results-block" hidden>
+          <div class="kpis" aria-label="Prediction summary">
+            <div class="kpi"><strong id="predRows">0</strong><p>Rows scored</p></div>
+            <div class="kpi"><strong id="predThreat">0</strong><p>Threat predictions</p></div>
+            <div class="kpi"><strong id="predBenign">0</strong><p>Benign predictions</p></div>
+          </div>
+
+          <div class="table-wrap">
+            <table id="predictionTable" class="results-table">
+              <thead>
+                <tr>
+                  <th>Row</th>
+                  <th>Prediction</th>
+                  <th>Threat Score</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>

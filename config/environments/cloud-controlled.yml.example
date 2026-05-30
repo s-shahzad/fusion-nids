@@ -1,0 +1,16 @@
+runtime:
+  env: cloud-controlled
+  output_dir: /data/output
+  sqlite_path: /data/output/nids.db
+api:
+  host: 0.0.0.0
+  port: 8080
+  allow_remote_api: true
+  allow_mutating_routes: false
+  trusted_hosts:
+    - nids.internal.example
+logging:
+  level: INFO
+storage:
+  backend: sqlite
+  postgres_dsn: ""

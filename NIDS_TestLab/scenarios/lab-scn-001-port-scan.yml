@@ -1,0 +1,50 @@
+scenario_id: LAB-SCN-001
+name: Port Scan Offline Replay
+slug: port-scan-offline
+description: Replay a deterministic TCP SYN sweep that should exercise signature and anomaly scan detection without requiring live capture hardware.
+objective: Validate that the offline replay path records signature-backed and anomaly-backed scan evidence in a single result bundle.
+environment:
+  primary_mode: offline_replay
+  planned_modes:
+    - mode: live_vm
+      reason: Requires the prepared VirtualBox attacker, target, and sensor guests plus SSH reachability.
+      prerequisites:
+        - Built NIDS_TestLab VirtualBox topology
+        - Guest SSH access to attacker and sensor
+runtime:
+  config: NIDS_TestLab/config/offline_replay_profile.yml
+  rules: rules/rules.yml
+  model_path: models/model.pkl
+  sensor_id: nids-phase3-offline
+  use_model: true
+  enable_unsupervised: true
+  metrics_interval: 1
+  threshold_lookback_days: 3650
+expected:
+  required_rules:
+    - Suspicious Port Scan
+    - Port Scan Threshold
+  expected_engines:
+    - signature
+    - anomaly
+  fusion_behavior: Fusion is expected to be possible but is not required for a pass because ML agreement depends on the current model and score thresholds.
+network:
+  components:
+    - kind: benign_dns
+      src_ip: 10.77.0.10
+      dst_ip: 10.77.0.30
+      src_port_start: 53000
+      qname: portal.example.org
+      count: 5
+      start_time_sec: 0.0
+      interval_ms: 150
+    - kind: tcp_scan
+      src_ip: 10.77.0.20
+      dst_ip: 10.77.0.30
+      src_port_start: 41000
+      start_port: 1
+      count: 27
+      extra_ports:
+        - 3389
+      start_time_sec: 1.0
+      interval_ms: 20

@@ -1,0 +1,48 @@
+scenario_id: LAB-SCN-002
+name: HTTP Login Brute Force Offline Replay
+slug: http-login-bruteforce-offline
+description: Replay repeated login POST attempts against a synthetic application endpoint to validate the HTTP login brute-force detector.
+objective: Confirm that repeated login POSTs generate stable anomaly evidence and preserve the offline report chain.
+environment:
+  primary_mode: offline_replay
+  planned_modes:
+    - mode: live_vm
+      reason: Requires a reachable VM-hosted HTTP service and a sensor VM on the isolated lab network.
+      prerequisites:
+        - Built NIDS_TestLab VirtualBox topology
+        - Stable VM HTTP helper service
+runtime:
+  config: NIDS_TestLab/config/offline_replay_profile.yml
+  rules: rules/rules.yml
+  model_path: models/model.pkl
+  sensor_id: nids-phase3-offline
+  use_model: true
+  enable_unsupervised: true
+  metrics_interval: 1
+  threshold_lookback_days: 3650
+expected:
+  required_rules:
+    - HTTP Login Brute Force Threshold
+  expected_engines:
+    - anomaly
+  fusion_behavior: Fusion is optional and should be recorded if the current model stack agrees with the brute-force event sequence.
+network:
+  components:
+    - kind: benign_http_get
+      src_ip: 10.77.0.11
+      dst_ip: 10.77.0.30
+      src_port_start: 44000
+      dst_port: 8080
+      uri: /
+      count: 4
+      start_time_sec: 0.0
+      interval_ms: 180
+    - kind: http_login_bruteforce
+      src_ip: 10.77.0.21
+      dst_ip: 10.77.0.30
+      src_port_start: 45000
+      dst_port: 8080
+      uri: /login
+      count: 10
+      start_time_sec: 1.0
+      interval_ms: 900

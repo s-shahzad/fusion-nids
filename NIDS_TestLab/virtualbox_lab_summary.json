@@ -1,0 +1,7 @@
+﻿{
+    "lab_root":  "C:\\Users\\shaik\\NIDS_Workspace\\NIDS_TestLab",
+    "virtualbox_installed":  true,
+    "vboxmanage_path":  "C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe",
+    "recommended_network_mode":  "NAT for a single guest, Internal Network for multi-VM traffic generation",
+    "host_protection":  "Do not attach Host-Only Adapter unless you intentionally need host-guest networking"
+}

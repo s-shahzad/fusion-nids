@@ -1,0 +1,54 @@
+pipeline:
+  queue_max_size: 1
+  metrics_interval_sec: 1
+  replay_delay_ms: 0
+  live_capture_backend: tcpdump
+  live_capture_tcpdump_bin: tcpdump
+  live_capture_tcpdump_snaplen: 0
+  live_capture_bpf_filter: ""
+
+detection:
+  dos_packets_per_sec_threshold: 80
+  scan_ports_threshold: 24
+  scan_window_sec: 12
+  ssh_bruteforce_threshold: 3
+  ssh_bruteforce_window_sec: 12
+  rdp_bruteforce_threshold: 3
+  rdp_bruteforce_window_sec: 12
+  http_login_threshold: 2
+  http_login_window_sec: 20
+  dns_unique_threshold: 20
+  zscore_enabled: true
+  zscore_threshold: 3.0
+  anomaly_cooldown_sec: 6
+  suppress_window_sec: 15
+
+ml:
+  model_path: models/model.pkl
+  score_threshold: 0.67
+  live_throttle_enabled: true
+  live_min_inference_interval_sec: 0.5
+  unsupervised: true
+  unsupervised_warmup_samples: 60
+  unsupervised_contamination: 0.03
+  unsupervised_alert_threshold: 0.99
+  unsupervised_component_threshold: 0.99
+  unsupervised_autoencoder: true
+  unsupervised_autoencoder_hidden_size: 6
+  unsupervised_autoencoder_max_iter: 250
+  unsupervised_persist_baseline: true
+  unsupervised_baseline_path: ""
+
+fusion:
+  enabled: true
+  emit_alerts: true
+  emit_on_signature_only: false
+  min_component_score: 0.55
+  min_agreement_count: 2
+  alert_threshold: 0.55
+  high_threshold: 0.8
+  critical_threshold: 0.92
+  signature_weight: 0.4
+  statistical_weight: 0.2
+  supervised_weight: 0.3
+  unsupervised_weight: 0.1

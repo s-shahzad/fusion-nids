@@ -1,0 +1,26 @@
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app/src:/app
+
+WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libpcap0.8 tcpdump \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+COPY nids /app/nids
+COPY src /app/src
+COPY config /app/config
+COPY rules /app/rules
+COPY models /app/models
+COPY scripts /app/scripts
+COPY README.md /app/README.md
+
+RUN mkdir -p /app/output /app/reports /app/state /app/artifacts/incoming /app/artifacts/processed /app/artifacts/quarantine
+
+CMD ["python", "scripts/run_production_api.py"]

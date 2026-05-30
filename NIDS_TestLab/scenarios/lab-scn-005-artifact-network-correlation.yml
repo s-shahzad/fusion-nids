@@ -1,0 +1,62 @@
+scenario_id: LAB-SCN-005
+name: Artifact And Network Correlation Offline Replay
+slug: artifact-network-correlation-offline
+description: Replay suspicious web traffic and then run static artifact triage into the same SQLite evidence bundle for operator-level correlation review.
+objective: Confirm that network detections and artifact triage outputs can be retained together in a single repeatable evidence package.
+environment:
+  primary_mode: offline_replay
+  planned_modes:
+    - mode: live_vm
+      reason: Requires a live sensor plus staged artifact delivery inside the isolated lab for true operator workflow validation.
+      prerequisites:
+        - Built NIDS_TestLab VirtualBox topology
+        - Sensor VM artifact and network capture path
+runtime:
+  config: NIDS_TestLab/config/offline_replay_profile.yml
+  rules: rules/rules.yml
+  model_path: models/model.pkl
+  sensor_id: nids-phase3-offline
+  use_model: true
+  enable_unsupervised: true
+  metrics_interval: 1
+  threshold_lookback_days: 3650
+expected:
+  required_rules:
+    - HTTP Suspicious Keyword
+  expected_engines:
+    - signature
+  fusion_behavior: Fusion is desirable but not required; the primary evidence gate is the signature alert plus high-risk artifact triage.
+  artifacts:
+    min_quarantined: 2
+    min_high_risk: 2
+network:
+  components:
+    - kind: benign_http_get
+      src_ip: 10.77.0.14
+      dst_ip: 10.77.0.30
+      src_port_start: 49000
+      dst_port: 8080
+      uri: /
+      count: 3
+      start_time_sec: 0.0
+      interval_ms: 250
+    - kind: http_keyword
+      src_ip: 10.77.0.26
+      dst_ip: 10.77.0.30
+      src_port_start: 50000
+      dst_port: 8080
+      uri: /shell?cmd.exe=whoami&tool=powershell&n={index}
+      method: GET
+      count: 4
+      start_time_sec: 1.0
+      interval_ms: 600
+artifacts:
+  fixtures:
+    - kind: html_phishing
+      filename: mailbox_upgrade.html
+    - kind: powershell_loader
+      filename: stage_loader.ps1
+    - kind: json_secret_dump
+      filename: browser_tokens.json
+    - kind: benign_csv
+      filename: asset_inventory.csv

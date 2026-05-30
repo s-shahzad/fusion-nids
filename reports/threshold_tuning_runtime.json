@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-03-10T17:17:55Z",
+  "lookback_days": 30,
+  "window_start": "2026-02-08T17:17:55Z",
+  "window_end": "2026-03-10T17:17:55Z",
+  "totals": {
+    "flows": 0,
+    "alerts": 0,
+    "labeled_flows": 0,
+    "labeled_attack_flows": 0,
+    "labeled_benign_flows": 0
+  },
+  "score_stats": {},
+  "threshold_recommendations": {},
+  "recommended_config": {},
+  "scenario_grid": {},
+  "error": "flows_table_missing"
+}

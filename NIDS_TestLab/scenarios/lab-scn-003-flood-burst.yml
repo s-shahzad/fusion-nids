@@ -1,0 +1,49 @@
+scenario_id: LAB-SCN-003
+name: Flood And Burst Offline Replay
+slug: flood-burst-offline
+description: Replay a combined DNS burst and sustained UDP flood to validate burst-style anomaly detection and DoS threshold handling.
+objective: Confirm that the offline replay path preserves both DNS-burst and packet-rate evidence under controlled stress.
+environment:
+  primary_mode: offline_replay
+  planned_modes:
+    - mode: live_vm
+      reason: Requires the isolated lab sensor and a flood-capable attacker host or replay target.
+      prerequisites:
+        - Built NIDS_TestLab VirtualBox topology
+        - Sensor live capture interface ready
+runtime:
+  config: NIDS_TestLab/config/offline_replay_profile.yml
+  rules: rules/rules.yml
+  model_path: models/model.pkl
+  sensor_id: nids-phase3-offline
+  use_model: true
+  enable_unsupervised: true
+  metrics_interval: 1
+  threshold_lookback_days: 3650
+expected:
+  required_rules:
+    - DNS Burst / DGA-like Activity
+    - DoS Rate Threshold
+  expected_engines:
+    - anomaly
+  fusion_behavior: Fusion is optional; the primary pass gate is the anomaly evidence set.
+network:
+  components:
+    - kind: dns_burst
+      src_ip: 10.77.0.22
+      dst_ip: 10.77.0.30
+      src_port_start: 53050
+      domain: burst.example
+      count: 36
+      unique: true
+      start_time_sec: 0.0
+      interval_ms: 90
+    - kind: udp_flood
+      src_ip: 10.77.0.22
+      dst_ip: 10.77.0.30
+      src_port_start: 54000
+      dst_port: 9999
+      payload_size: 256
+      count: 260
+      start_time_sec: 0.5
+      interval_ms: 2

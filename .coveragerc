@@ -1,0 +1,23 @@
+[run]
+branch = True
+source =
+    src/NIDS
+omit =
+    src/NIDS/__init__.py
+
+[report]
+fail_under = 72
+show_missing = True
+skip_covered = True
+precision = 2
+exclude_lines =
+    pragma: no cover
+    raise NotImplementedError
+    if __name__ == "__main__":
+    if TYPE_CHECKING:
+
+[html]
+directory = artifacts/coverage/html
+
+[xml]
+output = artifacts/coverage/coverage.xml

@@ -1,0 +1,37 @@
+﻿- name: "Suspicious Port Scan"
+  match:
+    proto: "TCP"
+    dst_ports: [22, 23, 3389]
+  action: "alert"
+  severity: "medium"
+
+- name: "Known Bad IP"
+  match:
+    src_ips: ["1.2.3.4"]
+  action: "alert"
+  severity: "high"
+
+- name: "HTTP Suspicious Keyword"
+  match:
+    proto: "TCP"
+    http_methods: ["GET", "POST", "PUT", "HEAD"]
+    payload_contains: ["cmd.exe", "powershell", "rundll32", "certutil", "mshta", "curl", "wget"]
+  action: "alert"
+  severity: "high"
+
+- name: "Linux Defense Tamper Command"
+  match:
+    proto: "TCP"
+    http_methods: ["POST", "PUT"]
+    payload_contains: ["ufw disable", "iptables -f", "systemctl stop", "service stop"]
+  action: "alert"
+  severity: "high"
+
+- name: "Linux Archive Exfiltration"
+  match:
+    proto: "TCP"
+    http_methods: ["POST", "PUT"]
+    http_uris: ["/upload/archive-exfil"]
+    payload_contains: ["content-disposition: attachment", "staged_loot.tar.gz", "x-exfil-intent: staged-archive"]
+  action: "alert"
+  severity: "high"

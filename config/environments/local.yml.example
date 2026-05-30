@@ -1,0 +1,16 @@
+runtime:
+  env: local
+  output_dir: output
+  sqlite_path: output/nids.db
+api:
+  host: 127.0.0.1
+  port: 8080
+  allow_remote_api: false
+  allow_mutating_routes: false
+  trusted_hosts:
+    - 127.0.0.1
+    - localhost
+logging:
+  level: INFO
+storage:
+  backend: sqlite
