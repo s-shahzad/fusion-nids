@@ -23,9 +23,9 @@ Dreger et al. show that protocol analysis tied to well-known ports is fragile an
 
 Repo action completed:
 
-- [signature.py](C:/Users/shaik/NIDS_Workspace/src/NIDS/detect/signature.py) now supports `http_methods` and `http_uris` rule fields.
-- [rules.yml](C:/Users/shaik/NIDS_Workspace/rules/rules.yml) now drives `HTTP Suspicious Keyword` from parsed HTTP semantics instead of a fixed destination-port list.
-- Regression coverage is in [test_signature.py](C:/Users/shaik/NIDS_Workspace/tests/test_signature.py).
+- [signature.py](C:/NIDS_Workspace/src/NIDS/detect/signature.py) now supports `http_methods` and `http_uris` rule fields.
+- [rules.yml](C:/NIDS_Workspace/rules/rules.yml) now drives `HTTP Suspicious Keyword` from parsed HTTP semantics instead of a fixed destination-port list.
+- Regression coverage is in [test_signature.py](C:/NIDS_Workspace/tests/test_signature.py).
 
 ### 2. Old benchmark datasets can overstate results
 
@@ -60,30 +60,30 @@ The literature focuses heavily on network-only evaluation, but thesis-grade expe
 
 Repo action completed:
 
-- [ubuntu_os_defense_validation.py](C:/Users/shaik/NIDS_Workspace/scripts/ubuntu_os_defense_validation.py) now packages target-host artifacts and sensor artifacts together.
+- [ubuntu_os_defense_validation.py](C:/NIDS_Workspace/scripts/ubuntu_os_defense_validation.py) now packages target-host artifacts and sensor artifacts together.
 - The OS-defense runs now emit thesis-style `.docx` reports inside their result folders.
 
 ## Repo Actions Completed This Turn
 
 1. Port-evasion hardening for suspicious HTTP detection
    Files:
-   [signature.py](C:/Users/shaik/NIDS_Workspace/src/NIDS/detect/signature.py)
-   [rules.yml](C:/Users/shaik/NIDS_Workspace/rules/rules.yml)
-   [test_signature.py](C:/Users/shaik/NIDS_Workspace/tests/test_signature.py)
+   [signature.py](C:/NIDS_Workspace/src/NIDS/detect/signature.py)
+   [rules.yml](C:/NIDS_Workspace/rules/rules.yml)
+   [test_signature.py](C:/NIDS_Workspace/tests/test_signature.py)
 
 2. Ubuntu OS-defense automation and thesis reporting
    Files:
-   [ubuntu_os_defense_validation.py](C:/Users/shaik/NIDS_Workspace/scripts/ubuntu_os_defense_validation.py)
-   [RUN_UBUNTU_OS_DEFENSE_TEST.ps1](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/RUN_UBUNTU_OS_DEFENSE_TEST.ps1)
-   [os_defense_profile.yml](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/config/os_defense_profile.yml)
+   [ubuntu_os_defense_validation.py](C:/NIDS_Workspace/scripts/ubuntu_os_defense_validation.py)
+   [RUN_UBUNTU_OS_DEFENSE_TEST.ps1](C:/NIDS_Workspace/NIDS_TestLab/RUN_UBUNTU_OS_DEFENSE_TEST.ps1)
+   [os_defense_profile.yml](C:/NIDS_Workspace/NIDS_TestLab/config/os_defense_profile.yml)
 
 3. Thesis-ready evidence outputs
    Successful cases:
-   [ubuntu-os-cron-http-beacon-20260311-161200](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200)
-   [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948)
+   [ubuntu-os-cron-http-beacon-20260311-161200](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200)
+   [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948)
    Preserved failed systemd iterations:
-   [ubuntu-os-systemd-dns-beacon-20260311-165700](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-165700)
-   [ubuntu-os-systemd-dns-beacon-20260311-170500](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-170500)
+   [ubuntu-os-systemd-dns-beacon-20260311-165700](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-165700)
+   [ubuntu-os-systemd-dns-beacon-20260311-170500](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-170500)
 
 ## Current Research-Relevant Gaps Still Open
 

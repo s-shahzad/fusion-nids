@@ -12,9 +12,9 @@ Generated: 2026-03-10 22:22 UTC
 ## Evidence
 
 - Offline replay pass:
-  - [serious_test_report.md](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/http-login-bruteforce-smoke/serious_test_report.md)
+  - [serious_test_report.md](C:/NIDS_Workspace/NIDS_TestLab/results/http-login-bruteforce-smoke/serious_test_report.md)
 - Resolved live VM pass:
-  - [serious_test_report.md](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-http-login-bruteforce-port80-20260310-224500/serious_test_report.md)
+  - [serious_test_report.md](C:/NIDS_Workspace/NIDS_TestLab/results/live-http-login-bruteforce-port80-20260310-224500/serious_test_report.md)
 
 ## What Was Fixed
 

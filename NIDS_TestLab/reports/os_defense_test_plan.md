@@ -37,9 +37,9 @@ Every OS-level test should produce:
 
 Completed OS-defense cases so far:
 
-- `Ubuntu cron persistence + suspicious HTTP beacon`: pass in [ubuntu-os-cron-http-beacon-20260311-161200](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200)
-- `Ubuntu systemd persistence + DNS beacon`: pass in [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948)
-- `Ubuntu defense-tamper simulation + service-stop intent`: pass in [ubuntu-os-defense-tamper-20260311-attack-defense](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-defense-tamper-20260311-attack-defense)
+- `Ubuntu cron persistence + suspicious HTTP beacon`: pass in [ubuntu-os-cron-http-beacon-20260311-161200](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200)
+- `Ubuntu systemd persistence + DNS beacon`: pass in [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948)
+- `Ubuntu defense-tamper simulation + service-stop intent`: pass in [ubuntu-os-defense-tamper-20260311-attack-defense](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-defense-tamper-20260311-attack-defense)
 
 ## OS Test Matrix
 

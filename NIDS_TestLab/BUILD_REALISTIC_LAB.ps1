@@ -8,7 +8,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$workspaceRoot = "C:\Users\user\NIDS_Workspace"
+$workspaceRoot = "C:\NIDS_Workspace"
 $scriptPath = Join-Path $workspaceRoot "scripts\build_realistic_virtualbox_lab.ps1"
 
 if (-not (Test-Path $scriptPath)) {

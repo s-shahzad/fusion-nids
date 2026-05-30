@@ -1,15 +1,15 @@
 {
   "generated_at": "2026-03-11T22:55:00Z",
   "scope": "NIDS_TestLab attack evidence ledger",
-  "os_defense_plan": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/reports/os_defense_test_plan.md",
+  "os_defense_plan": "C:/NIDS_Workspace/NIDS_TestLab/reports/os_defense_test_plan.md",
   "completed_network_detections": [
     {
       "attack_case": "HTTP suspicious keyword / web-shell style request",
       "environment": ["offline replay", "live VM lab"],
       "status": "pass",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/output/serious-offline-20260310-162331",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/serious-live-20260310-163914-r5"
+        "C:/NIDS_Workspace/output/serious-offline-20260310-162331",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/serious-live-20260310-163914-r5"
       ]
     },
     {
@@ -17,8 +17,8 @@
       "environment": ["offline replay", "live VM lab"],
       "status": "pass",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/dns-burst-smoke-v2",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-dns-burst-20260310-213700"
+        "C:/NIDS_Workspace/NIDS_TestLab/results/dns-burst-smoke-v2",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/live-dns-burst-20260310-213700"
       ]
     },
     {
@@ -26,8 +26,8 @@
       "environment": ["offline replay", "live VM lab"],
       "status": "pass",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ssh-bruteforce-smoke-v2",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-ssh-bruteforce-20260310-214200"
+        "C:/NIDS_Workspace/NIDS_TestLab/results/ssh-bruteforce-smoke-v2",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/live-ssh-bruteforce-20260310-214200"
       ]
     },
     {
@@ -35,8 +35,8 @@
       "environment": ["offline replay", "live VM lab"],
       "status": "pass",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/rdp-bruteforce-smoke",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-rdp-bruteforce-20260310-214900"
+        "C:/NIDS_Workspace/NIDS_TestLab/results/rdp-bruteforce-smoke",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/live-rdp-bruteforce-20260310-214900"
       ]
     },
     {
@@ -44,8 +44,8 @@
       "environment": ["offline replay", "live VM lab"],
       "status": "pass",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/http-login-bruteforce-smoke",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-http-login-bruteforce-port80-20260310-224500"
+        "C:/NIDS_Workspace/NIDS_TestLab/results/http-login-bruteforce-smoke",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/live-http-login-bruteforce-port80-20260310-224500"
       ]
     },
     {
@@ -53,8 +53,8 @@
       "environment": ["offline replay", "live VM lab"],
       "status": "pass",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/offline-profile-smoke",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-port-scan-directionality-20260310-235000"
+        "C:/NIDS_Workspace/NIDS_TestLab/results/offline-profile-smoke",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/live-port-scan-directionality-20260310-235000"
       ]
     },
     {
@@ -62,8 +62,8 @@
       "environment": ["offline replay", "live VM lab"],
       "status": "pass",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/output/serious-offline-20260310-162331",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-dos-dns-flood-20260310-232000"
+        "C:/NIDS_Workspace/output/serious-offline-20260310-162331",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/live-dos-dns-flood-20260310-232000"
       ]
     }
   ],
@@ -71,27 +71,27 @@
     {
       "family": "phishing docs / scripts",
       "status": "pass",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-phishing-seed-20260310-230000"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-phishing-seed-20260310-230000"
     },
     {
       "family": "PE droppers / loaders",
       "status": "pass",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-pe-loader-seed-20260310-234000"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-pe-loader-seed-20260310-234000"
     },
     {
       "family": "credential stealer",
       "status": "pass",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-credential-stealer-seed-20260310-234500"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-credential-stealer-seed-20260310-234500"
     },
     {
       "family": "RAT / backdoor",
       "status": "pass",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-rat-backdoor-seed-20260311-000500"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-rat-backdoor-seed-20260311-000500"
     },
     {
       "family": "ransomware",
       "status": "pass",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-ransomware-seed-20260311-001500"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/artifact-scan-ransomware-seed-20260311-001500"
     }
   ],
   "completed_os_defense_cases": [
@@ -101,8 +101,8 @@
       "status": "pass",
       "finding": "First run produced 0 flows with the opaque wget transport; rerun with a deterministic raw Bash /dev/tcp HTTP beacon produced 5 flows and 1 HTTP Suspicious Keyword alert while preserving target crontab evidence.",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-160500",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200"
+        "C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-160500",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200"
       ]
     },
     {
@@ -111,10 +111,10 @@
       "status": "pass",
       "finding": "The service path was already correct; the decisive fix was removing the extra UDP sink from the OS-defense runner so the service-driven DNS beacon reached the live sensor path normally, yielding 36 flows and 1 DNS Burst / DGA-like Activity alert while preserving the failed iterations.",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-164900",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-165700",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-170500",
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948"
+        "C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-164900",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-165700",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-170500",
+        "C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948"
       ]
     },
     {
@@ -123,7 +123,7 @@
       "status": "pass",
       "finding": "A dedicated Linux tamper signature and the Ubuntu OS-defense runner preserved both attack-side host artifacts and defense-side sensor artifacts; the target advertised sudo systemctl stop and sudo ufw disable over HTTP, safely stopped a temporary guard service, and the sensor fired Linux Defense Tamper Command.",
       "evidence": [
-        "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-defense-tamper-20260311-attack-defense"
+        "C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-defense-tamper-20260311-attack-defense"
       ]
     }
   ],
@@ -132,97 +132,97 @@
       "run_name": "live-multi-attack-20260311-141800",
       "status": "blocked",
       "finding": "0 flows and 0 alerts; HTTP helper path regression or runtime issue",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-20260311-141800"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-20260311-141800"
     },
     {
       "run_name": "live-multi-attack-no-http-20260311-142600",
       "status": "partial",
       "finding": "81 flows and 2 alerts; only Suspicious Port Scan survived concurrent overlap",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-no-http-20260311-142600"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-no-http-20260311-142600"
     },
     {
       "run_name": "live-multi-attack-balanced-20260311-142900",
       "status": "partial",
       "finding": "26 flows and 1 alert; only Suspicious Port Scan survived concurrent overlap",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-balanced-20260311-142900"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-balanced-20260311-142900"
     },
     {
       "run_name": "live-multi-attack-fixed-20260311-144100",
       "status": "partial",
       "finding": "340 flows and 1 alert; DoS survived concurrent overlap after the UDP sink and repaired HTTP helper path",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-fixed-20260311-144100"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-fixed-20260311-144100"
     },
     {
       "run_name": "live-multi-attack-overlap-20260311-145000",
       "status": "partial",
       "finding": "70 flows and 1 alert; DNS Burst survived concurrent overlap with lighter composition",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-overlap-20260311-145000"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-overlap-20260311-145000"
     },
     {
       "run_name": "live-multi-attack-dns-http-scan-20260311-145300",
       "status": "partial",
       "finding": "49 flows and 3 alerts; DNS Burst, Suspicious Port Scan, and Hybrid Fusion Decision fired in the same mixed run",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-dns-http-scan-20260311-145300"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-dns-http-scan-20260311-145300"
     },
     {
       "run_name": "live-http-8080-regression-20260311-144500",
       "status": "pass",
       "finding": "19 flows and 1 alert; HTTP Login Brute Force Threshold survives on the repaired 8080 helper path",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-http-8080-regression-20260311-144500"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-http-8080-regression-20260311-144500"
     },
     {
       "run_name": "live-http-keyword-8080-regression-20260311-150200",
       "status": "miss",
       "finding": "Only a single SYN was captured; HTTP Suspicious Keyword remains unstable on the repaired helper path",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-http-keyword-8080-regression-20260311-150200"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-http-keyword-8080-regression-20260311-150200"
     },
     {
       "run_name": "live-overlap-dns-http-tuned-20260311-150900",
       "status": "partial",
       "finding": "59 flows and 1 alert; DNS survived, but only one HTTP POST was preserved under overlap",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-dns-http-tuned-20260311-150900"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-dns-http-tuned-20260311-150900"
     },
     {
       "run_name": "live-overlap-dns-ssh-tuned-20260311-151100",
       "status": "partial",
       "finding": "39 flows and 3 alerts; DNS survived and the port-22 path still yielded Suspicious Port Scan plus fusion, but not the SSH brute-force threshold",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-dns-ssh-tuned-20260311-151100"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-dns-ssh-tuned-20260311-151100"
     },
     {
       "run_name": "live-overlap-dns-rdp-tuned-20260311-151300",
       "status": "partial",
       "finding": "72 flows and 2 alerts; DNS survived and the port-3389 signature survived, but not the RDP brute-force threshold",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-dns-rdp-tuned-20260311-151300"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-dns-rdp-tuned-20260311-151300"
     },
     {
       "run_name": "live-overlap-dns-rdp-heavy-20260311-151600",
       "status": "partial",
       "finding": "37 flows and 2 alerts; extra RDP attempts still did not push the brute-force threshold over the line under overlap",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-dns-rdp-heavy-20260311-151600"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-dns-rdp-heavy-20260311-151600"
     },
     {
       "run_name": "live-overlap-profile-dns-rdp-20260311-152700",
       "status": "pass",
       "finding": "42 flows and 4 alerts; DNS Burst, RDP Brute Force Threshold, Suspicious Port Scan, and Hybrid Fusion Decision fired in one overlap-profile run",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-rdp-20260311-152700"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-rdp-20260311-152700"
     },
     {
       "run_name": "live-overlap-profile-dns-http-20260311-153000",
       "status": "partial",
       "finding": "50 flows and 1 alert; DNS survived, but not enough HTTP POSTs were preserved for the login threshold",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-http-20260311-153000"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-http-20260311-153000"
     },
     {
       "run_name": "live-overlap-profile-dns-http-ordered-20260311-154000",
       "status": "pass",
       "finding": "121 flows and 2 alerts; DNS Burst and HTTP Login Brute Force Threshold fired together after ordered launch tuning",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-http-ordered-20260311-154000"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-http-ordered-20260311-154000"
     },
     {
       "run_name": "live-overlap-profile-dns-ssh-20260311-153200",
       "status": "partial",
       "finding": "37 flows and 3 alerts; DNS survived and the port-22 signature/fusion path survived, but not the SSH brute-force threshold",
-      "evidence": "C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-ssh-20260311-153200"
+      "evidence": "C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-ssh-20260311-153200"
     }
   ],
   "remaining_attack_families": [

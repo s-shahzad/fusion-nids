@@ -29,9 +29,9 @@ It is conservative by design.
 ## Runtime Boundary
 
 - Use the cloud-specific runtime profile:
-  - [config/nids_cloud_single_node.yml](C:/Users/shaik/NIDS_Workspace/config/nids_cloud_single_node.yml)
+  - [config/nids_cloud_single_node.yml](C:/NIDS_Workspace/config/nids_cloud_single_node.yml)
 - Use the cloud-specific compose file:
-  - [docker-compose.cloud-single-node.yml](C:/Users/shaik/NIDS_Workspace/docker-compose.cloud-single-node.yml)
+  - [docker-compose.cloud-single-node.yml](C:/NIDS_Workspace/docker-compose.cloud-single-node.yml)
 - Do not expose additional ports unless a specific validation need requires it
   and the change is documented.
 

@@ -1,5 +1,5 @@
 ﻿param(
-    [string]$Root = "C:\Users\user\NIDS_Workspace",
+    [string]$Root = "C:\NIDS_Workspace",
     [switch]$Apply,
     [switch]$IncludeStaging,
     [switch]$DeleteInsteadOfMove

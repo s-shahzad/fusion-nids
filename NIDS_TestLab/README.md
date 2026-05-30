@@ -46,13 +46,13 @@ This keeps the Windows host off the guest network while still letting the VMs ta
 Open **PowerShell as Administrator** and run:
 
 ```powershell
-C:\Users\user\NIDS_Workspace\scripts\setup_virtualbox_lab.ps1 -InstallVirtualBox
+C:\NIDS_Workspace\scripts\setup_virtualbox_lab.ps1 -InstallVirtualBox
 ```
 
 Then build the realistic lab:
 
 ```powershell
-.\BUILD_REALISTIC_LAB.ps1 -AttachIso -UbuntuIsoPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\isos\ubuntu-24.04.4-live-server-amd64.iso
+.\BUILD_REALISTIC_LAB.ps1 -AttachIso -UbuntuIsoPath C:\NIDS_Workspace\NIDS_TestLab\isos\ubuntu-24.04.4-live-server-amd64.iso
 ```
 
 If you want the script to fetch the official Ubuntu Server ISO first:
@@ -92,7 +92,7 @@ After setup, copy PCAPs into `pcaps\` and run:
 If you have labels:
 
 ```powershell
-.\RUN_OFFLINE_TEST.ps1 -LabelsPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\pcaps\labels.csv
+.\RUN_OFFLINE_TEST.ps1 -LabelsPath C:\NIDS_Workspace\NIDS_TestLab\pcaps\labels.csv
 ```
 
 The offline launcher now:
@@ -105,7 +105,7 @@ The offline launcher now:
 If you want a specific PCAP file instead of the whole folder:
 
 ```powershell
-.\RUN_OFFLINE_TEST.ps1 -PcapPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\pcaps\serious_synthetic_20260310.pcap
+.\RUN_OFFLINE_TEST.ps1 -PcapPath C:\NIDS_Workspace\NIDS_TestLab\pcaps\serious_synthetic_20260310.pcap
 ```
 
 ## Live VM Sensor Profile
@@ -164,17 +164,17 @@ Each live validator run now also writes:
 
 Those summaries show which attack families were expected in the run and which rules actually fired.
 
-Current note: the repaired concurrent path can now produce same-window evidence in the live lab. The strongest current mixed proofs are [live-overlap-profile-dns-http-ordered-20260311-154000](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-http-ordered-20260311-154000), where `DNS Burst / DGA-like Activity` and `HTTP Login Brute Force Threshold` both fired in one run, and [live-multi-attack-dns-http-scan-20260311-145300](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-dns-http-scan-20260311-145300), where `DNS Burst / DGA-like Activity`, `Suspicious Port Scan`, and `Hybrid Fusion Decision` fired in one run.
+Current note: the repaired concurrent path can now produce same-window evidence in the live lab. The strongest current mixed proofs are [live-overlap-profile-dns-http-ordered-20260311-154000](C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-http-ordered-20260311-154000), where `DNS Burst / DGA-like Activity` and `HTTP Login Brute Force Threshold` both fired in one run, and [live-multi-attack-dns-http-scan-20260311-145300](C:/NIDS_Workspace/NIDS_TestLab/results/live-multi-attack-dns-http-scan-20260311-145300), where `DNS Burst / DGA-like Activity`, `Suspicious Port Scan`, and `Hybrid Fusion Decision` fired in one run.
 
-For thesis-grade overlap validation, there is also a dedicated profile at [live_vm_overlap_profile.yml](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/config/live_vm_overlap_profile.yml). It widens the brute-force/login windows and disables the live unsupervised path to reduce runtime pressure during mixed runs. Use it with:
+For thesis-grade overlap validation, there is also a dedicated profile at [live_vm_overlap_profile.yml](C:/NIDS_Workspace/NIDS_TestLab/config/live_vm_overlap_profile.yml). It widens the brute-force/login windows and disables the live unsupervised path to reduce runtime pressure during mixed runs. Use it with:
 
 ```powershell
 ..\.venv\Scripts\python.exe ..\scripts\live_vm_attack_validation.py --config-relpath NIDS_TestLab/config/live_vm_overlap_profile.yml --run-name live-overlap-manual --dns-count 160 --dns-delay-sec 0.09 --rdp-attempts 18 --rdp-attempt-delay-sec 0.8 --concurrent --concurrent-start-spacing-sec 4.0 --warmup-sec 6 --settle-sec 25
 ```
 
-The strongest current overlap-profile proofs are [live-overlap-profile-dns-rdp-20260311-152700](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-rdp-20260311-152700), where `DNS Burst / DGA-like Activity`, `RDP Brute Force Threshold`, `Suspicious Port Scan`, and `Hybrid Fusion Decision` fired in one run, and [live-overlap-profile-dns-http-ordered-20260311-154000](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-http-ordered-20260311-154000), where `DNS Burst / DGA-like Activity` and `HTTP Login Brute Force Threshold` fired together after ordered launch tuning.
+The strongest current overlap-profile proofs are [live-overlap-profile-dns-rdp-20260311-152700](C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-rdp-20260311-152700), where `DNS Burst / DGA-like Activity`, `RDP Brute Force Threshold`, `Suspicious Port Scan`, and `Hybrid Fusion Decision` fired in one run, and [live-overlap-profile-dns-http-ordered-20260311-154000](C:/NIDS_Workspace/NIDS_TestLab/results/live-overlap-profile-dns-http-ordered-20260311-154000), where `DNS Burst / DGA-like Activity` and `HTTP Login Brute Force Threshold` fired together after ordered launch tuning.
 
-Current note: HTTP login brute-force validation now passes live in the VM lab when the sensor uses the tcpdump-backed capture path and the stable port `80` service. The resolved note is in [http_login_live_gap.md](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/reports/http_login_live_gap.md).
+Current note: HTTP login brute-force validation now passes live in the VM lab when the sensor uses the tcpdump-backed capture path and the stable port `80` service. The resolved note is in [http_login_live_gap.md](C:/NIDS_Workspace/NIDS_TestLab/reports/http_login_live_gap.md).
 
 For live DoS validation, prefer the sustained DNS/UDP flood path on port `53`. In this lab that path is materially more reliable than blasting a closed high UDP port, and it still exercises the same `DoS Rate Threshold` detector.
 
@@ -198,42 +198,42 @@ If you want a safe first-pass validation set before using real samples, stage th
 
 ```powershell
 .\STAGE_STATIC_TRIAGE_FIXTURES.ps1
-.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<seed-folder> -Recursive
+.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<seed-folder> -Recursive
 ```
 
 If you want the phishing-doc/script family specifically:
 
 ```powershell
 .\STAGE_PHISHING_TRIAGE_FIXTURES.ps1
-.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<phishing-folder> -Recursive
+.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<phishing-folder> -Recursive
 ```
 
 If you want the PE/dropper family specifically:
 
 ```powershell
 .\STAGE_PE_LOADER_TRIAGE_FIXTURES.ps1
-.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<pe-loader-folder> -Recursive
+.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<pe-loader-folder> -Recursive
 ```
 
 If you want the credential-stealer family specifically:
 
 ```powershell
 .\STAGE_CREDENTIAL_STEALER_TRIAGE_FIXTURES.ps1
-.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<credential-folder> -Recursive
+.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<credential-folder> -Recursive
 ```
 
 If you want the RAT/backdoor family specifically:
 
 ```powershell
 .\STAGE_RAT_BACKDOOR_TRIAGE_FIXTURES.ps1
-.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<rat-folder> -Recursive
+.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<rat-folder> -Recursive
 ```
 
 If you want the ransomware family specifically:
 
 ```powershell
 .\STAGE_RANSOMWARE_TRIAGE_FIXTURES.ps1
-.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\Users\user\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<ransomware-folder> -Recursive
+.\RUN_ARTIFACT_STATIC_SCAN.ps1 -IncomingPath C:\NIDS_Workspace\NIDS_TestLab\artifacts\incoming\<ransomware-folder> -Recursive
 ```
 
 That will:
@@ -251,7 +251,7 @@ For host-defense validation inside the isolated lab, start with the Ubuntu targe
 .\RUN_UBUNTU_OS_DEFENSE_TEST.ps1
 ```
 
-That launcher calls [ubuntu_os_defense_validation.py](C:/Users/shaik/NIDS_Workspace/scripts/ubuntu_os_defense_validation.py), supports `cron-http`, `systemd-dns`, and `defense-tamper` cases, and packages the attack-side target artifacts and the defense-side sensor artifacts into a single evidence folder under `results\`.
+That launcher calls [ubuntu_os_defense_validation.py](C:/NIDS_Workspace/scripts/ubuntu_os_defense_validation.py), supports `cron-http`, `systemd-dns`, and `defense-tamper` cases, and packages the attack-side target artifacts and the defense-side sensor artifacts into a single evidence folder under `results\`.
 
 Examples:
 
@@ -261,9 +261,9 @@ Examples:
 .\RUN_UBUNTU_OS_DEFENSE_TEST.ps1 -Case defense-tamper
 ```
 
-The runner now uses the dedicated [os_defense_profile.yml](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/config/os_defense_profile.yml) and writes a thesis-style `phd_case_report.docx` into each run folder.
+The runner now uses the dedicated [os_defense_profile.yml](C:/NIDS_Workspace/NIDS_TestLab/config/os_defense_profile.yml) and writes a thesis-style `phd_case_report.docx` into each run folder.
 
-The first completed OS-defense result is [ubuntu-os-cron-http-beacon-20260311-161200](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200). That run captured `5` flows and `1` `HTTP Suspicious Keyword` alert while preserving:
+The first completed OS-defense result is [ubuntu-os-cron-http-beacon-20260311-161200](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200). That run captured `5` flows and `1` `HTTP Suspicious Keyword` alert while preserving:
 
 - `cron_http_beacon.sh`
 - `crontab_installed.txt`
@@ -271,23 +271,23 @@ The first completed OS-defense result is [ubuntu-os-cron-http-beacon-20260311-16
 - `cron_http_beacon.log`
 - `operator_note.md`
 
-The validated `systemd + DNS beacon` result is [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948). That rerun captured `36` flows and `1` `DNS Burst / DGA-like Activity` alert after removing the extra UDP sink from the OS-defense runner.
+The validated `systemd + DNS beacon` result is [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948). That rerun captured `36` flows and `1` `DNS Burst / DGA-like Activity` alert after removing the extra UDP sink from the OS-defense runner.
 
-The validated defense-tamper result is [ubuntu-os-defense-tamper-20260311-attack-defense](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-defense-tamper-20260311-attack-defense). That run captured `41` flows and `1` `Linux Defense Tamper Command` alert while preserving both the attack-side host artifacts and the defense-side sensor artifacts in the same case folder.
+The validated defense-tamper result is [ubuntu-os-defense-tamper-20260311-attack-defense](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-defense-tamper-20260311-attack-defense). That run captured `41` flows and `1` `Linux Defense Tamper Command` alert while preserving both the attack-side host artifacts and the defense-side sensor artifacts in the same case folder.
 
-Use the OS scope and recording rules in [os_defense_test_plan.md](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/reports/os_defense_test_plan.md) before adding the next Ubuntu staged-exfiltration or lower-rate beacon cases.
+Use the OS scope and recording rules in [os_defense_test_plan.md](C:/NIDS_Workspace/NIDS_TestLab/reports/os_defense_test_plan.md) before adding the next Ubuntu staged-exfiltration or lower-rate beacon cases.
 
 Earlier `systemd` fix iterations remain part of the thesis record and should not be deleted:
-- [ubuntu-os-systemd-dns-beacon-20260311-164900](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-164900)
-- [ubuntu-os-systemd-dns-beacon-20260311-165700](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-165700)
-- [ubuntu-os-systemd-dns-beacon-20260311-170500](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-170500)
+- [ubuntu-os-systemd-dns-beacon-20260311-164900](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-164900)
+- [ubuntu-os-systemd-dns-beacon-20260311-165700](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-165700)
+- [ubuntu-os-systemd-dns-beacon-20260311-170500](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-170500)
 
 ## Notes
 
 - VirtualBox is the preferred lab path for this machine.
-- The authoritative summary after each build is [realistic_lab_summary.json](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/realistic_lab_summary.json).
-- The thesis-friendly attack history is tracked in [attack_test_ledger.md](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/reports/attack_test_ledger.md).
-- The OS-level validation scope is tracked in [os_defense_test_plan.md](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/reports/os_defense_test_plan.md).
-- The cited research-gap note is tracked in [nids_research_gaps.md](C:/Users/shaik/NIDS_Workspace/NIDS_TestLab/reports/nids_research_gaps.md).
+- The authoritative summary after each build is [realistic_lab_summary.json](C:/NIDS_Workspace/NIDS_TestLab/realistic_lab_summary.json).
+- The thesis-friendly attack history is tracked in [attack_test_ledger.md](C:/NIDS_Workspace/NIDS_TestLab/reports/attack_test_ledger.md).
+- The OS-level validation scope is tracked in [os_defense_test_plan.md](C:/NIDS_Workspace/NIDS_TestLab/reports/os_defense_test_plan.md).
+- The cited research-gap note is tracked in [nids_research_gaps.md](C:/NIDS_Workspace/NIDS_TestLab/reports/nids_research_gaps.md).
 - Keep the original `kali` VM untouched; the lab uses a clone.
 
