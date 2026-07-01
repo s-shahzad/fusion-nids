@@ -29,20 +29,56 @@ def _resolve_live_capture_backend(requested: str, tcpdump_bin: str) -> str:
     return "scapy"
 
 
+class LiveCaptureTelemetry:
+    """Counters describing the health of a live-capture backend run."""
+
+    def __init__(self) -> None:
+        self.packets_received = 0
+        self.packets_parsed = 0
+        self.packets_enqueued = 0
+        self.packets_dropped_queue = 0
+        self.queue_depth_peak = 0
+
+    def record_received(self) -> None:
+        self.packets_received += 1
+
+    def record_parsed(self) -> None:
+        self.packets_parsed += 1
+
+    def record_enqueued(self, queue_depth: int) -> None:
+        self.packets_enqueued += 1
+        if queue_depth > self.queue_depth_peak:
+            self.queue_depth_peak = queue_depth
+
+    def record_dropped(self) -> None:
+        self.packets_dropped_queue += 1
+
+    def snapshot(self, *, backend: str = "unknown") -> dict[str, Any]:
+        return {
+            "backend": backend,
+            "packets_received": self.packets_received,
+            "packets_parsed": self.packets_parsed,
+            "packets_enqueued": self.packets_enqueued,
+            "packets_dropped_queue": self.packets_dropped_queue,
+            "queue_depth_peak": self.queue_depth_peak,
+        }
+
+
 def _enqueue_event(
     queue: asyncio.Queue[dict[str, Any] | None],
     event: dict[str, Any],
     *,
     sensor_id: str,
-    dropped_counter: dict[str, int],
+    telemetry: LiveCaptureTelemetry,
 ) -> None:
     event["sensor_id"] = sensor_id
     event["dataset_source"] = "live"
     event["is_labeled"] = 0
     try:
         queue.put_nowait(event)
+        telemetry.record_enqueued(queue.qsize())
     except asyncio.QueueFull:
-        dropped_counter["count"] += 1
+        telemetry.record_dropped()
 
 
 async def _run_scapy_capture(
@@ -51,6 +87,7 @@ async def _run_scapy_capture(
     stop_event: asyncio.Event,
     *,
     sensor_id: str,
+    telemetry: LiveCaptureTelemetry,
 ) -> int:
     try:
         from scapy.sendrecv import AsyncSniffer
@@ -59,19 +96,20 @@ async def _run_scapy_capture(
         return 0
 
     loop = asyncio.get_running_loop()
-    dropped_counter = {"count": 0}
 
     def on_packet(packet: Any) -> None:
+        telemetry.record_received()
         event = parse_packet(packet, dataset_source="live")
         if not event:
             return
+        telemetry.record_parsed()
         loop.call_soon_threadsafe(
             functools.partial(
                 _enqueue_event,
                 queue,
                 event,
                 sensor_id=sensor_id,
-                dropped_counter=dropped_counter,
+                telemetry=telemetry,
             )
         )
 
@@ -94,7 +132,7 @@ async def _run_scapy_capture(
         except Exception:
             pass
 
-    return dropped_counter["count"]
+    return telemetry.packets_dropped_queue
 
 
 async def _run_tcpdump_capture(
@@ -106,6 +144,7 @@ async def _run_tcpdump_capture(
     tcpdump_bin: str,
     snaplen: int,
     bpf_filter: str,
+    telemetry: LiveCaptureTelemetry,
 ) -> int:
     try:
         from scapy.utils import PcapReader
@@ -119,7 +158,6 @@ async def _run_tcpdump_capture(
         return 0
 
     loop = asyncio.get_running_loop()
-    dropped_counter = {"count": 0}
     stderr_lines: list[str] = []
 
     def consume_fifo(fifo_path: str) -> None:
@@ -130,9 +168,11 @@ async def _run_tcpdump_capture(
                 except EOFError:
                     break
 
+                telemetry.record_received()
                 event = parse_packet(packet, dataset_source="live")
                 if not event:
                     continue
+                telemetry.record_parsed()
 
                 loop.call_soon_threadsafe(
                     functools.partial(
@@ -140,7 +180,7 @@ async def _run_tcpdump_capture(
                         queue,
                         event,
                         sensor_id=sensor_id,
-                        dropped_counter=dropped_counter,
+                        telemetry=telemetry,
                     )
                 )
 
@@ -202,7 +242,7 @@ async def _run_tcpdump_capture(
             detail = f" stderr={' | '.join(stderr_lines)}" if stderr_lines else ""
             print(f"live-capture: tcpdump backend exited with status {process.returncode}.{detail}")
 
-    return dropped_counter["count"]
+    return telemetry.packets_dropped_queue
 
 
 async def run_live_capture(
@@ -218,6 +258,7 @@ async def run_live_capture(
 ) -> None:
     """Capture live packets from interface and push normalized events to queue."""
     resolved_backend = _resolve_live_capture_backend(backend, tcpdump_bin)
+    telemetry = LiveCaptureTelemetry()
     dropped = 0
 
     if resolved_backend == "tcpdump":
@@ -229,6 +270,7 @@ async def run_live_capture(
             tcpdump_bin=tcpdump_bin,
             snaplen=tcpdump_snaplen,
             bpf_filter=bpf_filter,
+            telemetry=telemetry,
         )
     else:
         if str(backend or "").strip().lower() == "tcpdump" and not _tcpdump_backend_supported():
@@ -238,6 +280,7 @@ async def run_live_capture(
             queue,
             stop_event,
             sensor_id=sensor_id,
+            telemetry=telemetry,
         )
 
     if dropped > 0:

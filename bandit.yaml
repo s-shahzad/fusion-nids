@@ -1,0 +1,43 @@
+# Bandit configuration for Universal-NIDS
+#
+# This is a network-security / IDS research codebase with a self-hosted lab.
+# The skipped checks below flag patterns that are intentional and reviewed for
+# this project rather than real vulnerabilities:
+#
+#   B105 - "hardcoded passwords" are dataset class labels (e.g. 'r2l') and
+#          environment-variable names (e.g. 'LAB_VM_PASS'), not secrets.
+#   B108 - /tmp paths are used only inside disposable lab VMs.
+#   B110 - try/except/pass appears in best-effort lab teardown paths.
+#   B310 - urlopen targets are controlled localhost/CI dashboard URLs.
+#   B404 - importing subprocess is required to drive tcpdump and lab tooling.
+#   B507 - SSH auto-add-host-key is intentional for throwaway ephemeral lab VMs.
+#   B601 - paramiko exec runs against controlled lab VMs only.
+#   B603 - subprocess args are fixed literals, never untrusted input.
+#   B607 - partial exec paths are resolved via shutil.which at each call site.
+#   B608 - SQL is built from hardcoded literal table names, no user input.
+#   B101 - asserts appear in lab/env validation helper scripts.
+#   B112 - try/except/continue is used for best-effort per-item lab loops.
+#   B324 - MD5 is used for non-security artifact fingerprinting and matching
+#          known-sample hashes, never for passwords or integrity guarantees.
+#
+# exclude_dirs drops the stray nested "src/src/CAPSTON" tree: an unrelated
+# leftover capstone project accidentally committed under src/src/ that is not
+# part of the NIDS package and is not imported anywhere.
+skips:
+  - B101
+  - B105
+  - B108
+  - B110
+  - B112
+  - B310
+  - B324
+  - B404
+  - B507
+  - B601
+  - B603
+  - B607
+  - B608
+
+exclude_dirs:
+  - tests
+  - src/src

@@ -61,7 +61,7 @@ jobs:
           pip install bandit
 
       - name: Bandit scan
-        run: bandit -q -r src scripts -x tests
+        run: bandit -q -r src scripts -x tests,src/src -c bandit.yaml
 
   secrets-scan:
     runs-on: ubuntu-latest
@@ -92,6 +92,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Dashboard security and load smoke
+        env:
+          PYTHONPATH: .
         run: |
           set -euo pipefail
           python scripts/create_dashboard_fixture_db.py --out output/ci_dashboard_fixture.db

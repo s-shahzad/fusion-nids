@@ -9,6 +9,8 @@ from typing import Any
 
 from .config import RuntimeConfig
 from .detect import AlertSuppressor, AnomalyEngine, FusionEngine, MLEngineRouter, SignatureEngine
+from .detect.campaign_behavior import CampaignBehaviorDetector
+from .detect.exfiltration_behavior import ExfiltrationBehaviorDetector
 from .ingest import run_live_capture, run_offline_pcaps, run_suricata_eve, run_zeek_json
 from .pipeline.features import FeatureExtractor
 from .storage import JSONLStore, SQLiteStore
@@ -83,6 +85,10 @@ class NIDSRuntime:
         self.ml = MLEngineRouter(ml_cfg)
 
         self.suppressor = AlertSuppressor(window_sec=int(self.cfg.detection.get("suppress_window_sec", 15)))
+
+        detectors_cfg = dict(self.cfg.detectors or {})
+        self.campaign_behavior = CampaignBehaviorDetector(detectors_cfg.get("campaign_behavior"))
+        self.exfiltration_behavior = ExfiltrationBehaviorDetector(detectors_cfg.get("exfiltration_behavior"))
 
         self.cfg.output_dir.mkdir(parents=True, exist_ok=True)
         self.sqlite = SQLiteStore(self.cfg.output_dir / "nids.db")
@@ -210,7 +216,17 @@ class NIDSRuntime:
         self.sqlite.insert_flow(flow_record)
         self.jsonl.append_flow(flow_record)
 
-        all_alerts = signature_alerts + anomaly_alerts + ml_alerts + fusion_alerts
+        campaign_alerts = self.campaign_behavior.detect(flow_record, event)
+        exfiltration_alerts = self.exfiltration_behavior.detect(flow_record, event)
+
+        all_alerts = (
+            signature_alerts
+            + anomaly_alerts
+            + ml_alerts
+            + fusion_alerts
+            + campaign_alerts
+            + exfiltration_alerts
+        )
         for alert in all_alerts:
             record = {
                 "timestamp": flow_record["timestamp"],

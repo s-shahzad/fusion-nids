@@ -102,6 +102,7 @@ class RuntimeConfig:
     fusion: dict[str, Any] = field(default_factory=dict)
     maintenance: dict[str, Any] = field(default_factory=dict)
     notifications: dict[str, Any] = field(default_factory=dict)
+    detectors: dict[str, Any] = field(default_factory=dict)
 
 
 def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -218,4 +219,5 @@ def build_runtime_config(args: Any) -> RuntimeConfig:
         adapters=adapters,
         maintenance=merged.get("maintenance", {}),
         notifications=merged.get("notifications", {}),
+        detectors=merged.get("detectors", {}),
     )
