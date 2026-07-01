@@ -1,8 +1,6 @@
 name: Extended Validation
 
 on:
-  schedule:
-    - cron: "0 4 * * *"
   workflow_dispatch:
     inputs:
       run_lab_validation:
