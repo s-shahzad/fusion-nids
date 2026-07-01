@@ -1,0 +1,23 @@
+# gitleaks configuration for Universal-NIDS
+# Keeps the full default ruleset, but allowlists demo/test placeholder
+# credentials that live in the test suite and lab demo scripts. These are
+# intentionally fake values (dashboard view/action tokens, "test-only"
+# api keys) used to exercise auth code paths, not real secrets.
+
+title = "Universal-NIDS gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Test fixtures and lab demo placeholder credentials"
+paths = [
+    '''tests/.*''',
+    '''scripts/run_lab_scenario\.py''',
+]
+regexes = [
+    '''test-only''',
+    '''unsafe-demo-value''',
+    '''(view|action|secret)-token''',
+    '''ci-(view|action)-token''',
+]

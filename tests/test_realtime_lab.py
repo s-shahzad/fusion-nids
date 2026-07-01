@@ -7,10 +7,16 @@ import time
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
 import yaml
 
 from src.NIDS.config import RuntimeConfig
 from src.NIDS.runtime_live import LiveCaptureController, process_packet_batch, start_live_capture, stop_live_capture, validate_interface
+
+# The realtime_lab package ships only on the self-hosted lab runner; skip this
+# module cleanly everywhere else instead of failing collection.
+pytest.importorskip("realtime_lab")
+
 from realtime_lab.monitor.system_monitor import run_system_monitor
 from realtime_lab.runner.run_realtime_lab import run_realtime_lab
 from realtime_lab.traffic.traffic_generator import run_traffic_generator
