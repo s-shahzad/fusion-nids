@@ -1,4 +1,4 @@
-﻿__pycache__/
+__pycache__/
 *.py[cod]
 .ipynb_checkpoints/
 .DS_Store
@@ -148,3 +148,5 @@ cleanup_empty_folders_report.md
 artifacts/triage_*.txt
 artifacts/*.txt
 
+
+cloud_data/

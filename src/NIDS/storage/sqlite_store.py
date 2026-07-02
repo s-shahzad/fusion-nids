@@ -140,11 +140,13 @@ def _parse_iso(value: str | None) -> datetime | None:
 class SQLiteStore:
     """SQLite store for alerts, flows, runtime metrics, incident actions, and suppression rules."""
 
-    def __init__(self, db_path: str | Path) -> None:
+    def __init__(self, db_path: str | Path, commit_batch_size: int = 1) -> None:
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(str(self.db_path))
         self.conn.row_factory = sqlite3.Row
+        self.commit_batch_size = max(1, int(commit_batch_size))
+        self._pending_writes = 0
         self._init_schema()
 
     def _table_columns(self, table_name: str) -> set[str]:
@@ -163,7 +165,10 @@ class SQLiteStore:
         placeholders = ", ".join("?" for _ in ordered_columns)
         values = tuple(payload.get(column) for column in ordered_columns)
         cursor = self.conn.execute(f"INSERT INTO {table_name}({column_sql}) VALUES ({placeholders})", values)
-        self.conn.commit()
+        self._pending_writes += 1
+        if self._pending_writes >= self.commit_batch_size:
+            self.conn.commit()
+            self._pending_writes = 0
         return int(cursor.lastrowid)
 
     def _init_schema(self) -> None:
@@ -828,6 +833,9 @@ class SQLiteStore:
         self.conn.commit()
 
     def close(self) -> None:
+        if getattr(self, "_pending_writes", 0):
+            self.conn.commit()
+            self._pending_writes = 0
         self.conn.close()
 
 

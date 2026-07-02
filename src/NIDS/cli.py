@@ -163,6 +163,8 @@ def build_parser() -> argparse.ArgumentParser:
     artifact_scan.add_argument("--recursive", action="store_true", help="Scan directories recursively.")
     artifact_scan.add_argument("--db", default="output/nids.db", help="SQLite path for artifact records.")
     artifact_scan.add_argument("--jsonl", default="output/artifacts.jsonl", help="JSONL output file path.")
+    artifact_scan.add_argument("--processed-dir", default="artifacts/processed", help="Folder for successfully processed files.")
+    artifact_scan.add_argument("--quarantine-dir", default="artifacts/quarantine", help="Folder for quarantined files.")
 
     artifact_watch = subparsers.add_parser(
         "artifact-watch",
@@ -173,6 +175,8 @@ def build_parser() -> argparse.ArgumentParser:
     artifact_watch.add_argument("--interval", type=int, default=5, help="Polling interval seconds.")
     artifact_watch.add_argument("--db", default="output/nids.db", help="SQLite path for artifact records.")
     artifact_watch.add_argument("--jsonl", default="output/artifacts.jsonl", help="JSONL output file path.")
+    artifact_watch.add_argument("--processed-dir", default="artifacts/processed", help="Folder for successfully processed files.")
+    artifact_watch.add_argument("--quarantine-dir", default="artifacts/quarantine", help="Folder for quarantined files.")
 
     artifact_report = subparsers.add_parser(
         "artifact-report",
@@ -343,6 +347,8 @@ def cmd_artifact_scan(args: argparse.Namespace) -> int:
         recursive=bool(args.recursive),
         db_path=args.db,
         jsonl_path=args.jsonl,
+        processed_dir=args.processed_dir,
+        quarantine_dir=args.quarantine_dir,
     )
     print(
         "artifact-scan: "
@@ -360,6 +366,8 @@ def cmd_artifact_watch(args: argparse.Namespace) -> int:
         interval_sec=int(args.interval),
         db_path=args.db,
         jsonl_path=args.jsonl,
+        processed_dir=args.processed_dir,
+        quarantine_dir=args.quarantine_dir,
     )
     return 0
 
