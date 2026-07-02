@@ -9,6 +9,9 @@ from pathlib import Path
 import pytest
 import yaml
 
+# Scenario bundles live in the self-hosted lab workspace and are not part of
+# the public repository; run these on the lab runner only.
+pytestmark = pytest.mark.lab
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

@@ -14,6 +14,8 @@ description = "Test fixtures and lab demo placeholder credentials"
 paths = [
     '''tests/.*''',
     '''scripts/run_lab_scenario\.py''',
+    '''NIDS_TestLab/STAGE_STATIC_TRIAGE_FIXTURES\.ps1''',
+    '''NIDS_TestLab/STAGE_CREDENTIAL_STEALER_TRIAGE_FIXTURES\.ps1''',
 ]
 regexes = [
     '''test-only''',

@@ -11,6 +11,31 @@ from ..ml.featureset import build_feature_vector
 from ..ml.supervised_ensemble import payload_algorithm_names, payload_model_count, predict_from_payload
 
 
+def _force_single_worker_inference(payload: Any) -> None:
+    """Pin n_jobs=1 on loaded models so runtime inference never spawns workers."""
+
+    def _apply(model: Any) -> None:
+        if model is None or not hasattr(model, "set_params"):
+            return
+        try:
+            params = model.get_params(deep=False) if hasattr(model, "get_params") else {}
+        except Exception:
+            return
+        if "n_jobs" in params:
+            try:
+                model.set_params(n_jobs=1)
+            except Exception:
+                pass
+
+    if isinstance(payload, dict):
+        for entry in payload.get("models") or []:
+            if isinstance(entry, dict):
+                _apply(entry.get("model"))
+        _apply(payload.get("model"))
+    else:
+        _apply(payload)
+
+
 class SupervisedMLEngine:
     """Runtime supervised inference engine using saved sklearn model payload."""
 
@@ -26,6 +51,7 @@ class SupervisedMLEngine:
         if self.model_path.exists():
             try:
                 payload = joblib.load(self.model_path)
+                _force_single_worker_inference(payload)
                 self.payload = payload
                 if isinstance(payload, dict):
                     cols = payload.get("feature_columns")

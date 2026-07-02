@@ -7,7 +7,11 @@ import pandas as pd
 from .featureset import FEATURE_COLUMNS
 
 
-def _num(series: pd.Series) -> pd.Series:
+def _num(series: Any) -> pd.Series | float:
+    if series is None:
+        return 0.0
+    if not isinstance(series, pd.Series):
+        series = pd.Series(series)
     return pd.to_numeric(series, errors="coerce").fillna(0.0)
 
 

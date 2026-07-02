@@ -69,16 +69,21 @@ def _enqueue_event(
     event: dict[str, Any],
     *,
     sensor_id: str,
-    telemetry: LiveCaptureTelemetry,
+    telemetry: LiveCaptureTelemetry | None = None,
+    dropped_counter: dict[str, int] | None = None,
 ) -> None:
     event["sensor_id"] = sensor_id
     event["dataset_source"] = "live"
     event["is_labeled"] = 0
     try:
         queue.put_nowait(event)
-        telemetry.record_enqueued(queue.qsize())
+        if telemetry is not None:
+            telemetry.record_enqueued(queue.qsize())
     except asyncio.QueueFull:
-        telemetry.record_dropped()
+        if telemetry is not None:
+            telemetry.record_dropped()
+        if dropped_counter is not None:
+            dropped_counter["count"] = int(dropped_counter.get("count", 0)) + 1
 
 
 async def _run_scapy_capture(
@@ -87,8 +92,10 @@ async def _run_scapy_capture(
     stop_event: asyncio.Event,
     *,
     sensor_id: str,
-    telemetry: LiveCaptureTelemetry,
+    telemetry: LiveCaptureTelemetry | None = None,
 ) -> int:
+    if telemetry is None:
+        telemetry = LiveCaptureTelemetry()
     try:
         from scapy.sendrecv import AsyncSniffer
     except Exception as exc:

@@ -36,6 +36,7 @@ jobs:
       - name: Run default suite with coverage
         run: |
           pytest \
+            -m "not lab and not environment and not live" \
             --cov=src/NIDS \
             --cov-config=.coveragerc \
             --cov-report=term-missing:skip-covered \
