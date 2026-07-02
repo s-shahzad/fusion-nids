@@ -1,0 +1,351 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{orcidlink}
+
+\newcommand{\code}[1]{\texttt{#1}}
+% [FILL] markers flag places where the author must insert a real, verified value
+% or write original prose. Do not submit with any [FILL] remaining.
+\newcommand{\FILL}[1]{\textbf{[FILL: #1]}}
+
+\title{Evidence-Driven Validation of a Hybrid Network Intrusion\\
+Detection System: From Offline Replay to Prepared Live Capture}
+
+\author{Azhad Shahzad Shaik\,\orcidlink{0009-0009-6450-5837}\\
+\small \href{mailto:shaikazhadshahzad@gmail.com}{shaikazhadshahzad@gmail.com} \quad
+\small \url{https://github.com/s-shahzad/Universal-NIDS}}
+
+\date{\FILL{month year}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Most network intrusion detection (NIDS) research reports offline accuracy on a
+labelled dataset and stops there. We argue that for a hybrid detector intended
+for real deployment, the validation process is itself a contribution. We present
+a hybrid NIDS that combines deterministic signature rules, statistical anomaly
+detection, a supervised ensemble (random forest, extra-trees, histogram gradient
+boosting, and XGBoost), an optional unsupervised path (isolation forest plus a
+shallow autoencoder), and a fusion layer that adjudicates the component outputs
+into a single alert decision. Alongside the detector we describe a layered,
+reproducible validation method: a deterministic test suite with an enforced
+coverage floor, repeatable offline PCAP-replay scenarios, and prepared-environment
+runs on live capture that measure benign false positives, queue-loss accounting,
+restart recovery, and sustained-soak behaviour. On a held-out test split of the
+labelled traffic corpus the supervised ensemble reaches
+\textbf{99.5\% accuracy and 0.996 weighted $F_1$} across five classes, while the
+per-class results expose a genuine weakness on the rarest class that offline
+aggregates hide. The prepared-environment evidence shows the live path, loss
+accounting, operator workflows, and a completed six-hour soak (87{,}533 flows, 0
+alerts, $\approx$400\,MiB peak memory) all function as intended. We still
+characterise the system as a controlled pre-deployment candidate rather than a
+production system, because benign adjudication and platform coverage remain
+narrow, and we release the code, datasets, and evidence records so the validation
+is reproducible.
+\end{abstract}
+
+\section{Introduction}
+
+Network intrusion detection is hard for two reasons that are usually addressed
+separately. The first is \emph{detection quality}: distinguishing malicious from
+benign traffic. The second is \emph{operational credibility}: showing that a
+detector behaves acceptably on live traffic, under benign drift, and through the
+maintenance actions an operator actually performs. Benchmark-oriented NIDS papers
+answer the first and rarely the second; a high offline $F_1$ says little about
+false-positive burden on live capture or about whether the system survives a
+restart without losing continuity.
+
+This paper treats a hybrid NIDS \emph{and its validation process} as one research
+object. The detector combines five detection paths and a fusion layer
+(\S\ref{sec:arch}). The validation method (\S\ref{sec:results}) is layered:
+deterministic tests, repeatable offline replay, and prepared-environment live
+runs that measure the things offline metrics cannot, benign false positives,
+packet-queue loss, restart recovery, and soak stability. Our position is that
+this second half is where deployment confidence is earned or lost.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+  \item A hybrid NIDS architecture that retains component-level evidence for every
+        decision, so an analyst can see why an alert did or did not fire
+        (\S\ref{sec:arch}, \S\ref{sec:method}).
+  \item A layered, reproducible validation method spanning code tests, offline
+        replay, and prepared-environment live capture (\S\ref{sec:results}).
+  \item An honest evaluation that reports both the strong aggregate offline
+        result and the per-class and live-capture weaknesses it hides
+        (\S\ref{sec:results}, \S\ref{sec:limits}).
+  \item A released harness, labelled dataset split, and evidence records for
+        reproducibility.
+\end{enumerate}
+
+\section{Related Work}
+\label{sec:related}
+
+We group prior NIDS work into four families and position ours against them.
+
+\textbf{Signature and rule engines} such as Suricata and Zeek are precise and
+interpretable but weak on behaviour not covered by a rule; our signature engine
+plays the same role and is deliberately only one of five paths.
+
+\textbf{Supervised-ML IDS on labelled datasets} dominate the literature and report
+strong offline scores. Much of this work is evaluated on the KDD~Cup/NSL-KDD
+family~\cite{nslkdd}, whose \code{dos}/\code{probe}/\code{r2l}/\code{u2r} attack
+taxonomy we adopt for labels, and on the flow-based CIC-IDS2017
+corpus~\cite{cicids2017}. Ensemble and feature-selection classifiers push
+aggregate accuracy high on these sets~\cite{ensembleids}, but the community has
+also documented that headline numbers on these datasets can be fragile: label and
+processing errors in CIC-IDS2017 materially change reported
+performance~\cite{cicidstrouble}. This is exactly why we report per-class results
+and treat offline accuracy as one input, not the verdict.
+
+\textbf{Anomaly and statistical IDS} improve sensitivity to novel behaviour but
+are prone to benign-drift false positives; our unsupervised path is gated
+precisely to contain that failure mode.
+
+\textbf{Hybrid and validation-oriented work} is closest to ours. Our own prior
+work applied supervised ML to denial-of-service detection on IoT EV-charging
+infrastructure using a CIC-IDS-derived binary corpus~\cite{shaik2025ocpp}; the
+present work is distinct in three ways: it is a five-path hybrid rather than a
+single classifier, it evaluates a five-class taxonomy rather than binary
+DoS/benign, and its central contribution is the prepared-environment validation
+method rather than the offline score. We build against operational guidance from
+NIST SP~800-115, NIST SP~800-61r3, MITRE ATT\&CK, and CISA logging/SIEM
+guidance~\cite{nist800115,nist80061,attack,cisalog}.
+
+\section{System Architecture}
+\label{sec:arch}
+
+The system ingests from live NIC capture, offline PCAP replay, optional
+Suricata/Zeek JSON adapters, and static artifact intake, then normalises all
+inputs into a common flow-event schema before feature extraction. Normalised
+features fan out to the detection engines and a fusion layer, and results persist
+to SQLite and JSONL with an analyst dashboard and reporting on top.
+
+\begin{figure}[h]
+\centering
+\FILL{include architecture diagram: export thesis/diagrams/system\_architecture.mmd
+to PDF (mermaid-cli) into paper/figures/architecture.pdf, then
+\textbackslash includegraphics here}
+\caption{End-to-end architecture: ingest, normalise, five detection paths,
+fusion, suppression, persistence, and reporting.}
+\label{fig:arch}
+\end{figure}
+
+Artifact analysis is static only; submitted files are never executed.
+
+\section{Detection Methodology}
+\label{sec:method}
+
+\begin{itemize}
+  \item \textbf{Signature engine.} YAML-defined rules for known behaviour; produces
+        reviewable, deterministic alerts.
+  \item \textbf{Statistical anomaly engine.} EWMA and z-score style thresholds with
+        burst detection over flow aggregates.
+  \item \textbf{Supervised ensemble.} Random forest, extra-trees, histogram
+        gradient boosting, and XGBoost (when available), weighted into a single
+        probability vector. \FILL{state ensemble weighting / voting scheme from
+        src/NIDS/ml/supervised\_ensemble.py in one precise sentence.}
+  \item \textbf{Unsupervised path (optional).} Isolation forest plus a shallow
+        autoencoder with warmup calibration; gated to require at least two active
+        components before it can raise an alert, a false-positive control
+        introduced during tuning (\S\ref{sec:results}).
+  \item \textbf{Fusion.} Combines component scores into a benign / informational /
+        alert decision while retaining each component's contribution as evidence.
+\end{itemize}
+
+\section{Datasets and Experimental Setup}
+\label{sec:data}
+
+\paragraph{Labelled corpus.} The supervised ensemble is trained and evaluated on a
+labelled traffic corpus of \textbf{25{,}000 flows} across five classes
+(\code{dos}, \code{normal}, \code{probe}, \code{r2l}, \code{u2r}), split
+\textbf{18{,}750 train / 6{,}250 held-out test}. The label taxonomy is the
+KDD-family \code{dos}/\code{normal}/\code{probe}/\code{r2l}/\code{u2r}
+scheme~\cite{nslkdd}, but the features are \emph{not} the classic 41 KDD
+attributes: the model consumes this system's own 15-column flow schema (packet
+length, ports, protocol and TCP-flag indicators, per-window destination-port and
+-host counts, and DNS/HTTP/TLS presence flags) from
+\code{src/NIDS/ml/featureset.py}. The labels follow KDD conventions while the
+feature space is the deployed detector's own. \FILL{state precisely how the
+labelled training flows were produced or sourced (own labelled capture vs.\
+re-mapped public corpus) and cite it; this must be exact before submission.}
+We report the held-out split as the
+primary result; a second evaluation over the full 25{,}000 flows is reported for
+comparison and is \emph{not} a held-out number. The class distribution is heavily
+imbalanced: \code{u2r} is so rare that it has no representative in the held-out
+test split, and \code{probe} and \code{r2l} have only tens of samples. We keep
+this visible rather than smoothing it into a single accuracy figure.
+
+\paragraph{Live and offline scenarios.} Offline PCAP-replay scenarios
+(\code{LAB-SCN-001..005}: port scan, HTTP brute force, flood/burst, mixed
+benign+malicious, artifact+network correlation) and \textbf{thirteen}
+prepared-environment live scenarios (\code{PREP-ENV-001..013}: live capture,
+malformed-packet handling, queue-loss accounting, restart recovery, benign soak,
+full-duration soak, operator workflows, and live suppression) are executed
+through released scripts and indexed as manifests. At draft time the index
+records 36 runs with all thirteen prepared-environment scenarios passing.
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Software validation}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lr}
+\toprule
+Measure & Value \\
+\midrule
+Tests collected (public CI scope) & 245 \\
+Passing (default suite) & 229 \\
+Deselected (lab/environment/live markers) & 16 \\
+Active pytest warnings & 0 \\
+Coverage (line) & 75.83\% \\
+Enforced coverage floor & 72\% \\
+\bottomrule
+\end{tabular}
+\caption{Deterministic test-suite result at draft time (public CI scope). CI is
+green on all three workflows.}
+\label{tab:tests}
+\end{table}
+
+\subsection{Supervised ensemble, held-out test split}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+Class & Precision & Recall & $F_1$ & Support \\
+\midrule
+dos     & 0.999 & 0.996 & 0.997 & 4941 \\
+normal  & 0.998 & 0.995 & 0.996 & 1243 \\
+probe   & 0.725 & 0.980 & 0.833 & 51 \\
+r2l     & 0.933 & 0.933 & 0.933 & 15 \\
+u2r     & \multicolumn{4}{c}{\emph{no samples in this test split}} \\
+\midrule
+\textbf{Weighted avg} & \textbf{0.996} & \textbf{0.995} & \textbf{0.996} & 6250 \\
+Accuracy & \multicolumn{4}{r}{\textbf{0.9954}} \\
+\bottomrule
+\end{tabular}
+\caption{Supervised ensemble on the 6{,}250-flow held-out test split. Aggregate
+accuracy is 99.5\%, but the \code{probe} and \code{r2l} classes, with 51 and 15
+test samples, are materially weaker (precision 0.72 on \code{probe}), and the
+\code{u2r} class has no samples in this split at all, so nothing can be claimed
+about it. These are the honest costs that a single weighted aggregate hides.}
+\label{tab:mlheld}
+\end{table}
+
+The aggregate is strong, but Table~\ref{tab:mlheld} is deliberately reported
+per-class: the rare classes are where the ensemble is weakest, and any deployment
+claim must account for the small support behind their scores. We treat these as
+offline-evaluation numbers, not live operational accuracy.
+
+\subsection{Prepared-environment (live) results}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lp{8.8cm}}
+\toprule
+Scenario & Result \\
+\midrule
+Queue-loss accounting (PREP-ENV-003) & Under a deliberate DNS flood, 8{,}127 packets received, 23 processed, 8{,}100 dropped (99.67\% loss), queue-depth peak 1, 0 false alerts. The point is that loss is \emph{accounted}, not that it is avoided. \\
+Benign soak, tuned (PREP-ENV-005) & 1{,}404 flows over 180\,s, 0 alerts; the two unsupervised false positives seen before tuning dropped to 0. \\
+Restart recovery (PREP-ENV-006) & Two-phase restart, 144 flows, continuity preserved; reload latency $\approx$13.2\,s. \\
+Full-duration soak (PREP-ENV-007) & \textbf{Completed} 6-hour run (21{,}600\,s), 87{,}533 flows, 0 alerts, 0 dropped packets, peak RSS 409{,}444\,KiB ($\approx$400\,MiB), peak CPU 107\%, restart latency 13.335\,s. \\
+Operator workflows & Rule refresh (PREP-ENV-008): 321 flows, 1 alert. Model swap (PREP-ENV-009): 330 flows, 2 alerts. Config override (PREP-ENV-010): 394 flows, 0 alerts. Each reload $\approx$13.2--13.3\,s. \\
+\bottomrule
+\end{tabular}
+\caption{Prepared-environment live-capture evidence, from
+\code{NIDS\_TestLab/reports/prepared\_env\_validation\_index.json}
+(2026-03-14, 36 recorded runs, all 13 scenarios passing). Values frozen at draft
+time.}
+\label{tab:prepenv}
+\end{table}
+
+\subsection{False-positive tuning}
+
+Early prepared-environment runs raised unsupervised-only alerts on benign status
+polling and routine DNS. We added a control requiring at least two active
+unsupervised components before an alert can fire; the tuned rerun cleared the
+exercised benign sample (\FILL{PREP-ENV-005: flows, 0 alerts}). We claim this only
+for the exercised sample; broader benign corpora are future work.
+
+\section{Limitations}
+\label{sec:limits}
+
+\begin{itemize}
+  \item \textbf{Single soak run.} The six-hour soak completed cleanly, but it is
+        one run at one traffic profile; we do not generalise it to arbitrary
+        deployment loads or durations.
+  \item \textbf{Rare-class detection.} \code{probe}/\code{r2l} have small test
+        support and weaker scores, and \code{u2r} is absent from the held-out
+        split (Table~\ref{tab:mlheld}).
+  \item \textbf{Benign adjudication is narrow.} Tuning is validated on the
+        exercised sample, not a broad benign corpus.
+  \item \textbf{Maintenance.} Operator workflows are restart-based, implying an
+        $\approx$13-second blind window per reload; not zero-downtime.
+  \item \textbf{Platform scope.} \FILL{state validated OS/interface scope honestly
+        (Windows first-class lab host, Linux runtime target per the repo docs);
+        confirm before submission.}
+\end{itemize}
+
+\section{Conclusion}
+
+We presented a hybrid NIDS whose contribution is as much its layered, reproducible
+validation as its detection stack. The supervised ensemble is strong in aggregate
+(99.5\% held-out accuracy) but honestly weaker on rare classes, and the
+prepared-environment evidence, including a completed six-hour live soak, supports
+a \emph{controlled pre-deployment candidate} verdict rather than production
+readiness. We release the harness,
+dataset split, and evidence records so the result is reproducible.
+
+\begin{thebibliography}{9}
+\bibitem{nist800115} NIST. \emph{SP 800-115: Technical Guide to Information
+Security Testing and Assessment.} \url{https://csrc.nist.gov/pubs/sp/800/115/final}
+\bibitem{nist80061} NIST. \emph{SP 800-61r3: Incident Response Recommendations.}
+\url{https://csrc.nist.gov/pubs/sp/800/61/r3/final}
+\bibitem{attack} MITRE. \emph{ATT\&CK Enterprise Matrix.}
+\url{https://attack.mitre.org/matrices/enterprise/}
+\bibitem{cisalog} CISA et al. \emph{Best Practices for Event Logging and Threat
+Detection.} \url{https://www.cisa.gov/resources-tools/resources/best-practices-event-logging-and-threat-detection}
+
+\bibitem{nslkdd} M. Tavallaee, E. Bagheri, W. Lu, and A. A. Ghorbani.
+\newblock A detailed analysis of the KDD CUP 99 data set.
+\newblock In \emph{IEEE Symposium on Computational Intelligence for Security and
+Defense Applications (CISDA)}, 2009. (NSL-KDD dataset.)
+
+\bibitem{cicids2017} I. Sharafaldin, A. H. Lashkari, and A. A. Ghorbani.
+\newblock Toward generating a new intrusion detection dataset and intrusion
+traffic characterization.
+\newblock In \emph{4th Intl. Conf. on Information Systems Security and Privacy
+(ICISSP)}, 2018. (CIC-IDS2017 dataset.)
+
+\bibitem{ensembleids} Y. Zhou, G. Cheng, S. Jiang, and M. Dai.
+\newblock Building an efficient intrusion detection system based on feature
+selection and ensemble classifier.
+\newblock \emph{Computer Networks}, 174:107247, 2020. Preprint
+\url{https://arxiv.org/abs/1904.01352}.
+
+\bibitem{cicidstrouble} G. Engelen, V. Rimmer, and W. Joosen.
+\newblock Troubleshooting an intrusion detection dataset: the CICIDS2017 case
+study.
+\newblock In \emph{IEEE Security and Privacy Workshops (WTMC)}, 2021.
+
+\bibitem{shaik2025ocpp} A. S. Shaik, M. Gutla, A. P. R. Kagitala, and S. Bhatia.
+\newblock Plugged-in and protected: Leveraging machine learning to secure
+IoT-based electric vehicle charging stations from denial-of-service threats.
+\newblock In \emph{IEEE Global Conference on Artificial Intelligence and Internet
+of Things (GCAIoT)}, 2025. DOI: 10.1109/GCAIoT68269.2025.11275540.
+
+\end{thebibliography}
+
+\end{document}
