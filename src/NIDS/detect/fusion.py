@@ -87,18 +87,22 @@ class FusionEngine:
             + self.unsupervised_weight * unsupervised_score
         )
 
-        active_components = [
-            name
-            for name, score in component_scores.items()
-            if score >= self.min_component_score or (name == "signature" and score > 0.0)
-        ]
+        # All components (including signature) need to clear min_component_score
+        # to count as "active"/agreeing. Signature previously got a free pass at
+        # any score > 0.0, which let a single low-severity signature match (e.g.
+        # severity="low" -> 0.4) count toward agreement on its own footing with
+        # engines that had to clear the real floor.
+        active_components = [name for name, score in component_scores.items() if score >= self.min_component_score]
         agreement_count = len(active_components)
 
-        attack_signal = (
-            fusion_score >= self.alert_threshold
-            or agreement_count >= self.min_agreement_count
-            or signature_score >= self.critical_threshold
-        )
+        # NOTE: agreement_count on its own used to be enough to declare an attack
+        # regardless of how low fusion_score was (e.g. two components barely
+        # clearing min_component_score at 0.55 each can yield a fusion_score as
+        # low as ~0.275 -- far under alert_threshold). Multiple engines agreeing
+        # is already reflected in the weighted fusion_score, so the agreement
+        # fast-path is now gated by the same alert_threshold floor instead of
+        # bypassing it.
+        attack_signal = fusion_score >= self.alert_threshold or signature_score >= self.critical_threshold
         fusion_label = "attack" if attack_signal else "benign"
 
         recommended_attack_type = ml_prediction.get("predicted_attack_type")
@@ -120,10 +124,14 @@ class FusionEngine:
         if emit_alert and agreement_count < self.min_agreement_count and fusion_score < self.high_threshold:
             emit_alert = False
 
+        # Same fix as attack_signal above: an agreement count can still nudge
+        # severity up a tier, but only once fusion_score has at least cleared
+        # alert_threshold -- it can no longer promote a paper-thin fusion_score
+        # straight to "high"/"critical" on agreement_count alone.
         severity = "medium"
-        if fusion_score >= self.critical_threshold or agreement_count >= 3:
+        if fusion_score >= self.critical_threshold or (agreement_count >= 3 and fusion_score >= self.alert_threshold):
             severity = "critical"
-        elif fusion_score >= self.high_threshold or agreement_count >= 2:
+        elif fusion_score >= self.high_threshold or (agreement_count >= 2 and fusion_score >= self.alert_threshold):
             severity = "high"
 
         summary = (

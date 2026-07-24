@@ -11,20 +11,11 @@ from typing import Any
 
 from .config import RuntimeConfig
 from .runtime import NIDSRuntime
+from .utils.time import parse_epoch
 
 
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
-
-
-def _to_epoch(value: Any) -> float | None:
-    token = str(value or "").strip()
-    if not token:
-        return None
-    try:
-        return datetime.fromisoformat(token.replace("Z", "+00:00")).timestamp()
-    except Exception:
-        return None
 
 
 def list_available_interfaces() -> list[str]:
@@ -159,9 +150,9 @@ class LiveCaptureController:
             self._processing_times_ms.append(float(processing_time_ms))
             if new_alerts <= 0:
                 return
-            capture_epoch = _to_epoch(event_timestamp)
+            capture_epoch = parse_epoch(event_timestamp)
             generated_at = _utc_now_iso()
-            generated_epoch = _to_epoch(generated_at) or time.time()
+            generated_epoch = parse_epoch(generated_at) or time.time()
             latency_ms = 0.0
             if capture_epoch is not None:
                 latency_ms = max(0.0, (generated_epoch - capture_epoch) * 1000.0)

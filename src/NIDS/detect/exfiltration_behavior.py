@@ -2,15 +2,9 @@ from __future__ import annotations
 
 import math
 from collections import Counter, defaultdict, deque
-from datetime import datetime, timezone
 from typing import Any
 
-
-def _to_epoch(value: str) -> float:
-    try:
-        return datetime.fromisoformat(value.replace("Z", "+00:00")).timestamp()
-    except Exception:
-        return datetime.now(timezone.utc).timestamp()
+from ..utils.time import now_ts, parse_epoch
 
 
 def _enabled(cfg: dict[str, Any] | bool | None) -> bool:
@@ -73,8 +67,10 @@ class ExfiltrationBehaviorDetector:
         if not self.enabled:
             return []
 
-        timestamp = str(flow_record.get("timestamp") or event.get("timestamp") or "")
-        now_epoch = _to_epoch(timestamp)
+        timestamp = flow_record.get("timestamp") or event.get("timestamp")
+        now_epoch = parse_epoch(timestamp)
+        if now_epoch is None:
+            now_epoch = now_ts()
         src_ip = str(flow_record.get("src_ip") or event.get("src_ip") or "unknown")
         dst_ip = str(flow_record.get("dst_ip") or event.get("dst_ip") or "unknown")
         proto = str(flow_record.get("proto") or event.get("proto") or "").upper()
