@@ -1,54 +1,60 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 760" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
   <!--
-    Fusion NIDS - data-flow architecture (v2)
-    Self-contained dark "ops console" card: legible on GitHub light AND dark themes.
-    Colour system  ................................................................
-      surface  #0d1420 -> #131c28   text #e8eff7   muted #8a97a8   faint #56616f
-      flow/cyan (input)      #38bdf8
-      engines (equal-chroma 400-level set):
-        signature   amber   #f0b429      statistical  sky     #38bdf8
-        supervised  emerald #34d399      unsupervised violet  #a78bfa
-      fusion / decision  rose  #fb7185       output ok  emerald  #34d399
-    Motion is SMIL only (plays in GitHub <img> context); the frozen frame is
-    fully composed, so it also reads perfectly if animation is stripped.
+    Fusion NIDS - data-flow architecture (v2.1)
+    Self-contained dark "ops console" card: legible on GitHub light AND dark.
+    Designed to STAND ON ITS OWN as a static image (GitHub strips SMIL on
+    <img>-embedded SVG); the dashed flow + arrowheads read direction with zero
+    animation. Subtle SMIL is progressive enhancement only.
+
+    SHAPE LANGUAGE (differentiates roles instead of same-rectangle-everywhere)
+      input list  ->  panel with a cyan inflow edge          (Sources)
+      process     ->  rounded card                            (Ingest, Engines)
+      decision    ->  large glowing HEXAGON - the hero        (Fusion)
+      data store  ->  cylinder                                (Suppress + Retain)
+      output      ->  screen with window chrome               (Dashboard)
+
+    TYPE SCALE (committed)  30 display / 18 hero / 15 title / 14 intro /
+      12.5 body / 11 label+mono / 9.5 micro.  Sans = labels, mono = technical.
+
+    COLOUR SYSTEM (role-encoded)  cyan #38bdf8 = flow/input;
+      engines (equal-chroma 400s): amber #f0b429, sky #38bdf8, emerald #34d399,
+      violet #a78bfa;  rose #fb7185 = the decision;  emerald = safe output.
   -->
   <defs>
     <radialGradient id="bg" cx="26%" cy="-8%" r="120%">
-      <stop offset="0" stop-color="#16202e"/>
-      <stop offset="0.55" stop-color="#0f1826"/>
-      <stop offset="1" stop-color="#0b1119"/>
+      <stop offset="0" stop-color="#16202e"/><stop offset="0.55" stop-color="#0f1826"/><stop offset="1" stop-color="#0b1119"/>
     </radialGradient>
     <linearGradient id="surf" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#1a2434"/>
-      <stop offset="1" stop-color="#121a26"/>
+      <stop offset="0" stop-color="#1a2434"/><stop offset="1" stop-color="#121a26"/>
     </linearGradient>
     <linearGradient id="surfFusion" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2a1b24"/>
-      <stop offset="1" stop-color="#181119"/>
+      <stop offset="0" stop-color="#3a2029"/><stop offset="1" stop-color="#1c1219"/>
+    </linearGradient>
+    <linearGradient id="cyl" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#131b26"/><stop offset="0.5" stop-color="#1c2634"/><stop offset="1" stop-color="#131b26"/>
     </linearGradient>
     <linearGradient id="pipe" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#fb7185"/>
-      <stop offset="1" stop-color="#34d399"/>
+      <stop offset="0" stop-color="#fb7185"/><stop offset="1" stop-color="#34d399"/>
     </linearGradient>
     <linearGradient id="meter" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#34d399"/>
-      <stop offset="0.6" stop-color="#f0b429"/>
-      <stop offset="1" stop-color="#fb7185"/>
+      <stop offset="0" stop-color="#34d399"/><stop offset="0.6" stop-color="#f0b429"/><stop offset="1" stop-color="#fb7185"/>
     </linearGradient>
     <linearGradient id="titleAccent" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#38bdf8"/>
-      <stop offset="1" stop-color="#fb7185"/>
+      <stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#fb7185"/>
     </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fb7185" stop-opacity="0.30"/><stop offset="1" stop-color="#fb7185" stop-opacity="0"/>
+    </radialGradient>
     <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
       <circle cx="1.2" cy="1.2" r="1.2" fill="#ffffff" opacity="0.028"/>
     </pattern>
     <filter id="nodeSh" x="-30%" y="-30%" width="160%" height="180%">
       <feDropShadow dx="0" dy="9" stdDeviation="15" flood-color="#000000" flood-opacity="0.55"/>
     </filter>
-    <filter id="glowRose" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="glowRose" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="glowSm" x="-120%" y="-120%" width="340%" height="340%">
+    <filter id="glowSm" x="-140%" y="-140%" width="380%" height="380%">
       <feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
@@ -56,180 +62,179 @@
   <!-- panel -->
   <rect x="2" y="2" width="1436" height="756" rx="26" fill="url(#bg)"/>
   <rect x="2" y="2" width="1436" height="756" rx="26" fill="url(#dots)"/>
-  <rect x="2.5" y="2.5" width="1435" height="755" rx="26" fill="none" stroke="#2b3648" stroke-width="1"/>
+  <rect x="2.5" y="2.5" width="1435" height="755" rx="26" fill="none" stroke="#2b3648"/>
 
   <!-- ===== header ===== -->
   <rect x="48" y="82" width="46" height="4" rx="2" fill="url(#titleAccent)"/>
-  <text x="48" y="60" font-size="31" font-weight="800" fill="#eef4fb" letter-spacing="-0.6">Fusion NIDS</text>
-  <text x="250" y="60" font-size="31" font-weight="800" fill="#4d5c6f" letter-spacing="-0.6">/ how data flows</text>
-  <text x="48" y="112" font-size="14.5" fill="#93a2b3">Traffic in&#160;&#160;&#8594;&#160;&#160;four engines vote&#160;&#160;&#8594;&#160;&#160;one risk score&#160;&#160;&#8594;&#160;&#160;evidence &amp; alerts out</text>
-  <text x="1392" y="52" text-anchor="end" font-size="11.5" font-weight="600" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">hybrid&#160;ML&#160;NIDS</text>
-  <text x="1392" y="70" text-anchor="end" font-size="11.5" fill="#56616f" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">self-hosted&#160;&#183;&#160;offline-capable</text>
+  <text x="48" y="60" font-size="30" font-weight="800" fill="#eef4fb" letter-spacing="-0.6">Fusion NIDS</text>
+  <text x="250" y="60" font-size="30" font-weight="800" fill="#4d5c6f" letter-spacing="-0.6">/ how data flows</text>
+  <text x="48" y="112" font-size="14" fill="#93a2b3">Traffic in&#160;&#160;&#8594;&#160;&#160;four engines vote&#160;&#160;&#8594;&#160;&#160;one risk score&#160;&#160;&#8594;&#160;&#160;evidence &amp; alerts out</text>
+  <text x="1392" y="52" text-anchor="end" font-size="11" font-weight="600" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">hybrid&#160;ML&#160;NIDS</text>
+  <text x="1392" y="70" text-anchor="end" font-size="11" fill="#56616f" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">self-hosted&#160;&#183;&#160;offline-capable</text>
 
-  <!-- ===== stage index row ===== -->
+  <!-- ===== stage index ===== -->
   <g font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="11" font-weight="700" letter-spacing="1.6" fill="#5b697a">
-    <text x="56"  y="182">01&#160;&#160;SOURCES</text>
+    <text x="56" y="182">01&#160;&#160;SOURCES</text>
     <text x="272" y="182">02&#160;&#160;INGEST</text>
     <text x="470" y="182">03&#160;&#160;DETECTION&#160;ENGINES</text>
-    <text x="892" y="182">04&#160;&#160;FUSION</text>
+    <text x="881" y="182" text-anchor="middle">04&#160;&#160;FUSION</text>
     <text x="1068" y="182">05&#160;&#160;SUPPRESS</text>
     <text x="1262" y="182">06&#160;&#160;DASHBOARD</text>
   </g>
 
-  <!-- ===== connectors (under nodes) ===== -->
-  <!-- fan-out: ingest -> 4 engine lanes -->
-  <g fill="none" stroke-linecap="round">
-    <path d="M422,402 L470,291" stroke="#f0b429" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" repeatCount="indefinite"/></path>
-    <path d="M422,402 L470,365" stroke="#38bdf8" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" begin="0.15s" repeatCount="indefinite"/></path>
-    <path d="M422,402 L470,439" stroke="#34d399" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" begin="0.3s" repeatCount="indefinite"/></path>
-    <path d="M422,402 L470,513" stroke="#a78bfa" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" begin="0.45s" repeatCount="indefinite"/></path>
+  <!-- ===== connectors (under nodes) : dashed flow + solid arrowheads ===== -->
+  <g fill="none" stroke-linecap="round" stroke-width="2.4" opacity="0.8">
+    <path d="M232,402 L272,402" stroke="#38bdf8" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" repeatCount="indefinite"/></path>
+    <path d="M422,402 L468,291" stroke="#f0b429" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" repeatCount="indefinite"/></path>
+    <path d="M422,402 L468,365" stroke="#38bdf8" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" begin="0.15s" repeatCount="indefinite"/></path>
+    <path d="M422,402 L468,439" stroke="#34d399" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" begin="0.3s" repeatCount="indefinite"/></path>
+    <path d="M422,402 L468,513" stroke="#a78bfa" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" begin="0.45s" repeatCount="indefinite"/></path>
+    <path d="M842,291 L879,402" stroke="#f0b429" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" begin="0.5s" repeatCount="indefinite"/></path>
+    <path d="M842,365 L879,402" stroke="#38bdf8" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" begin="0.6s" repeatCount="indefinite"/></path>
+    <path d="M842,439 L879,402" stroke="#34d399" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" begin="0.7s" repeatCount="indefinite"/></path>
+    <path d="M842,513 L879,402" stroke="#a78bfa" stroke-dasharray="2 7"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.9s" begin="0.8s" repeatCount="indefinite"/></path>
   </g>
-  <!-- converge: 4 lanes -> fusion -->
-  <g fill="none" stroke-linecap="round">
-    <path d="M842,291 L892,402" stroke="#f0b429" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" begin="0.5s" repeatCount="indefinite"/></path>
-    <path d="M842,365 L892,402" stroke="#38bdf8" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" begin="0.6s" repeatCount="indefinite"/></path>
-    <path d="M842,439 L892,402" stroke="#34d399" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" begin="0.7s" repeatCount="indefinite"/></path>
-    <path d="M842,513 L892,402" stroke="#a78bfa" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" begin="0.8s" repeatCount="indefinite"/></path>
+  <!-- arrowheads (make direction unmistakable, static) -->
+  <g>
+    <path d="M264,397 L273,402 L264,407 Z" fill="#38bdf8"/>
+    <path d="M462,286 L472,291 L462,296 Z" fill="#f0b429"/>
+    <path d="M462,360 L472,365 L462,370 Z" fill="#38bdf8"/>
+    <path d="M462,434 L472,439 L462,444 Z" fill="#34d399"/>
+    <path d="M462,508 L472,513 L462,518 Z" fill="#a78bfa"/>
+    <path d="M873,396 L884,402 L873,408 Z" fill="#fb7185"/>
   </g>
-  <!-- sources -> ingest -->
-  <line x1="232" y1="402" x2="272" y2="402" stroke="#38bdf8" stroke-width="2.4" opacity="0.5" stroke-dasharray="2 8" stroke-linecap="round"><animate attributeName="stroke-dashoffset" values="20;0" dur="0.9s" repeatCount="indefinite"/></line>
   <!-- fusion -> suppress -> dashboard : risk-score pipe -->
-  <line x1="1020" y1="402" x2="1068" y2="402" stroke="url(#pipe)" stroke-width="5" opacity="0.75" stroke-linecap="round"/>
-  <line x1="1218" y1="402" x2="1262" y2="402" stroke="url(#pipe)" stroke-width="5" opacity="0.75" stroke-linecap="round"/>
+  <line x1="1031" y1="402" x2="1068" y2="402" stroke="url(#pipe)" stroke-width="5" opacity="0.8" stroke-linecap="round"/>
+  <line x1="1188" y1="402" x2="1262" y2="402" stroke="url(#pipe)" stroke-width="5" opacity="0.8" stroke-linecap="round"/>
+  <path d="M1058,396 L1069,402 L1058,408 Z" fill="#fb7185"/>
+  <path d="M1252,396 L1263,402 L1252,408 Z" fill="#34d399"/>
   <g filter="url(#glowSm)">
-    <circle r="3.4" cx="1044" cy="402" fill="#fb7185"><animate attributeName="cx" values="1020;1068" dur="1.1s" repeatCount="indefinite"/></circle>
-    <circle r="3.4" cx="1240" cy="402" fill="#7fe6b6"><animate attributeName="cx" values="1218;1262" dur="1.1s" begin="0.4s" repeatCount="indefinite"/></circle>
+    <circle r="3.4" cx="1050" cy="402" fill="#fb7185"><animate attributeName="cx" values="1031;1068" dur="1.1s" repeatCount="indefinite"/></circle>
+    <circle r="3.4" cx="1225" cy="402" fill="#7fe6b6"><animate attributeName="cx" values="1188;1262" dur="1.1s" begin="0.4s" repeatCount="indefinite"/></circle>
   </g>
 
-  <!-- ===== 01 SOURCES ===== -->
-  <g filter="url(#nodeSh)">
-    <rect x="56" y="204" width="176" height="300" rx="16" fill="url(#surf)" stroke="#2c3949"/>
+  <!-- ===== 01 SOURCES (input panel, cyan inflow edge) ===== -->
+  <g filter="url(#nodeSh)"><rect x="56" y="216" width="176" height="288" rx="16" fill="url(#surf)" stroke="#2c3949"/></g>
+  <rect x="56" y="228" width="6" height="264" rx="3" fill="#38bdf8"/>
+  <text x="80" y="252" font-size="11" font-weight="700" letter-spacing="1.4" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">INGEST SURFACE</text>
+  <g font-size="12.5" font-weight="600" fill="#d4dde7">
+    <g><circle cx="82" cy="286" r="4.5" fill="#38bdf8"/><text x="98" y="290">Live NIC</text><text x="216" y="290" text-anchor="end" font-size="9.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">af_packet</text></g>
+    <g><circle cx="82" cy="328" r="4.5" fill="#38bdf8"/><text x="98" y="332">PCAP replay</text><text x="216" y="332" text-anchor="end" font-size="9.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">.pcap</text></g>
+    <g><circle cx="82" cy="370" r="4.5" fill="#38bdf8"/><text x="98" y="374">Suricata</text><text x="216" y="374" text-anchor="end" font-size="9.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">eve.json</text></g>
+    <g><circle cx="82" cy="412" r="4.5" fill="#38bdf8"/><text x="98" y="416">Zeek</text><text x="216" y="416" text-anchor="end" font-size="9.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">conn.log</text></g>
+    <g><circle cx="82" cy="454" r="4.5" fill="#38bdf8"/><text x="98" y="458">Artifacts</text><text x="216" y="458" text-anchor="end" font-size="9.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">files</text></g>
   </g>
-  <rect x="57" y="205" width="174" height="20" rx="14" fill="#ffffff" opacity="0.04"/>
-  <text x="76" y="234" font-size="11" font-weight="700" letter-spacing="1.4" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">INGEST SURFACE</text>
-  <g font-size="13" font-weight="600" fill="#d4dde7">
-    <g><circle cx="80" cy="266" r="4.5" fill="#38bdf8"/><text x="96" y="270">Live NIC</text><text x="216" y="270" text-anchor="end" font-size="10.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">af_packet</text></g>
-    <g><circle cx="80" cy="312" r="4.5" fill="#38bdf8"/><text x="96" y="316">PCAP replay</text><text x="216" y="316" text-anchor="end" font-size="10.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">.pcap</text></g>
-    <g><circle cx="80" cy="358" r="4.5" fill="#38bdf8"/><text x="96" y="362">Suricata</text><text x="216" y="362" text-anchor="end" font-size="10.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">eve.json</text></g>
-    <g><circle cx="80" cy="404" r="4.5" fill="#38bdf8"/><text x="96" y="408">Zeek</text><text x="216" y="408" text-anchor="end" font-size="10.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">conn.log</text></g>
-    <g><circle cx="80" cy="450" r="4.5" fill="#38bdf8"/><text x="96" y="454">Artifacts</text><text x="216" y="454" text-anchor="end" font-size="10.5" fill="#7d8b9c" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">files</text></g>
-  </g>
-  <line x1="72" y1="478" x2="216" y2="478" stroke="#2c3949"/>
-  <text x="80" y="494" font-size="10.5" fill="#6f7d8e">5 inputs &#183; one intake point</text>
+  <line x1="80" y1="480" x2="216" y2="480" stroke="#2c3949"/>
+  <text x="80" y="496" font-size="11" fill="#6f7d8e">5 inputs &#183; one intake point</text>
 
-  <!-- ===== 02 INGEST / NORMALIZE ===== -->
-  <g filter="url(#nodeSh)">
-    <rect x="272" y="330" width="150" height="144" rx="16" fill="url(#surf)" stroke="#2c3949"/>
-  </g>
+  <!-- ===== 02 INGEST (process card) ===== -->
+  <g filter="url(#nodeSh)"><rect x="272" y="330" width="150" height="144" rx="16" fill="url(#surf)" stroke="#2c3949"/></g>
   <rect x="273" y="331" width="148" height="18" rx="14" fill="#ffffff" opacity="0.04"/>
-  <!-- funnel motif: 3 lines -> 1 -->
-  <g stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" opacity="0.85">
-    <line x1="292" y1="360" x2="316" y2="360"/>
-    <line x1="292" y1="368" x2="316" y2="368"/>
-    <line x1="292" y1="376" x2="316" y2="376"/>
-    <path d="M320,360 L332,368 L320,376" fill="none"/>
-    <line x1="332" y1="368" x2="350" y2="368"/>
+  <g stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" opacity="0.9">
+    <line x1="292" y1="360" x2="316" y2="360"/><line x1="292" y1="368" x2="316" y2="368"/><line x1="292" y1="376" x2="316" y2="376"/>
+    <path d="M320,360 L332,368 L320,376" fill="none"/><line x1="332" y1="368" x2="350" y2="368"/>
   </g>
   <circle cx="356" cy="368" r="3" fill="#38bdf8" filter="url(#glowSm)"/>
-  <text x="292" y="410" font-size="13.5" font-weight="700" fill="#e8eff7">Ingest</text>
-  <text x="292" y="428" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">packets &#8594; flows</text>
-  <text x="292" y="444" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">&#8594; common schema</text>
-  <text x="292" y="460" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">&#8594; features</text>
+  <text x="292" y="410" font-size="15" font-weight="700" fill="#e8eff7">Ingest</text>
+  <text x="292" y="429" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">packets &#8594; flows</text>
+  <text x="292" y="445" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">&#8594; common schema</text>
+  <text x="292" y="461" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">&#8594; features</text>
 
-  <!-- ===== 03 DETECTION ENGINES (4 lanes) ===== -->
-  <!-- lane 1 signature -->
+  <!-- ===== 03 DETECTION ENGINES (4 process lanes) ===== -->
+  <!-- signature -->
   <g filter="url(#nodeSh)"><rect x="470" y="262" width="372" height="58" rx="12" fill="url(#surf)" stroke="#f0b429" stroke-opacity="0.34"/></g>
   <rect x="470" y="272" width="4" height="38" rx="2" fill="#f0b429"/>
   <circle cx="500" cy="291" r="12" fill="#f0b429" fill-opacity="0.14" stroke="#f0b429" stroke-opacity="0.6"/>
   <g stroke="#f0b429" stroke-width="1.5" fill="none" stroke-linecap="round"><path d="M494,291 a6,6 0 0 1 12,0"/><path d="M497,291 a3,3 0 0 1 6,0"/></g>
-  <text x="524" y="287" font-size="14.5" font-weight="700" fill="#f0b429">Signature</text>
+  <text x="524" y="287" font-size="15" font-weight="700" fill="#f0b429">Signature</text>
   <text x="524" y="305" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">YAML rules &#183; known fingerprints</text>
-  <text x="762" y="280" font-size="9" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">vote</text>
+  <text x="762" y="280" font-size="9.5" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">vote</text>
   <rect x="762" y="286" width="64" height="6" rx="3" fill="#243040"/><rect x="762" y="286" width="44" height="6" rx="3" fill="#f0b429"/>
   <text x="826" y="306" text-anchor="end" font-size="9.5" fill="#f0b429" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">0.68</text>
-
-  <!-- lane 2 statistical -->
+  <!-- statistical -->
   <g filter="url(#nodeSh)"><rect x="470" y="336" width="372" height="58" rx="12" fill="url(#surf)" stroke="#38bdf8" stroke-opacity="0.34"/></g>
   <rect x="470" y="346" width="4" height="38" rx="2" fill="#38bdf8"/>
   <circle cx="500" cy="365" r="12" fill="#38bdf8" fill-opacity="0.14" stroke="#38bdf8" stroke-opacity="0.6"/>
   <path d="M493,365 q3.5,-7 7,0 q3.5,7 7,0" stroke="#38bdf8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-  <text x="524" y="361" font-size="14.5" font-weight="700" fill="#38bdf8">Statistical</text>
+  <text x="524" y="361" font-size="15" font-weight="700" fill="#38bdf8">Statistical</text>
   <text x="524" y="379" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">EWMA &#183; z-score &#183; DNS-entropy</text>
-  <text x="762" y="354" font-size="9" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">vote</text>
+  <text x="762" y="354" font-size="9.5" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">vote</text>
   <rect x="762" y="360" width="64" height="6" rx="3" fill="#243040"/><rect x="762" y="360" width="34" height="6" rx="3" fill="#38bdf8"/>
   <text x="826" y="380" text-anchor="end" font-size="9.5" fill="#38bdf8" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">0.54</text>
-
-  <!-- lane 3 supervised -->
+  <!-- supervised -->
   <g filter="url(#nodeSh)"><rect x="470" y="410" width="372" height="58" rx="12" fill="url(#surf)" stroke="#34d399" stroke-opacity="0.34"/></g>
   <rect x="470" y="420" width="4" height="38" rx="2" fill="#34d399"/>
   <circle cx="500" cy="439" r="12" fill="#34d399" fill-opacity="0.14" stroke="#34d399" stroke-opacity="0.6"/>
   <g stroke="#34d399" stroke-width="1.5" fill="#34d399"><circle cx="500" cy="433" r="1.7"/><circle cx="496" cy="444" r="1.7"/><circle cx="504" cy="444" r="1.7"/><path d="M500,433 L496,444 M500,433 L504,444" fill="none" stroke-linecap="round"/></g>
-  <text x="524" y="435" font-size="14.5" font-weight="700" fill="#34d399">Supervised ensemble</text>
+  <text x="524" y="435" font-size="15" font-weight="700" fill="#34d399">Supervised ensemble</text>
   <text x="524" y="453" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">RF &#183; ExtraTrees &#183; HistGB &#183; XGBoost</text>
-  <text x="762" y="428" font-size="9" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">vote</text>
+  <text x="762" y="428" font-size="9.5" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">vote</text>
   <rect x="762" y="434" width="64" height="6" rx="3" fill="#243040"/><rect x="762" y="434" width="58" height="6" rx="3" fill="#34d399"/>
   <text x="826" y="454" text-anchor="end" font-size="9.5" fill="#34d399" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">0.91</text>
-
-  <!-- lane 4 unsupervised -->
+  <!-- unsupervised -->
   <g filter="url(#nodeSh)"><rect x="470" y="484" width="372" height="58" rx="12" fill="url(#surf)" stroke="#a78bfa" stroke-opacity="0.34"/></g>
   <rect x="470" y="494" width="4" height="38" rx="2" fill="#a78bfa"/>
   <circle cx="500" cy="513" r="12" fill="#a78bfa" fill-opacity="0.14" stroke="#a78bfa" stroke-opacity="0.6"/>
   <g fill="#a78bfa"><circle cx="496" cy="510" r="1.5"/><circle cx="501" cy="509" r="1.5"/><circle cx="499" cy="514" r="1.5"/><circle cx="505" cy="516" r="2.2" fill="none" stroke="#a78bfa" stroke-width="1.2"/></g>
-  <text x="524" y="509" font-size="14.5" font-weight="700" fill="#a78bfa">Unsupervised</text>
+  <text x="524" y="509" font-size="15" font-weight="700" fill="#a78bfa">Unsupervised</text>
   <text x="524" y="527" font-size="11" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">IsolationForest &#183; autoencoder</text>
-  <text x="762" y="502" font-size="9" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">vote</text>
+  <text x="762" y="502" font-size="9.5" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">vote</text>
   <rect x="762" y="508" width="64" height="6" rx="3" fill="#243040"/><rect x="762" y="508" width="38" height="6" rx="3" fill="#a78bfa"/>
   <text x="826" y="528" text-anchor="end" font-size="9.5" fill="#a78bfa" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">0.60</text>
 
-  <!-- ===== 04 FUSION ===== -->
-  <g filter="url(#nodeSh)"><rect x="892" y="336" width="128" height="132" rx="16" fill="url(#surfFusion)" stroke="#fb7185" stroke-opacity="0.55"/></g>
+  <!-- ===== 04 FUSION - the hero (large glowing hexagon) ===== -->
+  <ellipse cx="956" cy="402" rx="120" ry="112" fill="url(#halo)"/>
   <g filter="url(#glowRose)">
-    <!-- 4 engine ticks merge into one rose block -->
-    <rect x="912" y="358" width="4" height="14" rx="2" fill="#f0b429"/>
-    <rect x="920" y="358" width="4" height="14" rx="2" fill="#38bdf8"/>
-    <rect x="928" y="358" width="4" height="14" rx="2" fill="#34d399"/>
-    <rect x="936" y="358" width="4" height="14" rx="2" fill="#a78bfa"/>
-    <path d="M946,365 L958,365" stroke="#7d8b9c" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-    <path d="M955,361 L960,365 L955,369" stroke="#7d8b9c" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-    <rect x="964" y="358" width="8" height="14" rx="2" fill="#fb7185"/>
+    <path d="M881,402 L916,317 L996,317 L1031,402 L996,487 L916,487 Z" fill="url(#surfFusion)" stroke="#fb7185" stroke-width="1.6"/>
   </g>
-  <text x="956" y="398" text-anchor="middle" font-size="15" font-weight="800" fill="#fb7185" letter-spacing="0.5">FUSION</text>
-  <text x="956" y="416" text-anchor="middle" font-size="10.5" fill="#c98a97" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">weighted vote</text>
-  <rect x="904" y="430" width="104" height="26" rx="13" fill="#fb7185" fill-opacity="0.16" stroke="#fb7185" stroke-opacity="0.7"/>
-  <text x="956" y="447" text-anchor="middle" font-size="12.5" font-weight="800" fill="#fda4b0" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">RISK 0.82</text>
+  <path d="M881,402 L916,317 L996,317 L1031,402 L996,487 L916,487 Z" fill="none" stroke="#fda4b0" stroke-opacity="0.35"/>
+  <!-- 4 engine ticks merge into one rose block -->
+  <g filter="url(#glowSm)">
+    <rect x="924" y="338" width="4" height="14" rx="2" fill="#f0b429"/><rect x="932" y="338" width="4" height="14" rx="2" fill="#38bdf8"/>
+    <rect x="940" y="338" width="4" height="14" rx="2" fill="#34d399"/><rect x="948" y="338" width="4" height="14" rx="2" fill="#a78bfa"/>
+    <path d="M957,341 L967,341 M964,337 L969,341 L964,345" stroke="#c98a97" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <rect x="973" y="338" width="8" height="14" rx="2" fill="#fb7185"/>
+  </g>
+  <text x="956" y="380" text-anchor="middle" font-size="18" font-weight="800" fill="#fb7185" letter-spacing="0.5">FUSION</text>
+  <text x="956" y="398" text-anchor="middle" font-size="11" fill="#c98a97" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">weighted vote of 4</text>
+  <!-- risk dial -->
+  <path d="M926,452 A30,30 0 0 1 986,452" fill="none" stroke="#3a2730" stroke-width="6" stroke-linecap="round"/>
+  <path d="M926,452 A30,30 0 0 1 981.3,435.9" fill="none" stroke="#fb7185" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="981.3" cy="435.9" r="4" fill="#fda4b0" filter="url(#glowSm)"/>
+  <text x="956" y="450" text-anchor="middle" font-size="15" font-weight="800" fill="#fda4b0" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">0.82</text>
+  <text x="956" y="470" text-anchor="middle" font-size="9.5" fill="#c98a97" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" letter-spacing="1.5">RISK</text>
 
-  <!-- ===== 05 SUPPRESS + RETAIN ===== -->
-  <g filter="url(#nodeSh)"><rect x="1068" y="348" width="150" height="108" rx="16" fill="url(#surf)" stroke="#2c3949"/></g>
-  <rect x="1069" y="349" width="148" height="18" rx="14" fill="#ffffff" opacity="0.04"/>
-  <!-- valve glyph -->
-  <g stroke="#8a97a8" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M1086,376 L1096,382 L1086,388 Z" fill="#8a97a8"/><path d="M1102,382 L1116,382"/></g>
-  <text x="1112" y="380" font-size="12.5" font-weight="700" fill="#e8eff7">Gate</text>
-  <text x="1086" y="404" font-size="11.5" font-weight="600" fill="#cbd5e1">Known-safe muted</text>
-  <text x="1086" y="421" font-size="10.5" fill="#8a97a8" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">audit log kept, not lost</text>
-  <rect x="1086" y="430" width="116" height="18" rx="9" fill="#1e2836" stroke="#33415260"/>
-  <text x="1094" y="443" font-size="10" fill="#93a2b3" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">SQLite &#183; JSONL</text>
+  <!-- ===== 05 SUPPRESS + RETAIN (data-store cylinder) ===== -->
+  <g filter="url(#nodeSh)">
+    <path d="M1068,356 L1068,458 A60,9 0 0 0 1188,458 L1188,356" fill="url(#cyl)" stroke="#2c3949"/>
+    <ellipse cx="1128" cy="356" rx="60" ry="9" fill="#1e2836" stroke="#2c3949"/>
+  </g>
+  <ellipse cx="1128" cy="356" rx="52" ry="6" fill="none" stroke="#33465a" stroke-opacity="0.5"/>
+  <!-- gate/valve glyph -->
+  <g stroke="#8a97a8" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M1105,378 L1115,384 L1105,390 Z" fill="#8a97a8"/><path d="M1121,384 L1135,384"/></g>
+  <text x="1128" y="410" text-anchor="middle" font-size="12.5" font-weight="600" fill="#cbd5e1">Known-safe muted</text>
+  <text x="1128" y="428" text-anchor="middle" font-size="11" fill="#8a97a8" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">audit log kept</text>
+  <text x="1128" y="446" text-anchor="middle" font-size="11" fill="#6f7d8e" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">SQLite &#183; JSONL</text>
 
-  <!-- ===== 06 DASHBOARD ===== -->
-  <g filter="url(#nodeSh)"><rect x="1262" y="300" width="150" height="204" rx="16" fill="url(#surf)" stroke="#2c3949"/></g>
-  <rect x="1263" y="301" width="148" height="18" rx="14" fill="#ffffff" opacity="0.04"/>
-  <circle cx="1282" cy="328" r="4" fill="#34d399" filter="url(#glowSm)"/>
-  <text x="1294" y="332" font-size="11" font-weight="700" fill="#9fb0c0" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">LIVE</text>
-  <text x="1398" y="332" text-anchor="end" font-size="10" fill="#6f7d8e">WebSocket</text>
-  <!-- risk meter -->
-  <text x="1278" y="356" font-size="10" fill="#8a97a8">risk score</text>
-  <rect x="1278" y="362" width="118" height="10" rx="5" fill="#243040"/>
-  <rect x="1278" y="362" width="99" height="10" rx="5" fill="url(#meter)"/>
-  <rect x="1373" y="359" width="3" height="16" rx="1.5" fill="#eef4fb"/>
-  <!-- alert chip -->
-  <rect x="1278" y="384" width="118" height="46" rx="10" fill="#fb7185" fill-opacity="0.12" stroke="#fb7185" stroke-opacity="0.5"/>
-  <text x="1290" y="404" font-size="12" font-weight="800" fill="#fb7185">&#9888; HIGH RISK</text>
-  <text x="1290" y="420" font-size="10" fill="#d79aa6" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">port-scan &#183; 10.0.0.5</text>
-  <!-- counts -->
-  <text x="1278" y="452" font-size="10.5" fill="#8a97a8">alerts today</text>
-  <text x="1396" y="454" text-anchor="end" font-size="18" font-weight="800" fill="#e8eff7">1</text>
-  <line x1="1278" y1="464" x2="1396" y2="464" stroke="#2c3949"/>
-  <text x="1278" y="482" font-size="10.5" font-weight="700" fill="#34d399">AI-assisted triage</text>
-  <text x="1278" y="496" font-size="9.5" fill="#8a97a8" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">local LLM &#183; on-box only</text>
+  <!-- ===== 06 DASHBOARD (output screen with window chrome) ===== -->
+  <g filter="url(#nodeSh)"><rect x="1262" y="300" width="150" height="204" rx="14" fill="url(#surf)" stroke="#33465a"/></g>
+  <path d="M1262,314 a14,14 0 0 1 14,-14 h122 a14,14 0 0 1 14,14 v6 h-150 Z" fill="#0f1826"/>
+  <circle cx="1276" cy="310" r="2.6" fill="#fb7185" fill-opacity="0.7"/><circle cx="1286" cy="310" r="2.6" fill="#f0b429" fill-opacity="0.7"/><circle cx="1296" cy="310" r="2.6" fill="#34d399" fill-opacity="0.7"/>
+  <text x="1398" y="314" text-anchor="end" font-size="9.5" fill="#5b697a" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">live &#183; ws</text>
+  <circle cx="1278" cy="338" r="4" fill="#34d399" filter="url(#glowSm)"/>
+  <text x="1290" y="342" font-size="11" font-weight="700" fill="#9fb0c0" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">DASHBOARD</text>
+  <text x="1278" y="364" font-size="11" fill="#8a97a8">risk score</text>
+  <rect x="1278" y="370" width="118" height="10" rx="5" fill="#243040"/>
+  <rect x="1278" y="370" width="99" height="10" rx="5" fill="url(#meter)"/>
+  <rect x="1373" y="367" width="3" height="16" rx="1.5" fill="#eef4fb"/>
+  <rect x="1278" y="392" width="118" height="46" rx="10" fill="#fb7185" fill-opacity="0.12" stroke="#fb7185" stroke-opacity="0.5"/>
+  <text x="1290" y="412" font-size="12.5" font-weight="800" fill="#fb7185">&#9888; HIGH RISK</text>
+  <text x="1290" y="428" font-size="9" fill="#d79aa6" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">port-scan &#183; 10.0.0.5</text>
+  <text x="1278" y="458" font-size="11" fill="#8a97a8">alerts today</text>
+  <text x="1396" y="460" text-anchor="end" font-size="18" font-weight="800" fill="#e8eff7">1</text>
+  <line x1="1278" y1="470" x2="1396" y2="470" stroke="#2c3949"/>
+  <text x="1278" y="488" font-size="11" font-weight="700" fill="#34d399">AI-assisted triage</text>
+  <text x="1278" y="500" font-size="9.5" fill="#8a97a8" font-family="ui-monospace,SFMono-Regular,Consolas,monospace">local LLM &#183; on-box only</text>
 
   <!-- ===== footer ===== -->
   <line x1="48" y1="690" x2="1392" y2="690" stroke="#212c3b"/>
