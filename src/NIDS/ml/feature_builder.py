@@ -1,18 +1,20 @@
-﻿from __future__ import annotations
-
-from typing import Any
+from __future__ import annotations
 
 import pandas as pd
 
 from .featureset import FEATURE_COLUMNS
 
 
-def _num(series: Any) -> pd.Series | float:
-    if series is None:
-        return 0.0
-    if not isinstance(series, pd.Series):
-        series = pd.Series(series)
+def _num(frame: pd.DataFrame, name: str) -> pd.Series:
+    """Numeric feature column, aligned to ``frame``; missing/malformed -> 0.0."""
+    series = frame[name] if name in frame.columns else pd.Series(0.0, index=frame.index)
     return pd.to_numeric(series, errors="coerce").fillna(0.0)
+
+
+def _text(frame: pd.DataFrame, name: str) -> pd.Series:
+    """String feature column, aligned to ``frame``; missing -> empty string."""
+    series = frame[name] if name in frame.columns else pd.Series("", index=frame.index)
+    return series.astype(str)
 
 
 def build_training_frame(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series, list[str]]:
@@ -22,29 +24,29 @@ def build_training_frame(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series, lis
 
     frame = df.copy()
 
-    frame["packet_len"] = _num(frame.get("packet_len"))
+    frame["packet_len"] = _num(frame, "packet_len")
     frame["payload_len"] = frame["packet_len"]
-    frame["src_port"] = _num(frame.get("src_port"))
-    frame["dst_port"] = _num(frame.get("dst_port"))
+    frame["src_port"] = _num(frame, "src_port")
+    frame["dst_port"] = _num(frame, "dst_port")
 
-    proto = frame.get("proto", pd.Series(dtype=str)).astype(str).str.upper()
+    proto = _text(frame, "proto").str.upper()
     frame["is_tcp"] = (proto == "TCP").astype(float)
     frame["is_udp"] = (proto == "UDP").astype(float)
     frame["is_icmp"] = (proto == "ICMP").astype(float)
 
-    flags = frame.get("tcp_flags", pd.Series(dtype=str)).astype(str)
+    flags = _text(frame, "tcp_flags")
     frame["tcp_syn"] = flags.str.contains("S", regex=False).astype(float)
     frame["tcp_ack"] = flags.str.contains("A", regex=False).astype(float)
 
-    frame["packet_rate_dst"] = _num(frame.get("packet_rate_dst"))
-    frame["unique_dst_ports_src_window"] = _num(frame.get("unique_dst_ports_src_window"))
-    frame["unique_dst_hosts_src_window"] = _num(frame.get("unique_dst_hosts_src_window"))
+    frame["packet_rate_dst"] = _num(frame, "packet_rate_dst")
+    frame["unique_dst_ports_src_window"] = _num(frame, "unique_dst_ports_src_window")
+    frame["unique_dst_hosts_src_window"] = _num(frame, "unique_dst_hosts_src_window")
 
     frame["has_dns_qname"] = 0.0
     frame["has_http_host"] = 0.0
     frame["has_tls_sni"] = 0.0
 
     X = frame[FEATURE_COLUMNS].copy()
-    y = frame.get("label", pd.Series(dtype=str)).astype(str)
+    y = _text(frame, "label")
 
     return X, y, FEATURE_COLUMNS
