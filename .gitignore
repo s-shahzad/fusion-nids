@@ -139,3 +139,4 @@ archives/**
 _lab-evidence/
 pcaps/*-labdemo/
 CI_FIX_STATUS.md
+.venv-ci/
