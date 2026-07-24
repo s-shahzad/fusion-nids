@@ -10,6 +10,10 @@ Fusion NIDS inspects network traffic and flags suspicious activity using four de
 
 It is a research and portfolio project. The goal is to show not only what it detects, but how it behaves under realistic conditions and where its current limits are.
 
+<p align="center">
+  <img src="assets/architecture.svg" alt="Fusion NIDS architecture and data flow: sources to ingest to parse to four detection engines to fusion to storage to dashboard" width="840">
+</p>
+
 ---
 
 ## In plain terms
