@@ -8,6 +8,31 @@ from ..reporting import generate_incident_report
 from ..platform.settings import PlatformSettings
 
 
+def _repo_root() -> Path:
+    # src/NIDS/services/report_service.py -> repository root
+    return Path(__file__).resolve().parents[3]
+
+
+def _reports_root() -> Path:
+    return (_repo_root() / "reports").resolve()
+
+
+def _confine_report_path(out_path: str | Path) -> Path:
+    """Resolve out_path under the fixed reports/ root and reject traversal.
+
+    Uses the same relative_to(root) containment check as the API layer so a
+    caller cannot write incident reports to an arbitrary filesystem location.
+    """
+    reports_root = _reports_root()
+    raw = Path(out_path).expanduser()
+    resolved = (reports_root / raw).resolve() if not raw.is_absolute() else raw.resolve()
+    try:
+        resolved.relative_to(reports_root)
+    except ValueError as exc:
+        raise ValueError("out_path must stay within the reports/ directory.") from exc
+    return resolved
+
+
 class ReportService:
     def __init__(self, settings: PlatformSettings) -> None:
         self.settings = settings
@@ -41,6 +66,7 @@ class ReportService:
             conn.close()
 
     def generate_incident_markdown(self, out_path: str | Path) -> Path:
-        destination = Path(out_path).resolve()
+        destination = _confine_report_path(out_path)
+        destination.parent.mkdir(parents=True, exist_ok=True)
         generate_incident_report(self.settings.sqlite_path, destination)
         return destination

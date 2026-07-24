@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import asyncio
+import hmac
+import os
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from statistics import mean, median, pstdev
@@ -2034,27 +2036,88 @@ def create_dashboard_app(
     finally:
         bootstrap_store.close()
 
-    def _enforce_request_auth(request: Request) -> None:
-        if _is_authorized_token(
-            expected_token,
-            query_token=request.query_params.get("token"),
-            header_token=request.headers.get("x-nids-token"),
-            authorization_header=request.headers.get("authorization"),
-        ):
+    role_priority = {"viewer": 0, "analyst": 1, "admin": 2}
+
+    def _register_role_token(mapping: dict[str, str], raw: str | None, role: str) -> None:
+        token = _normalize_token(raw)
+        if not token:
             return
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
+        current = mapping.get(token)
+        if current is None or role_priority[role] > role_priority[current]:
+            mapping[token] = role
+
+    # Map each configured secret to the MAXIMUM role it may exercise. Authorization
+    # decisions derive the role from the validated token, never from a client header.
+    role_tokens: dict[str, str] = {}
+    _register_role_token(role_tokens, os.getenv("NIDS_DASHBOARD_VIEWER_TOKEN"), "viewer")
+    _register_role_token(role_tokens, os.getenv("NIDS_DASHBOARD_ANALYST_TOKEN"), "analyst")
+    _register_role_token(role_tokens, os.getenv("NIDS_DASHBOARD_ADMIN_TOKEN"), "admin")
+    _register_role_token(role_tokens, expected_token, "viewer")
+    if _normalize_token(action_token):
+        _register_role_token(role_tokens, action_token, "admin")
+    elif expected_token:
+        # Single-operator backward-compat: when only one token is configured it
+        # grants full access (documented localhost single-operator case).
+        _register_role_token(role_tokens, expected_token, "admin")
+
+    def _resolve_role_from_sources(
+        query_token: str | None,
+        header_token: str | None,
+        authorization_header: str | None,
+    ) -> str | None:
+        presented: set[str] = set()
+        for candidate in (
+            _normalize_token(query_token),
+            _normalize_token(header_token),
+            _extract_bearer_token(authorization_header),
+        ):
+            if candidate:
+                presented.add(candidate)
+        best: str | None = None
+        for supplied in presented:
+            for known, role in role_tokens.items():
+                if hmac.compare_digest(supplied, known):
+                    if best is None or role_priority[role] > role_priority[best]:
+                        best = role
+        return best
+
+    def _enforce_request_auth(request: Request) -> str:
+        # Fail closed: with no credentials configured, sensitive routes are denied
+        # rather than served openly to anyone who can reach the port.
+        if not role_tokens:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Dashboard authentication is not configured.",
+            )
+        role = _resolve_role_from_sources(
+            request.query_params.get("token"),
+            request.headers.get("x-nids-token"),
+            request.headers.get("authorization"),
+        )
+        if role is None:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
+        return role
 
     def _get_actor_context(request: Request, action: str) -> tuple[str, str]:
-        actor = _normalize_token(request.headers.get("x-nids-actor")) or "dashboard-user"
-        role = (_normalize_token(request.headers.get("x-nids-role")) or "viewer").lower()
-
-        if expected_action_token is not None and not _is_authorized_token(
-            expected_action_token,
-            query_token=None,
-            header_token=request.headers.get("x-nids-token"),
-            authorization_header=request.headers.get("authorization"),
-        ):
+        # Write capability must be proven by a token that grants at least analyst
+        # access. The query-string read token is intentionally ignored here so a
+        # read-only credential can never authorize a mutation.
+        token_role = _resolve_role_from_sources(
+            None,
+            request.headers.get("x-nids-token"),
+            request.headers.get("authorization"),
+        )
+        if token_role is None or role_priority[token_role] < role_priority["analyst"]:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized action token")
+
+        # The client role header may only DOWNGRADE; it can never exceed the role
+        # bound to the validated token, so it cannot be used to escalate privilege.
+        requested = (_normalize_token(request.headers.get("x-nids-role")) or token_role).lower()
+        if requested not in role_priority:
+            requested = token_role
+        effective_role = requested if role_priority[requested] <= role_priority[token_role] else token_role
+
+        actor = _normalize_token(request.headers.get("x-nids-actor")) or f"{effective_role}-user"
 
         allowed_roles = {
             "ack": {"analyst", "admin"},
@@ -2064,10 +2127,10 @@ def create_dashboard_app(
             "status": {"analyst", "admin"},
             "bulk": {"analyst", "admin"},
         }
-        if role not in allowed_roles.get(action, set()):
+        if effective_role not in allowed_roles.get(action, set()):
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Role not allowed for action")
 
-        return actor, role
+        return actor, effective_role
 
     allowed_incident_priorities = {"low", "medium", "high", "critical"}
     allowed_incident_status = {"open", "triage", "investigating", "contained", "resolved"}
@@ -2602,12 +2665,11 @@ def create_dashboard_app(
 
     @app.websocket("/ws/realtime")
     async def ws_realtime(websocket: WebSocket) -> None:
-        if not _is_authorized_token(
-            expected_token,
-            query_token=websocket.query_params.get("token"),
-            header_token=websocket.headers.get("x-nids-token"),
-            authorization_header=websocket.headers.get("authorization"),
-        ):
+        if not role_tokens or _resolve_role_from_sources(
+            websocket.query_params.get("token"),
+            websocket.headers.get("x-nids-token"),
+            websocket.headers.get("authorization"),
+        ) is None:
             await websocket.close(code=4401)
             return
 

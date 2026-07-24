@@ -564,7 +564,7 @@ def create_app() -> FastAPI:
     @app.get(
         "/runs/{run_name}/summary",
         response_model=RunSummaryResponse,
-        dependencies=[Depends(enforce_rate_limit(limit=30, window_sec=60))],
+        dependencies=[Depends(get_universal_nids_api_key), Depends(enforce_rate_limit(limit=30, window_sec=60))],
     )
     async def run_summary(run_name: str, request: Request) -> RunSummaryResponse:
         try:
@@ -578,7 +578,7 @@ def create_app() -> FastAPI:
     @app.get(
         "/runs/{run_name}/alerts",
         response_model=RunAlertsResponse,
-        dependencies=[Depends(enforce_rate_limit(limit=20, window_sec=60))],
+        dependencies=[Depends(get_universal_nids_api_key), Depends(enforce_rate_limit(limit=20, window_sec=60))],
     )
     async def run_alerts(run_name: str, request: Request, limit: int = 10) -> RunAlertsResponse:
         try:
@@ -589,7 +589,11 @@ def create_app() -> FastAPI:
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    @app.get("/runs/{run_name}/metrics", response_model=RunMetricsResponse)
+    @app.get(
+        "/runs/{run_name}/metrics",
+        response_model=RunMetricsResponse,
+        dependencies=[Depends(get_universal_nids_api_key)],
+    )
     async def run_metrics(run_name: str, request: Request) -> RunMetricsResponse:
         try:
             payload = await run_in_threadpool(run_service.read_metrics, run_name)
@@ -600,7 +604,11 @@ def create_app() -> FastAPI:
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    @app.post("/runs/{run_name}/explain", response_model=ExplainRunResponse)
+    @app.post(
+        "/runs/{run_name}/explain",
+        response_model=ExplainRunResponse,
+        dependencies=[Depends(get_universal_nids_api_key)],
+    )
     async def run_explain(run_name: str, payload: ExplainRunRequest, request: Request) -> ExplainRunResponse:
         try:
             summary = await run_in_threadpool(run_service.read_summary, run_name)
@@ -624,7 +632,11 @@ def create_app() -> FastAPI:
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    @app.post("/exports/portfolio-bundle", response_model=PortfolioBundleResponse)
+    @app.post(
+        "/exports/portfolio-bundle",
+        response_model=PortfolioBundleResponse,
+        dependencies=[Depends(get_universal_nids_api_key)],
+    )
     async def export_portfolio_bundle(payload: PortfolioBundleRequest, request: Request) -> PortfolioBundleResponse:
         try:
             log_api_event(logging.INFO, "portfolio_bundle_export", request=request, run_name=payload.run_name)
@@ -640,7 +652,11 @@ def create_app() -> FastAPI:
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    @app.post("/llm/summarize-run", response_model=SummarizeRunResponse)
+    @app.post(
+        "/llm/summarize-run",
+        response_model=SummarizeRunResponse,
+        dependencies=[Depends(get_universal_nids_api_key)],
+    )
     async def llm_summarize_run(request: SummarizeRunRequest, http_request: Request) -> SummarizeRunResponse:
         try:
             log_api_event(
@@ -659,7 +675,11 @@ def create_app() -> FastAPI:
         except Exception as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    @app.post("/llm/explain-alert", response_model=ExplainAlertResponse)
+    @app.post(
+        "/llm/explain-alert",
+        response_model=ExplainAlertResponse,
+        dependencies=[Depends(get_universal_nids_api_key)],
+    )
     async def llm_explain_alert(request: ExplainAlertRequest, http_request: Request) -> ExplainAlertResponse:
         try:
             log_api_event(
@@ -678,7 +698,11 @@ def create_app() -> FastAPI:
         except Exception as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    @app.post("/llm/analyze-alerts", response_model=AnalyzeAlertsResponse)
+    @app.post(
+        "/llm/analyze-alerts",
+        response_model=AnalyzeAlertsResponse,
+        dependencies=[Depends(get_universal_nids_api_key)],
+    )
     async def llm_analyze_alerts(request: AnalyzeAlertsRequest, http_request: Request) -> AnalyzeAlertsResponse:
         try:
             log_api_event(
