@@ -1,7 +1,6 @@
 # Contributing to Fusion NIDS
 
-Thanks for your interest in improving Fusion NIDS, a hybrid ML network
-intrusion-detection system (published as "Universal NIDS", IEEE GCAIoT 2025).
+Thanks for your interest in improving Fusion NIDS, a hybrid ML network intrusion-detection system.
 Contributions of all sizes are welcome.
 
 ## Ways to contribute
