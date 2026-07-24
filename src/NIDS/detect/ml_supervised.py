@@ -1,6 +1,9 @@
 ﻿from __future__ import annotations
 
+import hashlib
+import hmac
 import logging
+import os
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +15,38 @@ from ..ml.featureset import build_feature_vector
 from ..ml.supervised_ensemble import payload_algorithm_names, payload_model_count, predict_from_payload
 
 logger = logging.getLogger(__name__)
+
+
+def _verify_model_integrity(path: Path) -> bool:
+    """Verify a model file's SHA-256 before it is unpickled by ``joblib.load``.
+
+    ``joblib.load`` unpickles, which executes arbitrary code, so a swapped model
+    file is remote code execution. If an expected digest is configured -- via the
+    ``NIDS_SUPERVISED_MODEL_SHA256`` env var or a sibling ``<model>.sha256`` file --
+    the file is refused on mismatch. With no expected digest configured the load
+    proceeds but is logged as unverified rather than silently trusted.
+    """
+    expected = (os.getenv("NIDS_SUPERVISED_MODEL_SHA256") or "").strip().lower()
+    sidecar = path.with_name(path.name + ".sha256")
+    if not expected and sidecar.exists():
+        parts = sidecar.read_text(encoding="utf-8").strip().split()
+        if parts:
+            expected = parts[0].lower()
+    if not expected:
+        logger.warning(
+            "Loading supervised model %s WITHOUT integrity verification "
+            "(set NIDS_SUPERVISED_MODEL_SHA256 or add a <model>.sha256 sidecar).",
+            path,
+        )
+        return True
+    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    if not hmac.compare_digest(actual, expected):
+        logger.error(
+            "Supervised model %s failed SHA-256 integrity check; refusing to load.",
+            path,
+        )
+        return False
+    return True
 
 
 def _force_single_worker_inference(payload: Any) -> None:
@@ -52,6 +87,9 @@ class SupervisedMLEngine:
         self.model_count = 0
 
         if self.model_path.exists():
+            if not _verify_model_integrity(self.model_path):
+                self.available = False
+                return
             try:
                 # Model files must come from the trusted local training pipeline.
                 payload = joblib.load(self.model_path)
