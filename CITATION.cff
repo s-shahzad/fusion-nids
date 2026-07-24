@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use Fusion NIDS in your research, please cite it."
+title: Fusion NIDS
+abstract: "A hybrid, multi-engine network intrusion detection system with evidence-backed validation."
+type: software
+authors:
+  - family-names: Shaik
+    given-names: Azhad Shahzad
+repository-code: "https://github.com/s-shahzad/fusion-nids"
+license: MIT
+keywords:
+  - intrusion-detection
+  - network-security
+  - machine-learning
+  - anomaly-detection
+preferred-citation:
+  type: conference-paper
+  title: "Plugged-in and Protected: Using ML to Secure IoT-Based EV Charging Stations from DoS Threats"
+  authors:
+    - family-names: Shaik
+      given-names: Azhad Shahzad
+  collection-title: "2025 IEEE Global Conference on Artificial Intelligence and Internet of Things (GCAIoT)"
+  year: 2025
+  doi: 10.1109/GCAIoT68269.2025.11275540
