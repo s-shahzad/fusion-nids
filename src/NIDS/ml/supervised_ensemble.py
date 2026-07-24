@@ -130,11 +130,33 @@ def align_probability_matrix(
     return aligned
 
 
+def _force_single_worker_inference(model: Any) -> None:
+    """Force single-worker inference on a model that exposes ``n_jobs``.
+
+    Per-sample runtime prediction should never fan out across workers; parallelism
+    only helps training. Some hardened environments also refuse parallel inference.
+    """
+    getter = getattr(model, "get_params", None)
+    setter = getattr(model, "set_params", None)
+    if not callable(getter) or not callable(setter):
+        return
+    try:
+        params = getter()
+    except Exception:
+        return
+    if isinstance(params, dict) and "n_jobs" in params and params.get("n_jobs") != 1:
+        try:
+            setter(n_jobs=1)
+        except Exception:
+            pass
+
+
 def predict_with_model(
     model: Any,
     X: Any,
     label_classes: list[str],
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    _force_single_worker_inference(model)
     classes = _ensure_label_classes(label_classes, getattr(model, "classes_", None))
     predictions = np.asarray(model.predict(X), dtype=object)
 
