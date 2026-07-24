@@ -359,7 +359,10 @@ def test_run_local_accepts_correct_api_key(tmp_path: Path, monkeypatch) -> None:
     assert payload["alerts"] == 2
 
 
-def test_read_only_endpoints_remain_open_without_auth(tmp_path: Path, monkeypatch) -> None:
+def test_health_open_but_run_data_requires_configured_api_key(tmp_path: Path, monkeypatch) -> None:
+    # After the auth hardening: /health, /version, /baseline stay open, but the
+    # run-data endpoints (summary/alerts) fail closed with 503 until
+    # UNIVERSAL_NIDS_API_KEY is configured.
     _seed_baseline_profile(tmp_path)
     _seed_run(tmp_path, "run-open")
     monkeypatch.delenv("UNIVERSAL_NIDS_API_KEY", raising=False)
@@ -374,8 +377,8 @@ def test_read_only_endpoints_remain_open_without_auth(tmp_path: Path, monkeypatc
     assert health_status == 200
     assert version_status == 200
     assert baseline_status == 200
-    assert summary_status == 200
-    assert alerts_status == 200
+    assert summary_status == 503
+    assert alerts_status == 503
 
 
 def test_status_endpoint_reports_operating_profile(tmp_path: Path, monkeypatch) -> None:
@@ -434,19 +437,21 @@ def test_run_local_rate_limit_returns_429(tmp_path: Path, monkeypatch) -> None:
 def test_summary_rate_limit_resets_after_window_expiry(tmp_path: Path, monkeypatch) -> None:
     _seed_baseline_profile(tmp_path)
     _seed_run(tmp_path, "run-rate")
+    monkeypatch.setenv("UNIVERSAL_NIDS_API_KEY", "expected-key")
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
     app = app_module.create_app()
     clock = FakeClock()
     app.state.rate_limit_clock = clock
+    headers = {"X-API-Key": "expected-key"}
 
     for _ in range(30):
-        response_status, _, _ = asyncio.run(_asgi_request(app, "GET", "/runs/run-rate/summary"))
+        response_status, _, _ = asyncio.run(_asgi_request(app, "GET", "/runs/run-rate/summary", headers=headers))
         assert response_status == 200
 
-    limited_status, _, limited_payload = asyncio.run(_asgi_request(app, "GET", "/runs/run-rate/summary"))
+    limited_status, _, limited_payload = asyncio.run(_asgi_request(app, "GET", "/runs/run-rate/summary", headers=headers))
     assert limited_status == 429
     assert limited_payload["detail"] == "Too many requests for this route. Try again later."
 
     clock.advance(61.0)
-    recovered_status, _, _ = asyncio.run(_asgi_request(app, "GET", "/runs/run-rate/summary"))
+    recovered_status, _, _ = asyncio.run(_asgi_request(app, "GET", "/runs/run-rate/summary", headers=headers))
     assert recovered_status == 200
