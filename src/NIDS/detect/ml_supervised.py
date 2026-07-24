@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+import logging
 from pathlib import Path
 from typing import Any
 
@@ -9,6 +10,8 @@ import pandas as pd
 
 from ..ml.featureset import build_feature_vector
 from ..ml.supervised_ensemble import payload_algorithm_names, payload_model_count, predict_from_payload
+
+logger = logging.getLogger(__name__)
 
 
 def _force_single_worker_inference(payload: Any) -> None:
@@ -50,6 +53,7 @@ class SupervisedMLEngine:
 
         if self.model_path.exists():
             try:
+                # Model files must come from the trusted local training pipeline.
                 payload = joblib.load(self.model_path)
                 _force_single_worker_inference(payload)
                 self.payload = payload
@@ -60,6 +64,7 @@ class SupervisedMLEngine:
                 self.model_count = payload_model_count(payload)
                 self.available = self.payload is not None
             except Exception:
+                logger.error(f"Failed to load supervised model from {self.model_path}")
                 self.available = False
 
     def detect(self, event: dict[str, Any], features: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
@@ -77,6 +82,7 @@ class SupervisedMLEngine:
             predictions, scores, _ = predict_from_payload(self.payload, matrix)
             label = str(predictions[0])
         except Exception:
+            logger.exception("Inference failed during supervised model prediction")
             return [], {}
 
         score = float(scores[0]) if len(scores) else 0.0

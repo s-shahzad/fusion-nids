@@ -1,23 +1,13 @@
 from __future__ import annotations
 
 import copy
-from datetime import datetime
 from pathlib import Path
 import time
 from typing import Any
 
+from ..utils.time import parse_epoch
 from .ml_supervised import SupervisedMLEngine
 from .ml_unsupervised import UnsupervisedMLEngine
-
-
-def _to_epoch(value: Any) -> float | None:
-    token = str(value or "").strip()
-    if not token:
-        return None
-    try:
-        return datetime.fromisoformat(token.replace("Z", "+00:00")).timestamp()
-    except Exception:
-        return None
 
 
 class MLEngineRouter:
@@ -119,7 +109,7 @@ class MLEngineRouter:
             return None
 
         key = self._live_key(event)
-        now_epoch = _to_epoch(event.get("timestamp")) or time.monotonic()
+        now_epoch = parse_epoch(event.get("timestamp")) or time.monotonic()
         last_epoch = self._live_last_inference_ts.get(key)
         if last_epoch is None:
             return None
@@ -136,7 +126,7 @@ class MLEngineRouter:
             return
 
         key = self._live_key(event)
-        now_epoch = _to_epoch(event.get("timestamp")) or time.monotonic()
+        now_epoch = parse_epoch(event.get("timestamp")) or time.monotonic()
         self._live_last_inference_ts[key] = now_epoch
         self._live_prediction_cache[key] = copy.deepcopy(prediction)
         self._maybe_prune_live_cache(now_epoch)

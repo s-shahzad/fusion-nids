@@ -4,6 +4,7 @@ import datetime as dt
 import hashlib
 import io
 import ipaddress
+import logging
 import os
 import re
 import socket
@@ -16,6 +17,8 @@ from collections import Counter, defaultdict, deque
 from typing import Any
 
 from flask import Flask, jsonify, request, send_from_directory
+
+logger = logging.getLogger(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MAX_UPLOAD_BYTES = 700 * 1024 * 1024
@@ -988,8 +991,13 @@ def static_assets(asset_path: str) -> Any:
     if asset_path.startswith("api/"):
         return jsonify({"error": "Not found"}), 404
 
-    target = os.path.join(BASE_DIR, asset_path)
-    if os.path.isfile(target):
+    # Sanitize path: reject ".." segments and confine to BASE_DIR.
+    normalized = os.path.normpath(os.path.join(BASE_DIR, asset_path))
+    if not normalized.startswith(os.path.normpath(BASE_DIR)):
+        logger.warning(f"Attempted path traversal in static_assets: {asset_path}")
+        return jsonify({"error": "Not found"}), 404
+
+    if os.path.isfile(normalized):
         return send_from_directory(BASE_DIR, asset_path)
 
     return jsonify({"error": "Not found"}), 404

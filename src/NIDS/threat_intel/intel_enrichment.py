@@ -1,18 +1,11 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ..utils.time import now_ts, parse_epoch
 from .intel_cache import IntelCache
 from .ip_reputation import IPReputationProvider
-
-
-def _to_epoch(value: str) -> float:
-    try:
-        return datetime.fromisoformat(value.replace("Z", "+00:00")).timestamp()
-    except Exception:
-        return datetime.now(timezone.utc).timestamp()
 
 
 def _severity_rank(value: str) -> int:
@@ -103,7 +96,9 @@ class ThreatIntelEnricher:
         if not self.emit_match_alerts:
             return enriched
 
-        now_epoch = _to_epoch(str(flow_record.get("timestamp") or ""))
+        now_epoch = parse_epoch(flow_record.get("timestamp"))
+        if now_epoch is None:
+            now_epoch = now_ts()
         dedupe_key = "|".join(sorted(f"{item['matched_role']}:{item['ip']}" for item in matches if item.get("ip")))
         if not dedupe_key or not self._should_emit(dedupe_key, now_epoch):
             return enriched

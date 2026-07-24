@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import logging
 import queue
 import threading
 import time
 from dataclasses import dataclass, field
 from typing import Any, Callable
+
+logger = logging.getLogger(__name__)
 
 
 ColdTask = tuple[str, Callable[..., Any], tuple[Any, ...], dict[str, Any], float]
@@ -53,6 +56,7 @@ class ColdPathWorker:
                         self._stats.completed += 1
                         self._stats.lag_samples_ms.append(lag_ms)
                 except Exception:
+                    logger.exception(f"Cold-path task '{_name}' failed")
                     with self._lock:
                         self._stats.failed += 1
                         self._stats.lag_samples_ms.append(lag_ms)

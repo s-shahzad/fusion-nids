@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 
 from .artifacts.intake import run_artifact_scan, run_artifact_watch
@@ -238,7 +239,26 @@ def cmd_visualize(args: argparse.Namespace) -> int:
     return 0
 
 
+_LOOPBACK_HOSTS = {"127.0.0.1", "::1", "localhost", ""}
+
+
 def cmd_dashboard(args: argparse.Namespace) -> int:
+    host = str(args.host or "").strip()
+    token_configured = any(
+        bool(str(value or "").strip())
+        for value in (
+            args.token,
+            args.action_token,
+            os.getenv("NIDS_DASHBOARD_VIEWER_TOKEN"),
+            os.getenv("NIDS_DASHBOARD_ANALYST_TOKEN"),
+            os.getenv("NIDS_DASHBOARD_ADMIN_TOKEN"),
+        )
+    )
+    if host not in _LOOPBACK_HOSTS and not token_configured:
+        raise SystemExit(
+            "Refusing to start dashboard on a non-loopback host without a token. "
+            "Set --token/--action-token (or NIDS_DASHBOARD_*_TOKEN), or bind --host 127.0.0.1."
+        )
     run_dashboard(
         db_path=args.from_db,
         host=args.host,

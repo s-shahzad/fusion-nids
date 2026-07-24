@@ -15,6 +15,7 @@ from .ingest import run_live_capture, run_offline_pcaps, run_suricata_eve, run_z
 from .pipeline.features import FeatureExtractor
 from .storage import JSONLStore, SQLiteStore
 from .utils import SlackWebhookNotifier
+from .utils.time import parse_epoch
 
 
 @dataclass
@@ -32,13 +33,6 @@ class RuntimeStats:
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
-
-
-def _to_epoch(value: str) -> float | None:
-    try:
-        return datetime.fromisoformat(value.replace("Z", "+00:00")).timestamp()
-    except Exception:
-        return None
 
 
 def _severity_bucket(severity: str) -> str:
@@ -175,7 +169,7 @@ class NIDSRuntime:
         )
 
         event_timestamp = str(event.get("timestamp") or _now_iso())
-        event_epoch = _to_epoch(event_timestamp)
+        event_epoch = parse_epoch(event_timestamp)
         if event_epoch is not None:
             now_epoch = datetime.now(timezone.utc).timestamp()
             self.stats.last_ingest_lag_sec = max(0.0, now_epoch - event_epoch)

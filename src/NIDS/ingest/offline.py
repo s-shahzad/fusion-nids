@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from ..pipeline.parser import parse_packet
+from ..utils.time import parse_epoch
 
 PCAP_EXTENSIONS = {".pcap", ".pcapng", ".cap"}
 
@@ -25,25 +26,6 @@ class LabelRule:
     proto: str | None
     label: str
     attack_type: str | None
-
-
-def _to_epoch(value: str | None) -> float | None:
-    if value is None:
-        return None
-
-    token = str(value).strip()
-    if not token:
-        return None
-
-    try:
-        return float(token)
-    except Exception:
-        pass
-
-    try:
-        return datetime.fromisoformat(token.replace("Z", "+00:00")).timestamp()
-    except Exception:
-        return None
 
 
 def _safe_int(value: str | None) -> int | None:
@@ -73,8 +55,8 @@ def _parse_label_rules(labels_path: Path | None) -> list[LabelRule]:
             rules.append(
                 LabelRule(
                     pcap_file=str(row.get("pcap_file") or "").strip().lower(),
-                    start_time=_to_epoch(row.get("start_time")),
-                    end_time=_to_epoch(row.get("end_time")),
+                    start_time=parse_epoch(row.get("start_time")),
+                    end_time=parse_epoch(row.get("end_time")),
                     src_ip=(str(row.get("src_ip") or "").strip() or None),
                     dst_ip=(str(row.get("dst_ip") or "").strip() or None),
                     src_port=_safe_int(row.get("src_port")),

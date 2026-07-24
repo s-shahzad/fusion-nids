@@ -4,8 +4,9 @@ import math
 import re
 from collections import defaultdict, deque
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from typing import Any
+
+from ..utils.time import now_ts, parse_epoch
 
 HTTP_LOGIN_URI_PATTERNS = (
     "/login",
@@ -20,13 +21,6 @@ HTTP_LOGIN_BODY_RE = re.compile(
     r"(password=|passwd=|pwd=|pass=|username=|user=|login=|grant_type=password)",
     re.IGNORECASE,
 )
-
-
-def _to_epoch(timestamp: str) -> float:
-    try:
-        return datetime.fromisoformat(timestamp.replace("Z", "+00:00")).timestamp()
-    except Exception:
-        return datetime.now(timezone.utc).timestamp()
 
 
 @dataclass
@@ -78,7 +72,9 @@ class AnomalyEngine:
         self.last_alert_ts: dict[str, float] = defaultdict(float)
 
     def detect(self, event: dict[str, Any], features: dict[str, Any]) -> tuple[list[dict[str, Any]], float | None]:
-        ts = _to_epoch(str(event.get("timestamp", "")))
+        ts = parse_epoch(event.get("timestamp"))
+        if ts is None:
+            ts = now_ts()
         src_ip = str(event.get("src_ip") or "unknown")
         dst_ip = str(event.get("dst_ip") or "unknown")
 
