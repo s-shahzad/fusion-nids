@@ -1,12 +1,24 @@
 # Fusion NIDS
 
-**Hybrid network intrusion detection with evidence-backed lab validation.**
+**A hybrid, multi-engine network intrusion detection system with evidence-backed validation.**
 
-Fusion NIDS is a research-first intrusion detection workspace that unifies live packet capture, offline PCAP replay, optional Suricata/Zeek adapter ingest, static artifact analysis, multi-engine detection, retained evidence, and analyst-facing reporting in one repository. It is built to show not only what it can detect, but how it behaves under realistic conditions and where its current boundaries are.
+[![CI](https://github.com/s-shahzad/fusion-nids/actions/workflows/ci.yml/badge.svg)](https://github.com/s-shahzad/fusion-nids/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT%20core%20%2B%20GPL%20lab-informational)
+
+Fusion NIDS inspects network traffic and flags suspicious activity using four detection methods at once, then blends their verdicts into a single risk score. It works on live traffic or recorded captures, keeps the evidence behind every alert, and ships with a live dashboard plus optional AI-assisted triage that runs locally and never sends your data off the machine.
+
+It is a research and portfolio project. The goal is to show not only what it detects, but how it behaves under realistic conditions and where its current limits are.
 
 ---
 
-## Architecture
+## In plain terms
+
+Think of a security guard for your network. Every packet of traffic is a person walking toward a door. The guard checks each one four different ways, a rulebook of known-bad fingerprints, a sense of what "normal" looks like, a trained model, and a detector for anything simply unusual, then combines those checks into one score and raises an alert only when it should. Fusion NIDS is that guard, plus the camera feed (a live dashboard), the logbook (stored evidence), and the incident write-up (reports and local AI triage).
+
+---
+
+## How it works
 
 ```
 +--------------------+      +--------------------+      +---------------------------+
@@ -49,9 +61,30 @@ Fusion NIDS is a research-first intrusion detection workspace that unifies live 
                                |  Live dashboard (WebSocket + HTTP fallback)       |
                                |  Offline graphs and visual analytics              |
                                |  Incident / SLA / threshold tuning reports        |
-                               |  AI-assisted triage (local LLM, no data egress)  |
+                               |  AI-assisted triage (local LLM, no data egress)   |
                                +---------------------------------------------------+
 ```
+
+Stage by stage:
+
+1. **Input sources.** Read traffic live off a network card, replay it from saved PCAP files, ingest Suricata or Zeek JSON, or hand it a file to inspect.
+2. **Ingest.** Every source feeds into one intake point.
+3. **Parse and normalize.** Packets become flows (conversations between two machines) reshaped into one common schema so every later step reads the same fields.
+4. **Detection engines.** Four engines score each event: signature rules, statistical anomaly, a supervised ensemble, and an unsupervised detector. A fusion step blends them into one risk score.
+5. **Suppress and retain.** Alerts, flows, and metrics are written to SQLite and JSONL. Known-safe repeats are suppressed with an audit trail so analysts are not buried.
+6. **Analytics and output.** A live dashboard, offline graphs, incident and SLA reports, and optional local-LLM triage. No data leaves the machine.
+
+---
+
+## The detection engines
+
+| Engine | Method | Catches |
+|--------|--------|---------|
+| Signature | YAML rule matching | known attacks with a fixed fingerprint |
+| Statistical | EWMA, z-score, DNS burst | sudden spikes against a learned baseline |
+| Supervised | ensemble of RandomForest, ExtraTrees, HistGB, XGBoost | attack patterns learned from labeled data |
+| Unsupervised | IsolationForest, autoencoder | novel or unlabeled odd behavior |
+| Fusion | weighted risk scoring | combined confidence across all four |
 
 ---
 
@@ -60,13 +93,13 @@ Fusion NIDS is a research-first intrusion detection workspace that unifies live 
 | Area | What is supported |
 |------|-------------------|
 | **Ingest** | Live NIC capture, offline PCAP replay, Suricata/Zeek JSON adapters |
-| **Artifact analysis** | Static triage without file execution — PE, PDF, Office, script |
-| **Detection** | Signature rules, statistical anomaly (EWMA/z-score/DNS burst), supervised ensemble (RF + ET + HGB + XGB), optional unsupervised (IsolationForest + autoencoder), fusion scoring |
+| **Artifact analysis** | Static triage without file execution: PE, PDF, Office, script |
+| **Detection** | Signature rules, statistical anomaly, supervised ensemble, optional unsupervised, fusion scoring |
 | **Retention** | SQLite, per-run JSONL (alerts, flows, metrics), trained model pickle |
-| **Dashboard** | Live WebSocket dashboard with incident ACK/suppress actions, sensor comparison, anomaly trend bands, drift alerts, URL-persistent filters |
+| **Dashboard** | Live WebSocket dashboard with incident ACK/suppress, sensor comparison, anomaly trend bands, drift alerts, URL-persistent filters |
 | **Reporting** | Incident reports, weekly SLA summaries, threshold tuning guidance, visual analytics |
-| **AI triage** | Local LLM triage against an existing run folder — no data leaves the machine |
-| **Lab** | Adversary replay scenarios via `adversary_lab` (optional, GPL-licensed — see [Licensing](#licensing)) |
+| **AI triage** | Local LLM triage against an existing run folder, no data leaves the machine |
+| **Lab** | Adversary replay scenarios via `adversary_lab` (optional, GPL-licensed, see [Licensing](#licensing)) |
 
 ---
 
@@ -74,14 +107,14 @@ Fusion NIDS is a research-first intrusion detection workspace that unifies live 
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.10 or newer
 - Linux or Windows (live capture requires appropriate privileges)
 
 ### Install
 
 ```bash
-git clone https://github.com/<your-username>/nids.git
-cd nids
+git clone https://github.com/s-shahzad/fusion-nids.git
+cd fusion-nids
 python -m venv .venv
 # Linux/macOS
 source .venv/bin/activate
@@ -129,7 +162,6 @@ python -m nids report --from-db output/nids.db --out reports/summary.md
 ```bash
 # Windows
 .\nids-triage.cmd "output\<run-folder-name>"
-
 # Output: triage_<run>.json + triage_<run>_report.md in the same folder
 ```
 
@@ -142,7 +174,7 @@ python -m nids evaluate --from-db output/nids.db --model models/model.pkl --out 
 
 ---
 
-## Validation Snapshot
+## Validation snapshot
 
 This project treats validation as a first-class output. The current baseline:
 
@@ -155,25 +187,25 @@ This project treats validation as a first-class output. The current baseline:
 | Coverage floor (enforced) | 72% |
 | Latest offline lab scenario passes | 5 |
 | Latest prepared-environment passes | 10 of 17 manifests |
-| Benign soak (tuned) | 1,416 flows — 0 alerts |
-| Soak pilot | 4,742 flows — 0 alerts, 13.3s restart latency in a 900s pilot |
+| Benign soak (tuned) | 1,416 flows, 0 alerts |
+| Soak pilot | 4,742 flows, 0 alerts, 13.3s restart latency in a 900s pilot |
 
 **Selected prepared-environment highlights:**
 
-- `PREP-ENV-003` — retained queue-depth and packet-loss evidence (99.7% loss under pressure, correctly accounted)
-- `PREP-ENV-005` — false-positive adjudication: applied a targeted unsupervised-tuning change, reran 1,416 benign flows, reached 0 alerts
-- `LAB-SCN-005` — combined network + artifact evidence: 7 flows, 1 network alert, 4 artifact rows, 2 quarantined high-risk artifacts
+- `PREP-ENV-003`: retained queue-depth and packet-loss evidence (99.7% loss under pressure, correctly accounted)
+- `PREP-ENV-005`: false-positive adjudication, applied a targeted unsupervised-tuning change, reran 1,416 benign flows, reached 0 alerts
+- `LAB-SCN-005`: combined network and artifact evidence, 7 flows, 1 network alert, 4 artifact rows, 2 quarantined high-risk artifacts
 
 ---
 
-## What This Repo Is Not
+## What this repo is not
 
 This is a research and portfolio project, not a production security product. Specifically:
 
 - Not validated for zero-downtime production operation
 - Not yet validated with a full-duration benign soak at production traffic volume
 - Not enterprise-supported or commercially maintained
-- The live dashboard and API are designed for **local use only** (127.0.0.1) — do not expose them without adding authentication middleware
+- The live dashboard and API are designed for **local use only** (127.0.0.1). Do not expose them without adding authentication middleware.
 
 ---
 
@@ -187,7 +219,12 @@ This is a research and portfolio project, not a production security product. Spe
 | [False-positive analysis](docs/false_positive_analysis.md) | Tuning decisions and adjudication log |
 | [Deployment readiness checklist](docs/deployment_readiness_checklist.md) | Current readiness gate status |
 | [Evidence inventory](docs/evidence_inventory.md) | What evidence exists and where |
-| [Paper outline](docs/paper_outline.md) | Research paper planning |
+
+---
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, tests, and the pull-request process, and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community expectations.
 
 ---
 
@@ -201,14 +238,22 @@ This is a research and portfolio project, not a production security product. Spe
 
 ---
 
+## Related research
+
+The author is first author on IEEE-published research in ML-based attack detection:
+
+> "Plugged-in and Protected: Using ML to Secure IoT-Based EV Charging Stations from DoS Threats." IEEE GCAIoT 2025. DOI: [10.1109/GCAIoT68269.2025.11275540](https://doi.org/10.1109/GCAIoT68269.2025.11275540)
+
+---
+
 ## Licensing
 
-The core NIDS detection engine and API (`src/NIDS/` excluding `adversary_lab/`) are licensed under the **MIT License** — see [LICENSE](LICENSE).
+The core detection engine and API (`src/NIDS/` excluding `adversary_lab/`) are licensed under the **MIT License**, see [LICENSE](LICENSE).
 
-The `src/NIDS/adversary_lab/` component depends on [Scapy](https://scapy.net) (GPL-2.0-only) and is therefore licensed under **GPL-2.0-or-later** — see [src/NIDS/adversary_lab/LICENSE](src/NIDS/adversary_lab/LICENSE). This component is optional and not required to run the core detection pipeline.
+The `src/NIDS/adversary_lab/` component depends on [Scapy](https://scapy.net) (GPL-2.0-only) and is therefore licensed under **GPL-2.0-or-later**, see [src/NIDS/adversary_lab/LICENSE](src/NIDS/adversary_lab/LICENSE). This component is optional and not required to run the core detection pipeline.
 
 ---
 
 ## Security
 
-To report a vulnerability, see [SECURITY.md](SECURITY.md).
+To report a vulnerability, see [SECURITY.md](SECURITY.md). Please do not open a public issue for security problems.
