@@ -20,30 +20,11 @@ venv/
 # Large local artifacts excluded from Git
 archives\archives\GeneratedLabelledFlows.zip
 archives\archives\CAPSTON\MachineLearningCSV.zip
-archives\archives\ev_related_data\original_sources\C\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].zip
-archives\archives\found_nids\C\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].zip
-archives\archives\local_only\files\C\Desktop\0c3c11cd4009b9f32d6979519436757452fc299768dfed94f91d942d149e8979-2025-06-17-03-42-57-071a816ba1cf4ee9bf08fa566e7455c8.zip
-archives\archives\local_only\files\C\Desktop\GeneratedLabelledFlows.zip
-archives\archives\local_only\files\C\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].zip
-archives\archives\local_only\files\C\NIDS_Workspace\found_nids\C\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].zip
-archives\archives\local_only\files\C\NIDS_Workspace\merged_unique\from_scan\C\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].zip
-archives\archives\local_only\merged_unique\C\Desktop\0c3c11cd4009b9f32d6979519436757452fc299768dfed94f91d942d149e8979-2025-06-17-03-42-57-071a816ba1cf4ee9bf08fa566e7455c8.zip
-archives\archives\local_only\merged_unique\C\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].zip
-archives\archives\merged_unique\from_scan\C\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].zip
 data\raw\data\raw\CAPSTON\dos_filtered_network_traffic.csv
 data\raw\data\raw\CAPSTON\network_traffic.csv
 data\raw\data\raw\CAPSTON\processed_data.csv
 data\raw\data\raw\CAPSTON\processed_network_traffic.csv
 data\raw\data\raw\CAPSTON\FINAL\network_traffic.csv
-data\raw\data\raw\ev_related_data\original_sources\C\Documents\Collected\Downloads\network_traffic.csv
-data\raw\data\raw\ev_related_data\original_sources\C\Documents\Important\college\lab\CAPSTON\dos_filtered_network_traffic.csv
-data\raw\data\raw\ev_related_data\original_sources\C\Documents\Important\college\lab\CAPSTON\network_traffic.csv
-data\raw\data\raw\ev_related_data\original_sources\C\Documents\Important\college\lab\CAPSTON\processed_data.csv
-data\raw\data\raw\ev_related_data\original_sources\C\Documents\Important\college\lab\CAPSTON\processed_network_traffic.csv
-data\raw\data\raw\ev_related_data\original_sources\C\Documents\Important\college\lab\CAPSTON\FINAL\network_traffic.csv
-ev_related_data\original_sources\C\Videos\Collected\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].mp4
-found_nids\C\Videos\Collected\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].mp4
-merged_unique\from_scan\C\Videos\Collected\Documents\Important\college\lab\CAPSTON\1\NIDS_EVCS_Updated_Enhanced[1].mp4
 
 # Personal/academic data — never commit
 data/raw/ev_related_data/
@@ -150,3 +131,11 @@ artifacts/*.txt
 
 
 cloud_data/
+
+# generic archive/output ignore (replaces removed literal historical paths)
+archives/**
+
+# preserved local-only evidence and scratch - never publish
+_lab-evidence/
+pcaps/*-labdemo/
+CI_FIX_STATUS.md
