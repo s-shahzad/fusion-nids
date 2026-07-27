@@ -1,0 +1,46 @@
+version: 2
+
+updates:
+  # Python runtime dependencies
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: America/New_York
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - security
+    commit-message:
+      prefix: "deps"
+      include: scope
+    groups:
+      # Batch low-risk updates so they arrive as one reviewable PR
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # Container base image
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - docker
+
+  # Pinned action versions are a supply-chain surface; keep them current
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - ci
