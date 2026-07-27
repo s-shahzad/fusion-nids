@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-03-12T03:36:04+00:00",
-  "results_root": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results",
+  "results_root": "lab\\results",
   "total_runs": 6,
   "latest_by_scenario": {
     "LAB-SCN-005": {
@@ -8,7 +8,7 @@
       "scenario_id": "LAB-SCN-005",
       "scenario_name": "Artifact And Network Correlation Offline Replay",
       "run_name": "phase3-artifact-network-correlation-offline-20260312-033521",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-005-artifact-network-correlation.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-005-artifact-network-correlation.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -70,18 +70,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifact-network-correlation-offline.pcap",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifact-network-correlation-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -89,44 +89,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:35:21+00:00",
           "duration_sec": 4.548,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\serious_test_report.md"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:35:26+00:00",
           "duration_sec": 1.704,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\threshold_tuning.json",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\threshold_tuning.md",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -134,69 +134,69 @@
           "required": true,
           "started_at": "2026-03-12T03:35:28+00:00",
           "duration_sec": 1.729,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\visual_export"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:35:29+00:00",
           "duration_sec": 30.902,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\visualize.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "artifact-scan",
             "--path",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\incoming",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\incoming",
             "--recursive",
             "--db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--jsonl",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts.jsonl",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts.jsonl",
             "--processed-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed",
             "--quarantine-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:36:00+00:00",
           "duration_sec": 1.887,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\artifact_scan.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\artifact_scan.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "artifact-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts_report.md"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:36:02+00:00",
           "duration_sec": 1.796,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\artifact_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\artifact_report.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+        "db_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
         "exists": true,
         "counts": {
           "flows": 7,
@@ -248,7 +248,7 @@
             {
               "filename": "stage_loader.ps1",
               "risk_level": "high",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine\\stage_loader.ps1",
+              "stored_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine\\stage_loader.ps1",
               "reasons": [
                 "contains_suspicious_strings",
                 "executable_with_suspicious_strings",
@@ -258,7 +258,7 @@
             {
               "filename": "mailbox_upgrade.html",
               "risk_level": "high",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine\\mailbox_upgrade.html",
+              "stored_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine\\mailbox_upgrade.html",
               "reasons": [
                 "html_many_inline_scripts",
                 "html_suspicious_domains"
@@ -267,7 +267,7 @@
             {
               "filename": "browser_tokens.json",
               "risk_level": "medium",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed\\browser_tokens.json",
+              "stored_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed\\browser_tokens.json",
               "reasons": [
                 "json_contains_sensitive_or_execution_keys",
                 "yara_lite:credential_theft_pattern"
@@ -276,33 +276,33 @@
             {
               "filename": "asset_inventory.csv",
               "risk_level": "low",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed\\asset_inventory.csv",
+              "stored_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed\\asset_inventory.csv",
               "reasons": []
             }
           ]
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifact-network-correlation-offline.pcap",
-        "artifact_incoming_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\incoming",
-        "artifact_processed_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed",
-        "artifact_quarantine_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521",
+        "pcap_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifact-network-correlation-offline.pcap",
+        "artifact_incoming_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\incoming",
+        "artifact_processed_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed",
+        "artifact_quarantine_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine",
+        "manifest_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\manifest.json",
+        "summary_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\summary.md",
+        "metrics_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\manifest.json"
     },
     "LAB-SCN-004": {
       "generated_at": "2026-03-12T03:30:24+00:00",
       "scenario_id": "LAB-SCN-004",
       "scenario_name": "Mixed Benign And Malicious Offline Replay",
       "run_name": "phase3-mixed-traffic-offline-20260312-032936",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-004-mixed-traffic.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-004-mixed-traffic.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -364,18 +364,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\inputs\\mixed-traffic-offline.pcap",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\inputs\\mixed-traffic-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -383,44 +383,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:29:36+00:00",
           "duration_sec": 19.081,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\serious_test_report.md"
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:29:55+00:00",
           "duration_sec": 1.861,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\threshold_tuning.json",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\threshold_tuning.md",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -428,28 +428,28 @@
           "required": true,
           "started_at": "2026-03-12T03:29:57+00:00",
           "duration_sec": 1.804,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\visual_export"
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:29:59+00:00",
           "duration_sec": 25.433,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\visualize.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
+        "db_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
         "exists": true,
         "counts": {
           "flows": 82,
@@ -550,23 +550,23 @@
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\inputs\\mixed-traffic-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936",
+        "pcap_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\inputs\\mixed-traffic-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\manifest.json",
+        "summary_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\summary.md",
+        "metrics_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\manifest.json"
     },
     "LAB-SCN-003": {
       "generated_at": "2026-03-12T03:29:36+00:00",
       "scenario_id": "LAB-SCN-003",
       "scenario_name": "Flood And Burst Offline Replay",
       "run_name": "phase3-flood-burst-offline-20260312-032754",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-003-flood-burst.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-003-flood-burst.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -625,18 +625,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\inputs\\flood-burst-offline.pcap",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\inputs\\flood-burst-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -644,44 +644,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:27:54+00:00",
           "duration_sec": 63.949,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\serious_test_report.md"
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:28:58+00:00",
           "duration_sec": 1.834,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\threshold_tuning.json",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\threshold_tuning.md",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -689,28 +689,28 @@
           "required": true,
           "started_at": "2026-03-12T03:29:00+00:00",
           "duration_sec": 1.805,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\visual_export"
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:29:02+00:00",
           "duration_sec": 34.433,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\visualize.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
+        "db_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
         "exists": true,
         "counts": {
           "flows": 296,
@@ -789,23 +789,23 @@
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\inputs\\flood-burst-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-flood-burst-offline-20260312-032754",
+        "pcap_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\inputs\\flood-burst-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\manifest.json",
+        "summary_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\summary.md",
+        "metrics_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\manifest.json"
     },
     "LAB-SCN-002": {
       "generated_at": "2026-03-12T03:27:54+00:00",
       "scenario_id": "LAB-SCN-002",
       "scenario_name": "HTTP Login Brute Force Offline Replay",
       "run_name": "phase3-http-login-bruteforce-offline-20260312-032715",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-002-http-login-bruteforce.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-002-http-login-bruteforce.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -863,18 +863,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\inputs\\http-login-bruteforce-offline.pcap",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\inputs\\http-login-bruteforce-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -882,44 +882,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:27:15+00:00",
           "duration_sec": 6.005,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\serious_test_report.md"
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:27:21+00:00",
           "duration_sec": 1.886,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\threshold_tuning.json",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\threshold_tuning.md",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -927,28 +927,28 @@
           "required": true,
           "started_at": "2026-03-12T03:27:23+00:00",
           "duration_sec": 1.843,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\visual_export"
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:27:25+00:00",
           "duration_sec": 28.963,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\visualize.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
+        "db_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
         "exists": true,
         "counts": {
           "flows": 14,
@@ -993,23 +993,23 @@
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\inputs\\http-login-bruteforce-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715",
+        "pcap_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\inputs\\http-login-bruteforce-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\manifest.json",
+        "summary_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\summary.md",
+        "metrics_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\manifest.json"
     },
     "LAB-SCN-001": {
       "generated_at": "2026-03-12T03:27:15+00:00",
       "scenario_id": "LAB-SCN-001",
       "scenario_name": "Port Scan Offline Replay",
       "run_name": "phase3-port-scan-offline-20260312-032633",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-001-port-scan.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-001-port-scan.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -1069,18 +1069,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\inputs\\port-scan-offline.pcap",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\inputs\\port-scan-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -1088,44 +1088,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:26:33+00:00",
           "duration_sec": 10.054,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\serious_test_report.md"
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:26:43+00:00",
           "duration_sec": 1.822,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\threshold_tuning.json",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\threshold_tuning.md",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -1133,28 +1133,28 @@
           "required": true,
           "started_at": "2026-03-12T03:26:45+00:00",
           "duration_sec": 1.815,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\visual_export"
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:26:46+00:00",
           "duration_sec": 28.79,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\visualize.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
+        "db_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
         "exists": true,
         "counts": {
           "flows": 33,
@@ -1232,16 +1232,16 @@
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\inputs\\port-scan-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-port-scan-offline-20260312-032633",
+        "pcap_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\inputs\\port-scan-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\manifest.json",
+        "summary_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\summary.md",
+        "metrics_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\manifest.json"
     }
   },
   "runs": [
@@ -1250,7 +1250,7 @@
       "scenario_id": "LAB-SCN-005",
       "scenario_name": "Artifact And Network Correlation Offline Replay",
       "run_name": "phase3-artifact-network-correlation-offline-20260312-033521",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-005-artifact-network-correlation.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-005-artifact-network-correlation.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -1312,18 +1312,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifact-network-correlation-offline.pcap",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifact-network-correlation-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -1331,44 +1331,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:35:21+00:00",
           "duration_sec": 4.548,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\serious_test_report.md"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:35:26+00:00",
           "duration_sec": 1.704,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\threshold_tuning.json",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\threshold_tuning.md",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -1376,69 +1376,69 @@
           "required": true,
           "started_at": "2026-03-12T03:35:28+00:00",
           "duration_sec": 1.729,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\visual_export"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:35:29+00:00",
           "duration_sec": 30.902,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\visualize.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "artifact-scan",
             "--path",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\incoming",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\incoming",
             "--recursive",
             "--db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--jsonl",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts.jsonl",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts.jsonl",
             "--processed-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed",
             "--quarantine-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:36:00+00:00",
           "duration_sec": 1.887,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\artifact_scan.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\artifact_scan.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "artifact-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts_report.md"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:36:02+00:00",
           "duration_sec": 1.796,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\artifact_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\logs\\artifact_report.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
+        "db_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\nids.db",
         "exists": true,
         "counts": {
           "flows": 7,
@@ -1490,7 +1490,7 @@
             {
               "filename": "stage_loader.ps1",
               "risk_level": "high",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine\\stage_loader.ps1",
+              "stored_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine\\stage_loader.ps1",
               "reasons": [
                 "contains_suspicious_strings",
                 "executable_with_suspicious_strings",
@@ -1500,7 +1500,7 @@
             {
               "filename": "mailbox_upgrade.html",
               "risk_level": "high",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine\\mailbox_upgrade.html",
+              "stored_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine\\mailbox_upgrade.html",
               "reasons": [
                 "html_many_inline_scripts",
                 "html_suspicious_domains"
@@ -1509,7 +1509,7 @@
             {
               "filename": "browser_tokens.json",
               "risk_level": "medium",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed\\browser_tokens.json",
+              "stored_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed\\browser_tokens.json",
               "reasons": [
                 "json_contains_sensitive_or_execution_keys",
                 "yara_lite:credential_theft_pattern"
@@ -1518,33 +1518,33 @@
             {
               "filename": "asset_inventory.csv",
               "risk_level": "low",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed\\asset_inventory.csv",
+              "stored_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed\\asset_inventory.csv",
               "reasons": []
             }
           ]
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifact-network-correlation-offline.pcap",
-        "artifact_incoming_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\incoming",
-        "artifact_processed_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed",
-        "artifact_quarantine_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521",
+        "pcap_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifact-network-correlation-offline.pcap",
+        "artifact_incoming_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\incoming",
+        "artifact_processed_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\processed",
+        "artifact_quarantine_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\inputs\\artifacts\\quarantine",
+        "manifest_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\manifest.json",
+        "summary_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\summary.md",
+        "metrics_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033521\\manifest.json"
     },
     {
       "generated_at": "2026-03-12T03:30:58+00:00",
       "scenario_id": "LAB-SCN-005",
       "scenario_name": "Artifact And Network Correlation Offline Replay",
       "run_name": "phase3-artifact-network-correlation-offline-20260312-033024",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-005-artifact-network-correlation.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-005-artifact-network-correlation.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -1606,18 +1606,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\inputs\\artifact-network-correlation-offline.pcap",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\inputs\\artifact-network-correlation-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -1625,44 +1625,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:30:24+00:00",
           "duration_sec": 4.555,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\serious_test_report.md"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:30:29+00:00",
           "duration_sec": 1.755,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\threshold_tuning.json",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\threshold_tuning.md",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -1670,65 +1670,65 @@
           "required": true,
           "started_at": "2026-03-12T03:30:30+00:00",
           "duration_sec": 1.801,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\visual_export"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:30:32+00:00",
           "duration_sec": 22.332,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\visualize.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "artifact-scan",
             "--path",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\inputs\\artifacts\\incoming",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\inputs\\artifacts\\incoming",
             "--recursive",
             "--db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
             "--jsonl",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\artifacts.jsonl"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\artifacts.jsonl"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:30:55+00:00",
           "duration_sec": 1.975,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\artifact_scan.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\artifact_scan.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "artifact-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\artifacts_report.md"
+            "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\artifacts_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:30:57+00:00",
           "duration_sec": 1.78,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\artifact_report.log"
+          "log_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\logs\\artifact_report.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
+        "db_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\nids.db",
         "exists": true,
         "counts": {
           "flows": 7,
@@ -1780,7 +1780,7 @@
             {
               "filename": "stage_loader.ps1",
               "risk_level": "high",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\artifacts\\quarantine\\stage_loader.ps1",
+              "stored_path": "artifacts\\quarantine\\stage_loader.ps1",
               "reasons": [
                 "contains_suspicious_strings",
                 "executable_with_suspicious_strings",
@@ -1790,7 +1790,7 @@
             {
               "filename": "mailbox_upgrade.html",
               "risk_level": "high",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\artifacts\\quarantine\\mailbox_upgrade.html",
+              "stored_path": "artifacts\\quarantine\\mailbox_upgrade.html",
               "reasons": [
                 "html_many_inline_scripts",
                 "html_suspicious_domains"
@@ -1799,7 +1799,7 @@
             {
               "filename": "browser_tokens.json",
               "risk_level": "medium",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\artifacts\\processed\\browser_tokens.json",
+              "stored_path": "artifacts\\processed\\browser_tokens.json",
               "reasons": [
                 "json_contains_sensitive_or_execution_keys",
                 "yara_lite:credential_theft_pattern"
@@ -1808,30 +1808,30 @@
             {
               "filename": "asset_inventory.csv",
               "risk_level": "low",
-              "stored_path": "C:\\Users\\shaik\\NIDS_Workspace\\artifacts\\processed\\asset_inventory.csv",
+              "stored_path": "artifacts\\processed\\asset_inventory.csv",
               "reasons": []
             }
           ]
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\inputs\\artifact-network-correlation-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024",
+        "pcap_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\inputs\\artifact-network-correlation-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\manifest.json",
+        "summary_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\summary.md",
+        "metrics_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-artifact-network-correlation-offline-20260312-033024\\manifest.json"
     },
     {
       "generated_at": "2026-03-12T03:30:24+00:00",
       "scenario_id": "LAB-SCN-004",
       "scenario_name": "Mixed Benign And Malicious Offline Replay",
       "run_name": "phase3-mixed-traffic-offline-20260312-032936",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-004-mixed-traffic.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-004-mixed-traffic.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -1893,18 +1893,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\inputs\\mixed-traffic-offline.pcap",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\inputs\\mixed-traffic-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -1912,44 +1912,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:29:36+00:00",
           "duration_sec": 19.081,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\serious_test_report.md"
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:29:55+00:00",
           "duration_sec": 1.861,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\threshold_tuning.json",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\threshold_tuning.md",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -1957,28 +1957,28 @@
           "required": true,
           "started_at": "2026-03-12T03:29:57+00:00",
           "duration_sec": 1.804,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\visual_export"
+            "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:29:59+00:00",
           "duration_sec": 25.433,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\logs\\visualize.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
+        "db_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\nids.db",
         "exists": true,
         "counts": {
           "flows": 82,
@@ -2079,23 +2079,23 @@
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\inputs\\mixed-traffic-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936",
+        "pcap_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\inputs\\mixed-traffic-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\manifest.json",
+        "summary_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\summary.md",
+        "metrics_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-mixed-traffic-offline-20260312-032936\\manifest.json"
     },
     {
       "generated_at": "2026-03-12T03:29:36+00:00",
       "scenario_id": "LAB-SCN-003",
       "scenario_name": "Flood And Burst Offline Replay",
       "run_name": "phase3-flood-burst-offline-20260312-032754",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-003-flood-burst.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-003-flood-burst.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -2154,18 +2154,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\inputs\\flood-burst-offline.pcap",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\inputs\\flood-burst-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -2173,44 +2173,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:27:54+00:00",
           "duration_sec": 63.949,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\serious_test_report.md"
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:28:58+00:00",
           "duration_sec": 1.834,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\threshold_tuning.json",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\threshold_tuning.md",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -2218,28 +2218,28 @@
           "required": true,
           "started_at": "2026-03-12T03:29:00+00:00",
           "duration_sec": 1.805,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\visual_export"
+            "lab\\results\\phase3-flood-burst-offline-20260312-032754\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:29:02+00:00",
           "duration_sec": 34.433,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\logs\\visualize.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
+        "db_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\nids.db",
         "exists": true,
         "counts": {
           "flows": 296,
@@ -2318,23 +2318,23 @@
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\inputs\\flood-burst-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-flood-burst-offline-20260312-032754",
+        "pcap_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\inputs\\flood-burst-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\manifest.json",
+        "summary_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\summary.md",
+        "metrics_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-flood-burst-offline-20260312-032754\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-flood-burst-offline-20260312-032754\\manifest.json"
     },
     {
       "generated_at": "2026-03-12T03:27:54+00:00",
       "scenario_id": "LAB-SCN-002",
       "scenario_name": "HTTP Login Brute Force Offline Replay",
       "run_name": "phase3-http-login-bruteforce-offline-20260312-032715",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-002-http-login-bruteforce.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-002-http-login-bruteforce.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -2392,18 +2392,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\inputs\\http-login-bruteforce-offline.pcap",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\inputs\\http-login-bruteforce-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -2411,44 +2411,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:27:15+00:00",
           "duration_sec": 6.005,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\serious_test_report.md"
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:27:21+00:00",
           "duration_sec": 1.886,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\threshold_tuning.json",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\threshold_tuning.md",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -2456,28 +2456,28 @@
           "required": true,
           "started_at": "2026-03-12T03:27:23+00:00",
           "duration_sec": 1.843,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\visual_export"
+            "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:27:25+00:00",
           "duration_sec": 28.963,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\logs\\visualize.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
+        "db_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\nids.db",
         "exists": true,
         "counts": {
           "flows": 14,
@@ -2522,23 +2522,23 @@
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\inputs\\http-login-bruteforce-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715",
+        "pcap_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\inputs\\http-login-bruteforce-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\manifest.json",
+        "summary_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\summary.md",
+        "metrics_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-http-login-bruteforce-offline-20260312-032715\\manifest.json"
     },
     {
       "generated_at": "2026-03-12T03:27:15+00:00",
       "scenario_id": "LAB-SCN-001",
       "scenario_name": "Port Scan Offline Replay",
       "run_name": "phase3-port-scan-offline-20260312-032633",
-      "scenario_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\scenarios\\lab-scn-001-port-scan.yml",
+      "scenario_path": "lab\\scenarios\\lab-scn-001-port-scan.yml",
       "environment": {
         "primary_mode": "offline_replay",
         "planned_modes": [
@@ -2598,18 +2598,18 @@
       "commands": [
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "run",
             "--pcap-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\inputs\\port-scan-offline.pcap",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\inputs\\port-scan-offline.pcap",
             "--output-dir",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633",
             "--config",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\config\\offline_replay_profile.yml",
+            "lab\\config\\offline_replay_profile.yml",
             "--rules",
-            "C:\\Users\\shaik\\NIDS_Workspace\\rules\\rules.yml",
+            "rules\\rules.yml",
             "--sensor-id",
             "nids-phase3-offline",
             "--replay-delay-ms",
@@ -2617,44 +2617,44 @@
             "--metrics-interval",
             "1",
             "--model",
-            "C:\\Users\\shaik\\NIDS_Workspace\\models\\model.pkl",
+            "models\\model.pkl",
             "--unsupervised"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:26:33+00:00",
           "duration_sec": 10.054,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\runtime.log"
+          "log_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\runtime.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\serious_test_report.md"
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\serious_test_report.md"
           ],
           "exit_code": 0,
           "required": true,
           "started_at": "2026-03-12T03:26:43+00:00",
           "duration_sec": 1.822,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\incident_report.log"
+          "log_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\incident_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "threshold-report",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
             "--out-json",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\threshold_tuning.json",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\threshold_tuning.json",
             "--out-md",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\threshold_tuning.md",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\threshold_tuning.md",
             "--lookback-days",
             "3650"
           ],
@@ -2662,28 +2662,28 @@
           "required": true,
           "started_at": "2026-03-12T03:26:45+00:00",
           "duration_sec": 1.815,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\threshold_report.log"
+          "log_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\threshold_report.log"
         },
         {
           "command": [
-            "C:\\Users\\shaik\\NIDS_Workspace\\.venv\\Scripts\\python.exe",
+            ".venv\\Scripts\\python.exe",
             "-m",
             "nids",
             "visualize",
             "--from-db",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
             "--out",
-            "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\visual_export"
+            "lab\\results\\phase3-port-scan-offline-20260312-032633\\visual_export"
           ],
           "exit_code": 0,
           "required": false,
           "started_at": "2026-03-12T03:26:46+00:00",
           "duration_sec": 28.79,
-          "log_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\visualize.log"
+          "log_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\logs\\visualize.log"
         }
       ],
       "database_summary": {
-        "db_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
+        "db_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\nids.db",
         "exists": true,
         "counts": {
           "flows": 33,
@@ -2761,16 +2761,16 @@
         }
       },
       "evidence": {
-        "result_dir": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633",
-        "pcap_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\inputs\\port-scan-offline.pcap",
-        "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\manifest.json",
-        "summary_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\summary.md",
-        "metrics_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\metrics.json",
-        "alerts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\alerts_extract.json",
-        "artifacts_extract_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\artifacts_extract.json"
+        "result_dir": "lab\\results\\phase3-port-scan-offline-20260312-032633",
+        "pcap_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\inputs\\port-scan-offline.pcap",
+        "manifest_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\manifest.json",
+        "summary_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\summary.md",
+        "metrics_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\metrics.json",
+        "alerts_extract_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\alerts_extract.json",
+        "artifacts_extract_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\artifacts_extract.json"
       },
       "executed": true,
-      "manifest_path": "C:\\Users\\shaik\\NIDS_Workspace\\lab\\results\\phase3-port-scan-offline-20260312-032633\\manifest.json"
+      "manifest_path": "lab\\results\\phase3-port-scan-offline-20260312-032633\\manifest.json"
     }
   ]
 }

@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-07-16T14:21:10+00:00",
+  "scenario_id": "ADVLAB-006",
+  "scenario_name": "Protocol Anomaly Simulation",
+  "scenario_key": "protocol_anomaly_pattern",
+  "attack_type": "lab_generated:protocol_anomaly_pattern",
+  "lab_generated": true,
+  "label": "lab_generated",
+  "description": "Offline malformed-input pattern generation for parser and anomaly validation.",
+  "tags": [
+    "protocol_anomaly",
+    "localhost_only",
+    "offline_bundle"
+  ],
+  "notes": [
+    "Malformed traffic is generated only as offline replay material.",
+    "No live network delivery or exploit behavior is implemented."
+  ],
+  "target_ips": [
+    "127.0.0.1",
+    "127.0.0.1"
+  ],
+  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\protocol-anomaly-pattern-labdemo",
+  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\protocol-anomaly-pattern-labdemo\\protocol-anomaly-pattern.pcap",
+  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\protocol-anomaly-pattern-labdemo\\labels.csv",
+  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\protocol-anomaly-pattern-labdemo\\normalized_events.jsonl",
+  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\protocol-anomaly-pattern-labdemo\\suricata_eve.jsonl",
+  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\protocol-anomaly-pattern-labdemo\\zeek_conn.jsonl",
+  "packet_count": 2,
+  "event_summary": {
+    "event_count": 2,
+    "proto_counts": {
+      "UDP": 1,
+      "TCP": 1
+    },
+    "first_timestamp": "2026-03-14T12:40:00+00:00",
+    "last_timestamp": "2026-03-14T12:40:00.400000+00:00"
+  },
+  "safety_policy": {
+    "name": "offline-replay-only",
+    "offline_bundle_only": true,
+    "allow_loopback": true,
+    "allow_private_ranges": true,
+    "allow_documentation_ranges": true,
+    "allowed_cidrs": [],
+    "max_packets": 4096,
+    "max_total_bytes": 1500000,
+    "banner": "Lab-generated adversary emulation only. Generate artifacts only for offline replay, localhost, containers, or explicitly configured isolated lab CIDRs."
+  },
+  "metadata": {
+    "expected_detectors": [
+      "exfiltration_behavior",
+      "anomaly"
+    ]
+  }
+}

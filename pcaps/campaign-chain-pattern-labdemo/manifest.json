@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-07-16T14:21:10+00:00",
+  "scenario_id": "ADVLAB-007",
+  "scenario_name": "Campaign-Style Chained Simulation",
+  "scenario_key": "campaign_chain_pattern",
+  "attack_type": "lab_generated:campaign_chain_pattern",
+  "lab_generated": true,
+  "label": "lab_generated",
+  "description": "Recon, mock auth abuse, beaconing, and dummy exfiltration-like flows chained into one offline lab scenario.",
+  "tags": [
+    "campaign",
+    "recon",
+    "auth_abuse",
+    "beaconing",
+    "exfiltration",
+    "offline_bundle"
+  ],
+  "notes": [
+    "All behavior is synthetic and lab-generated.",
+    "No exploit, shell, persistence, or unauthorized access logic is included."
+  ],
+  "target_ips": [
+    "10.77.0.20",
+    "10.77.0.21",
+    "10.77.0.22",
+    "10.77.0.30",
+    "10.77.0.53",
+    "198.51.100.120",
+    "198.51.100.121"
+  ],
+  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo",
+  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\campaign-chain-pattern.pcap",
+  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\labels.csv",
+  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\normalized_events.jsonl",
+  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\suricata_eve.jsonl",
+  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\zeek_conn.jsonl",
+  "packet_count": 41,
+  "event_summary": {
+    "event_count": 41,
+    "proto_counts": {
+      "TCP": 38,
+      "UDP": 3
+    },
+    "first_timestamp": "2026-03-14T13:00:00+00:00",
+    "last_timestamp": "2026-03-14T13:00:27.500000+00:00"
+  },
+  "safety_policy": {
+    "name": "offline-replay-only",
+    "offline_bundle_only": true,
+    "allow_loopback": true,
+    "allow_private_ranges": true,
+    "allow_documentation_ranges": true,
+    "allowed_cidrs": [],
+    "max_packets": 4096,
+    "max_total_bytes": 1500000,
+    "banner": "Lab-generated adversary emulation only. Generate artifacts only for offline replay, localhost, containers, or explicitly configured isolated lab CIDRs."
+  },
+  "metadata": {
+    "expected_detectors": [
+      "campaign_behavior",
+      "exfiltration_behavior",
+      "signature",
+      "anomaly"
+    ]
+  }
+}

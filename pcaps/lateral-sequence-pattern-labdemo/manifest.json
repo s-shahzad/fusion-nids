@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-07-16T14:21:10+00:00",
+  "scenario_id": "ADVLAB-005",
+  "scenario_name": "Lateral-Movement-Like Sequencing Simulation",
+  "scenario_key": "lateral_sequence_pattern",
+  "attack_type": "lab_generated:lateral_sequence_pattern",
+  "lab_generated": true,
+  "label": "lab_generated",
+  "description": "Mock internal service probing across multiple hosts without any real access attempt or session establishment.",
+  "tags": [
+    "lateral_sequence",
+    "internal_probe",
+    "offline_bundle"
+  ],
+  "notes": [
+    "Only SYN-style service probes are generated.",
+    "No shell, credential, or persistence behavior is included."
+  ],
+  "target_ips": [
+    "10.77.0.27",
+    "10.77.0.40",
+    "10.77.0.41",
+    "10.77.0.42"
+  ],
+  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo",
+  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\lateral-sequence-pattern.pcap",
+  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\labels.csv",
+  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\normalized_events.jsonl",
+  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\suricata_eve.jsonl",
+  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\zeek_conn.jsonl",
+  "packet_count": 12,
+  "event_summary": {
+    "event_count": 12,
+    "proto_counts": {
+      "TCP": 12
+    },
+    "first_timestamp": "2026-03-14T12:30:00+00:00",
+    "last_timestamp": "2026-03-14T12:30:01.320000+00:00"
+  },
+  "safety_policy": {
+    "name": "offline-replay-only",
+    "offline_bundle_only": true,
+    "allow_loopback": true,
+    "allow_private_ranges": true,
+    "allow_documentation_ranges": true,
+    "allowed_cidrs": [],
+    "max_packets": 4096,
+    "max_total_bytes": 1500000,
+    "banner": "Lab-generated adversary emulation only. Generate artifacts only for offline replay, localhost, containers, or explicitly configured isolated lab CIDRs."
+  },
+  "metadata": {
+    "expected_detectors": [
+      "campaign_behavior",
+      "anomaly"
+    ]
+  }
+}

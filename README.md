@@ -219,7 +219,9 @@ This is a research and portfolio project, not a production security product. Spe
 | Document | Description |
 |----------|-------------|
 | [Project one-pager](docs/project_one_pager.md) | Summary, architecture, and metrics |
-| [Showcase story](docs/showcase_story.md) | What makes this different from a typical IDS demo |
+| [Documentation index](docs/README.md) | Architecture, validation, and figures in one tree |
+| [Validation breadth](docs/validation_breadth.md) | What makes this different from a typical IDS demo |
+| [Soak-claim audit](docs/validation/soak-claim-audit.md) | What the soak result does and does not show — read before quoting any number |
 | [Validation master record](docs/testing_validation_master.md) | Full test and scenario evidence |
 | [False-positive analysis](docs/false_positive_analysis.md) | Tuning decisions and adjudication log |
 | [Deployment readiness checklist](docs/deployment_readiness_checklist.md) | Current readiness gate status |

@@ -143,7 +143,6 @@ archives/**
 
 # preserved local-only evidence and scratch - never publish
 _lab-evidence/
-pcaps/*-labdemo/
 CI_FIX_STATUS.md
 .venv-ci/
 

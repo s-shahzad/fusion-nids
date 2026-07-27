@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-07-16T14:21:09+00:00",
+  "scenario_id": "ADVLAB-003",
+  "scenario_name": "Beaconing Pattern Simulation",
+  "scenario_key": "beaconing_pattern",
+  "attack_type": "lab_generated:beaconing_pattern",
+  "lab_generated": true,
+  "label": "lab_generated",
+  "description": "Regular periodic callback traffic to a documentation-only collector address.",
+  "tags": [
+    "beaconing",
+    "timing",
+    "offline_bundle"
+  ],
+  "notes": [
+    "Uses documentation-only destination IP space.",
+    "Intended to validate timing-aware behavioral detectors."
+  ],
+  "target_ips": [
+    "10.77.0.25",
+    "198.51.100.80"
+  ],
+  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo",
+  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\beaconing-pattern.pcap",
+  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\labels.csv",
+  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\normalized_events.jsonl",
+  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\suricata_eve.jsonl",
+  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\zeek_conn.jsonl",
+  "packet_count": 8,
+  "event_summary": {
+    "event_count": 8,
+    "proto_counts": {
+      "TCP": 8
+    },
+    "first_timestamp": "2026-03-14T12:10:00+00:00",
+    "last_timestamp": "2026-03-14T12:11:24+00:00"
+  },
+  "safety_policy": {
+    "name": "offline-replay-only",
+    "offline_bundle_only": true,
+    "allow_loopback": true,
+    "allow_private_ranges": true,
+    "allow_documentation_ranges": true,
+    "allowed_cidrs": [],
+    "max_packets": 4096,
+    "max_total_bytes": 1500000,
+    "banner": "Lab-generated adversary emulation only. Generate artifacts only for offline replay, localhost, containers, or explicitly configured isolated lab CIDRs."
+  },
+  "metadata": {
+    "expected_detectors": [
+      "exfiltration_behavior"
+    ]
+  }
+}
