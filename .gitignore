@@ -140,3 +140,9 @@ _lab-evidence/
 pcaps/*-labdemo/
 CI_FIX_STATUS.md
 .venv-ci/
+
+# Unpublished manuscript + generated thesis output - keep out of the public repo
+paper/
+thesis/
+docs/paper_*.md
+NIDS_TestLab/reports/nids_project_master_thesis.md
