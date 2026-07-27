@@ -77,7 +77,7 @@ Outputs
 - `src/NIDS/storage/` persists alerts, flows, metrics, incidents, and suppression rules.
 - `src/NIDS/visuals/` serves interactive and export-oriented analytics from SQLite.
 - `src/NIDS/artifacts/` provides a parallel static-analysis subsystem for file-based evidence.
-- `scripts/prepared_env_validation.py` and the lab assets under `NIDS_TestLab/` orchestrate real validation evidence capture.
+- `scripts/prepared_env_validation.py` and the lab assets under `lab/` orchestrate real validation evidence capture.
 
 ## Data Flow Explanation
 

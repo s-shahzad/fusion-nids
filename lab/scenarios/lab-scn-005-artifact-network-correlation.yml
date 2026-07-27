@@ -9,10 +9,10 @@ environment:
     - mode: live_vm
       reason: Requires a live sensor plus staged artifact delivery inside the isolated lab for true operator workflow validation.
       prerequisites:
-        - Built NIDS_TestLab VirtualBox topology
+        - Built lab VirtualBox topology
         - Sensor VM artifact and network capture path
 runtime:
-  config: NIDS_TestLab/config/offline_replay_profile.yml
+  config: lab/config/offline_replay_profile.yml
   rules: rules/rules.yml
   model_path: models/model.pkl
   sensor_id: nids-phase3-offline

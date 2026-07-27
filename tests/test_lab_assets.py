@@ -8,7 +8,7 @@ import pytest
 
 @pytest.mark.lab
 def test_nids_testlab_assets_and_summaries_are_present() -> None:
-    lab_root = Path(__file__).resolve().parents[1] / "NIDS_TestLab"
+    lab_root = Path(__file__).resolve().parents[1] / "lab"
     required_dirs = [
         "config",
         "logs",
@@ -21,10 +21,10 @@ def test_nids_testlab_assets_and_summaries_are_present() -> None:
     ]
     required_files = [
         "README.md",
-        "LAB_ACCESS.md",
-        "BUILD_REALISTIC_LAB.ps1",
-        "RUN_OFFLINE_TEST.ps1",
-        "RUN_ARTIFACT_STATIC_SCAN.ps1",
+        "lab-access.md",
+        "build-realistic-lab.ps1",
+        "run-offline-test.ps1",
+        "run-artifact-static-scan.ps1",
         "virtualbox_lab_summary.json",
         "realistic_lab_summary.json",
     ]

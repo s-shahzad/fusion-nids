@@ -758,7 +758,7 @@ def _write_vm_hardening_report(
     attack_profile: str,
 ) -> Path:
     report_path = local_result_dir / "vm_hardening_profile.md"
-    lab_summary_path = REPO_ROOT / "NIDS_TestLab" / "realistic_lab_summary.json"
+    lab_summary_path = REPO_ROOT / "lab" / "realistic_lab_summary.json"
     security_posture: list[str] = []
     network_mode = "unknown"
     if lab_summary_path.exists():
@@ -1214,7 +1214,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--username", default=lab_vm_username_default(), help="Lab VM username. Defaults to LAB_VM_USER.")
     parser.add_argument("--password", default=lab_vm_password_default(), help="Lab VM password. Defaults to LAB_VM_PASS.")
     parser.add_argument("--workspace", default="/opt/nids_workspace")
-    parser.add_argument("--config-relpath", default="NIDS_TestLab/config/os_defense_profile.yml")
+    parser.add_argument("--config-relpath", default="lab/config/os_defense_profile.yml")
     parser.add_argument("--sensor-ip", default="10.77.0.30")
     parser.add_argument("--case", choices=["cron-http", "systemd-dns", "defense-tamper", "staged-http-exfil"], default="cron-http")
     parser.add_argument("--http-port", type=int, default=8080)
@@ -1228,8 +1228,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     require_lab_vm_credentials(parser, args)
 
-    result_rel = posixpath.join("NIDS_TestLab", "results", args.run_name)
-    local_result_dir = REPO_ROOT / "NIDS_TestLab" / "results" / args.run_name
+    result_rel = posixpath.join("lab", "results", args.run_name)
+    local_result_dir = REPO_ROOT / "lab" / "results" / args.run_name
     local_result_dir.mkdir(parents=True, exist_ok=True)
 
     sensor = _connect(args.sensor_host, args.sensor_port, args.username, args.password)

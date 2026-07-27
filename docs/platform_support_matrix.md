@@ -25,7 +25,7 @@ Status: `supported for development, default testing, dashboard, and lab hosting`
 Strengths:
 
 - Current host environment and VirtualBox lab tooling are clearly optimized for Windows.
-- PowerShell automation under `scripts/` and `NIDS_TestLab/` is strongest here.
+- PowerShell automation under `scripts/` and `lab/` is strongest here.
 - Default pytest, coverage, docs generation, artifact analysis, and dashboard paths work locally.
 
 Constraints:

@@ -38,7 +38,7 @@ def test_run_scenario_executes_small_offline_bundle(tmp_path: Path) -> None:
                 "slug": "pytest-scan",
                 "objective": "Exercise the offline scenario runner with a minimal scan replay.",
                 "runtime": {
-                    "config": str(REPO_ROOT / "NIDS_TestLab" / "config" / "offline_replay_profile.yml"),
+                    "config": str(REPO_ROOT / "lab" / "config" / "offline_replay_profile.yml"),
                     "rules": str(REPO_ROOT / "rules" / "rules.yml"),
                     "sensor_id": "pytest-sensor",
                     "use_model": False,
@@ -137,7 +137,7 @@ def test_build_execution_index_summarizes_latest_runs(tmp_path: Path) -> None:
 def test_resolve_scenarios_supports_generated_ai_scenarios() -> None:
     module = _load_module("run_lab_scenario_ai", "run_lab_scenario.py")
 
-    scenarios = module.resolve_scenarios(REPO_ROOT / "NIDS_TestLab" / "scenarios", ["all-ai"])
+    scenarios = module.resolve_scenarios(REPO_ROOT / "lab" / "scenarios", ["all-ai"])
 
     assert [definition["slug"] for _, definition in scenarios] == [
         "ai-alert-flood",
@@ -152,7 +152,7 @@ def test_resolve_scenarios_supports_generated_ai_scenarios() -> None:
 def test_generated_ground_truth_and_robustness_summary_are_stable(tmp_path: Path) -> None:
     module = _load_module("run_lab_scenario_ai_helpers", "run_lab_scenario.py")
     scenario_path = None
-    definition = module.resolve_scenarios(REPO_ROOT / "NIDS_TestLab" / "scenarios", ["partial_signal"])[0][1]
+    definition = module.resolve_scenarios(REPO_ROOT / "lab" / "scenarios", ["partial_signal"])[0][1]
 
     ground_truth_path = module._write_ground_truth(tmp_path / "ground_truth.json", definition["expected"])
     assert ground_truth_path is not None
@@ -292,7 +292,7 @@ def test_run_scenario_keeps_artifact_outputs_inside_bundle(tmp_path: Path) -> No
                 "slug": "pytest-artifact-replay",
                 "objective": "Ensure artifact evidence stays inside the scenario result bundle.",
                 "runtime": {
-                    "config": str(REPO_ROOT / "NIDS_TestLab" / "config" / "offline_replay_profile.yml"),
+                    "config": str(REPO_ROOT / "lab" / "config" / "offline_replay_profile.yml"),
                     "rules": str(REPO_ROOT / "rules" / "rules.yml"),
                     "sensor_id": "pytest-sensor",
                     "use_model": False,
@@ -364,7 +364,7 @@ def test_run_scenario_keeps_artifact_outputs_inside_bundle(tmp_path: Path) -> No
 @pytest.mark.integration
 def test_run_scenario_executes_generated_ai_partial_signal_bundle(tmp_path: Path) -> None:
     module = _load_module("run_lab_scenario_ai_exec", "run_lab_scenario.py")
-    _, definition = module.resolve_scenarios(REPO_ROOT / "NIDS_TestLab" / "scenarios", ["partial_signal"])[0]
+    _, definition = module.resolve_scenarios(REPO_ROOT / "lab" / "scenarios", ["partial_signal"])[0]
 
     manifest = module.run_scenario(
         definition,

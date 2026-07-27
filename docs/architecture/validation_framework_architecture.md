@@ -61,7 +61,7 @@ This provides reproducible local and CI evidence.
 
 ### Offline Lab Scenarios
 
-Offline scenarios under `NIDS_TestLab/scenarios/` replay known traffic mixes and produce:
+Offline scenarios under `lab/scenarios/` replay known traffic mixes and produce:
 
 - scenario manifests
 - summary markdown

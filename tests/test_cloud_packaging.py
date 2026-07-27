@@ -29,4 +29,4 @@ def test_dockerignore_excludes_cloud_data_and_archive_boundary() -> None:
     dockerignore = (REPO_ROOT / ".dockerignore").read_text(encoding="utf-8")
     assert "_archive/" in dockerignore
     assert "cloud_data/" in dockerignore
-    assert "NIDS_TestLab/results/" in dockerignore
+    assert "lab/results/" in dockerignore

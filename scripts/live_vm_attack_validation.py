@@ -1193,7 +1193,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--username", default=lab_vm_username_default(), help="Lab VM username. Defaults to LAB_VM_USER.")
     parser.add_argument("--password", default=lab_vm_password_default(), help="Lab VM password. Defaults to LAB_VM_PASS.")
     parser.add_argument("--workspace", default="/opt/nids_workspace")
-    parser.add_argument("--config-relpath", default="NIDS_TestLab/config/live_vm_profile.yml")
+    parser.add_argument("--config-relpath", default="lab/config/live_vm_profile.yml")
     parser.add_argument("--sensor-ip", default="10.77.0.30")
     parser.add_argument("--run-name", default=f"live-attack-validation-{_now_stamp()}")
     parser.add_argument("--dns-count", type=int, default=36)
@@ -1230,8 +1230,8 @@ def main(argv: list[str] | None = None) -> int:
 
     attack_jobs = _build_attack_jobs(args)
 
-    result_rel = posixpath.join("NIDS_TestLab", "results", args.run_name)
-    local_result_dir = REPO_ROOT / "NIDS_TestLab" / "results" / args.run_name
+    result_rel = posixpath.join("lab", "results", args.run_name)
+    local_result_dir = REPO_ROOT / "lab" / "results" / args.run_name
     local_result_dir.mkdir(parents=True, exist_ok=True)
 
     sensor = _connect(args.sensor_host, args.sensor_port, args.username, args.password)

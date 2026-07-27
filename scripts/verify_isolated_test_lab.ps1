@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$LabRoot = "$env:USERPROFILE\NIDS_Workspace\NIDS_TestLab",
+    [string]$LabRoot = "$env:USERPROFILE\NIDS_Workspace\lab",
     [string]$DistributionName = "Ubuntu"
 )
 

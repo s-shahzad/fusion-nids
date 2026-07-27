@@ -9,7 +9,7 @@ This document defines what parts of the repository are inside the core project c
 These surfaces are inside the core project claim boundary:
 
 - offline replay through `python -m nids run-local`
-- `NIDS_TestLab/config/offline_replay_profile.yml`
+- `lab/config/offline_replay_profile.yml`
 - replay evidence stored in fresh output directories
 - replay-review metrics artifacts:
   - `metrics.json`

@@ -9,10 +9,10 @@ environment:
     - mode: live_vm
       reason: Requires the full isolated VM lab for concurrency-backed live evidence.
       prerequisites:
-        - Built NIDS_TestLab VirtualBox topology
+        - Built lab VirtualBox topology
         - Attacker and sensor VMs reachable
 runtime:
-  config: NIDS_TestLab/config/offline_replay_profile.yml
+  config: lab/config/offline_replay_profile.yml
   rules: rules/rules.yml
   model_path: models/model.pkl
   sensor_id: nids-phase3-offline

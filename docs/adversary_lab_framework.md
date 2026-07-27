@@ -128,7 +128,7 @@ python scripts/run_adversary_lab.py --scenario campaign_chain_pattern --profile 
 Replay through the existing offline ingest path:
 
 ```powershell
-python -m nids run --pcap-dir <bundle>.pcap --labels labels.csv --config NIDS_TestLab/config/offline_replay_profile.yml --rules rules/rules.yml --output-dir runtime_output --sensor-id adversary-lab
+python -m nids run --pcap-dir <bundle>.pcap --labels labels.csv --config lab/config/offline_replay_profile.yml --rules rules/rules.yml --output-dir runtime_output --sensor-id adversary-lab
 ```
 
 ## Validation Value

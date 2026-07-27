@@ -87,7 +87,7 @@ def _seed_run(repo_root: Path, run_name: str = "run-a") -> None:
 
 
 def _seed_baseline_profile(repo_root: Path) -> None:
-    profile_path = repo_root / "NIDS_TestLab" / "config" / "offline_replay_profile.yml"
+    profile_path = repo_root / "lab" / "config" / "offline_replay_profile.yml"
     profile_path.parent.mkdir(parents=True, exist_ok=True)
     profile_path.write_text(
         "ml:\n  unsupervised_confirmation_hits: 2\nfusion:\n  min_agreement_count: 3\n",
@@ -278,7 +278,7 @@ def test_run_local_requires_configured_api_key(tmp_path: Path, monkeypatch) -> N
             "POST",
             "/run-local",
             json_body={
-                "pcap_path": "NIDS_TestLab/pcaps/sample.pcap",
+                "pcap_path": "lab/pcaps/sample.pcap",
                 "output_dir": "output/api-test-run",
             },
         )
@@ -294,7 +294,7 @@ def test_run_local_requires_valid_api_key(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
     app = app_module.create_app()
     payload = {
-        "pcap_path": "NIDS_TestLab/pcaps/sample.pcap",
+        "pcap_path": "lab/pcaps/sample.pcap",
         "output_dir": "output/api-test-run",
     }
 
@@ -347,7 +347,7 @@ def test_run_local_accepts_correct_api_key(tmp_path: Path, monkeypatch) -> None:
             "/run-local",
             headers={"X-API-Key": "expected-key"},
             json_body={
-                "pcap_path": "NIDS_TestLab/pcaps/sample.pcap",
+                "pcap_path": "lab/pcaps/sample.pcap",
                 "output_dir": "output/api-test-run",
             },
         )
@@ -421,7 +421,7 @@ def test_run_local_rate_limit_returns_429(tmp_path: Path, monkeypatch) -> None:
     app = app_module.create_app()
     clock = FakeClock()
     app.state.rate_limit_clock = clock
-    payload = {"pcap_path": "NIDS_TestLab/pcaps/sample.pcap", "output_dir": "output/limited-run"}
+    payload = {"pcap_path": "lab/pcaps/sample.pcap", "output_dir": "output/limited-run"}
     headers = {"X-API-Key": "expected-key"}
 
     first_status, _, _ = asyncio.run(_asgi_request(app, "POST", "/run-local", headers=headers, json_body=payload))

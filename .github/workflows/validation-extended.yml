@@ -97,5 +97,5 @@ jobs:
           path: |
             artifacts/test-results
             artifacts/lab
-            NIDS_TestLab/reports
+            lab/reports
           if-no-files-found: warn

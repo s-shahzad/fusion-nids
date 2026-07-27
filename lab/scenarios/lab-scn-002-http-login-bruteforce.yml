@@ -9,10 +9,10 @@ environment:
     - mode: live_vm
       reason: Requires a reachable VM-hosted HTTP service and a sensor VM on the isolated lab network.
       prerequisites:
-        - Built NIDS_TestLab VirtualBox topology
+        - Built lab VirtualBox topology
         - Stable VM HTTP helper service
 runtime:
-  config: NIDS_TestLab/config/offline_replay_profile.yml
+  config: lab/config/offline_replay_profile.yml
   rules: rules/rules.yml
   model_path: models/model.pkl
   sensor_id: nids-phase3-offline

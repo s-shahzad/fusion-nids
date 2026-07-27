@@ -9,7 +9,7 @@ This document records the final validated offline replay baseline for Universal 
 
 ## Validated Replay Result
 
-- PCAP: `NIDS_TestLab/pcaps/serious_synthetic_20260310.pcap`
+- PCAP: `lab/pcaps/serious_synthetic_20260310.pcap`
 - Rules: `rules/rules.yml`
 - Flows: `509`
 - Alerts: `10`

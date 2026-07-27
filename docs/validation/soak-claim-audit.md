@@ -15,7 +15,7 @@ of the corpus as attacks and fusion dropped every one of them silently.
 
 ## Numerical receipts (from the soak bundle)
 
-Bundle: `NIDS_TestLab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`
+Bundle: `lab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`
 
 | Claim                          | Recorded value                                      | Source file                          |
 |--------------------------------|-----------------------------------------------------|--------------------------------------|
@@ -137,7 +137,7 @@ properties.
 ## Cross-references
 
 - Eval audit (this document's source data): full soak bundle under
-  `NIDS_TestLab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`.
+  `lab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`.
 - Storage 5.7 GB / 103 MB reconciliation:
   `phase11_evidence_accounting_reconciliation.md`.
 - Training-side leakage (random IID split on KDD99): see

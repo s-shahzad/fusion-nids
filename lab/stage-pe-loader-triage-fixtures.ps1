@@ -7,7 +7,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 $workspaceRootResolved = [System.IO.Path]::GetFullPath($WorkspaceRoot)
-$incomingRoot = Join-Path $workspaceRootResolved "NIDS_TestLab\artifacts\incoming"
+$incomingRoot = Join-Path $workspaceRootResolved "lab\artifacts\incoming"
 $runToken = "pe-loader-static-$(Get-Date -Format yyyyMMdd-HHmmss)"
 $targetDirResolved = if ($TargetDir.Trim() -ne "") {
     [System.IO.Path]::GetFullPath($TargetDir)

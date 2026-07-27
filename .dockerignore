@@ -17,11 +17,11 @@ documentation/
 tests/
 thesis/
 
-NIDS_TestLab/results/
-NIDS_TestLab/reports/
-NIDS_TestLab/isos/
-NIDS_TestLab/vms/
-NIDS_TestLab/pcaps/
+lab/results/
+lab/reports/
+lab/isos/
+lab/vms/
+lab/pcaps/
 
 output/
 reports/

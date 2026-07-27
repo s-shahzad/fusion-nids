@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [string]$VMName = "nids-ubuntu-lab",
-    [string]$LabRoot = "$env:USERPROFILE\NIDS_Workspace\NIDS_TestLab",
+    [string]$LabRoot = "$env:USERPROFILE\NIDS_Workspace\lab",
     [string]$IsoPath = "",
     [int]$MemoryMB = 8192,
     [int]$CPUs = 4,

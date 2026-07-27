@@ -6,7 +6,7 @@ This document formalizes the replay families currently used to broaden evaluatio
 
 ## Family 1: Main Serious Synthetic Replay
 
-- PCAP: `NIDS_TestLab/pcaps/serious_synthetic_20260310.pcap`
+- PCAP: `lab/pcaps/serious_synthetic_20260310.pcap`
 - Role: canonical tuned baseline and comparative baseline input
 - Behavior mix:
   - scan activity
@@ -20,7 +20,7 @@ This document formalizes the replay families currently used to broaden evaluatio
 
 ## Family 2: Focused DNS Burst Replay
 
-- PCAP: `NIDS_TestLab/pcaps/dns_burst_20260310.pcap`
+- PCAP: `lab/pcaps/dns_burst_20260310.pcap`
 - Role: anomaly-focused replay family
 - Primary behavior:
   - DNS burst / DGA-like activity
@@ -33,7 +33,7 @@ This document formalizes the replay families currently used to broaden evaluatio
 
 ## Family 3: Focused HTTP Login Brute Force Replay
 
-- PCAP: `NIDS_TestLab/pcaps/http_login_bruteforce_20260310.pcap`
+- PCAP: `lab/pcaps/http_login_bruteforce_20260310.pcap`
 - Role: application-layer threshold replay family
 - Primary behavior:
   - repeated login attempts against a synthetic endpoint
@@ -46,7 +46,7 @@ This document formalizes the replay families currently used to broaden evaluatio
 
 ## Family 4: Standard Offline Lab Scenarios
 
-- Source: `NIDS_TestLab/scenarios/*.yml`
+- Source: `lab/scenarios/*.yml`
 - Role: self-contained scenario bundles for mixed and correlation-style replay
 - Coverage includes:
   - port scan replay
