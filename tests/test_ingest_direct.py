@@ -9,9 +9,9 @@ from scapy.layers.inet import IP, TCP, UDP
 from scapy.packet import Raw
 from scapy.utils import wrpcap
 
-import src.NIDS.ingest.live as live_module
-from src.NIDS.ingest.live import _enqueue_event, _run_scapy_capture
-from src.NIDS.ingest.offline import (
+import src.nids.ingest.live as live_module
+from src.nids.ingest.live import _enqueue_event, _run_scapy_capture
+from src.nids.ingest.offline import (
     _normalize_adapter_event,
     run_offline_pcaps,
     run_suricata_eve,

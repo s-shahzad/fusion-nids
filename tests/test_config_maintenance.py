@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from argparse import Namespace
 
-from src.NIDS.config import build_runtime_config
+from src.nids.config import build_runtime_config
 
 
 def _args(**overrides: object) -> Namespace:

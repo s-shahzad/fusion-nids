@@ -9,7 +9,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.NIDS.adversary import run_comparison_baseline, write_comparison_baseline
+from src.nids.adversary import run_comparison_baseline, write_comparison_baseline
 
 
 def build_parser() -> argparse.ArgumentParser:

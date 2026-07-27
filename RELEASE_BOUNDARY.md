@@ -12,7 +12,7 @@ internal-only, and what is archived or excluded from redistribution.
 These areas belong to the maintained active research platform:
 
 - `nids/`
-- `src/NIDS/`
+- `src/nids/`
 - `scripts/`
   - current maintained orchestration, reporting, and validation scripts
 - `config/`

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.NIDS.adversary.taxonomy import get_scenario_taxonomy, taxonomy_summary_markdown, write_taxonomy_bundle
+from src.nids.adversary.taxonomy import get_scenario_taxonomy, taxonomy_summary_markdown, write_taxonomy_bundle
 
 
 def test_known_scenario_taxonomy_mapping_is_stable() -> None:

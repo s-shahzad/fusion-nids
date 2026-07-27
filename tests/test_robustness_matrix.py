@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.NIDS.adversary.robustness_matrix import (
+from src.nids.adversary.robustness_matrix import (
     build_robustness_matrix,
     robustness_matrix_markdown,
     summarize_bundle,

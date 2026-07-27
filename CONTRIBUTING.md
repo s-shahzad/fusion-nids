@@ -43,9 +43,9 @@ pytest -m "not lab and not environment and not live"
 
 This project is dual-licensed:
 
-- The core engine and API (`src/NIDS/`, excluding `adversary_lab/`) are under the
+- The core engine and API (`src/nids/`, excluding `adversary_lab/`) are under the
   **MIT License**.
-- `src/NIDS/adversary_lab/` depends on Scapy (GPL-2.0-only) and is licensed
+- `src/nids/adversary_lab/` depends on Scapy (GPL-2.0-only) and is licensed
   **GPL-2.0-or-later**.
 
 By submitting a contribution, you agree that your contribution is licensed under

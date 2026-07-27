@@ -3,7 +3,7 @@ from __future__ import annotations
 import threading
 import time
 
-from src.NIDS.hot_cold import ColdPathWorker
+from src.nids.hot_cold import ColdPathWorker
 
 
 def test_queue_handoff_and_completion() -> None:

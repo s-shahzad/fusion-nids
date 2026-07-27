@@ -4,8 +4,8 @@ import json
 import sqlite3
 from pathlib import Path
 
-from src.NIDS.storage.jsonl_store import JSONLStore
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.storage.jsonl_store import JSONLStore
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 def _alert_payload(**overrides: object) -> dict[str, object]:

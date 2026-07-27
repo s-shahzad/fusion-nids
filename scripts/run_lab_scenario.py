@@ -22,7 +22,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.NIDS.adversary import (
+from src.nids.adversary import (
     get_ai_scenario_definition,
     get_scenario_taxonomy,
     list_ai_scenarios,

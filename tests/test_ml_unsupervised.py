@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from src.NIDS.detect.ml_unsupervised import UnsupervisedMLEngine
+from src.nids.detect.ml_unsupervised import UnsupervisedMLEngine
 
 
 def _normal_event(index: int) -> tuple[dict[str, object], dict[str, object]]:

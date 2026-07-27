@@ -23,7 +23,7 @@ Dreger et al. show that protocol analysis tied to well-known ports is fragile an
 
 Repo action completed:
 
-- [signature.py](C:/NIDS_Workspace/src/NIDS/detect/signature.py) now supports `http_methods` and `http_uris` rule fields.
+- [signature.py](C:/NIDS_Workspace/src/nids/detect/signature.py) now supports `http_methods` and `http_uris` rule fields.
 - [rules.yml](C:/NIDS_Workspace/rules/rules.yml) now drives `HTTP Suspicious Keyword` from parsed HTTP semantics instead of a fixed destination-port list.
 - Regression coverage is in [test_signature.py](C:/NIDS_Workspace/tests/test_signature.py).
 
@@ -67,7 +67,7 @@ Repo action completed:
 
 1. Port-evasion hardening for suspicious HTTP detection
    Files:
-   [signature.py](C:/NIDS_Workspace/src/NIDS/detect/signature.py)
+   [signature.py](C:/NIDS_Workspace/src/nids/detect/signature.py)
    [rules.yml](C:/NIDS_Workspace/rules/rules.yml)
    [test_signature.py](C:/NIDS_Workspace/tests/test_signature.py)
 

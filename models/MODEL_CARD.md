@@ -12,7 +12,7 @@ the constraints in front of them.
 - **Format:** joblib pickle of a `dict` payload with keys including
   `feature_columns`, `label_encoder`, member estimators (RF,
   ExtraTrees, HGB, optionally XGBoost), and per-member metrics.
-- **Loader:** `src/NIDS/detect/ml_supervised.py` (reads
+- **Loader:** `src/nids/detect/ml_supervised.py` (reads
   `feature_columns` and re-applies the encoder).
 - **No SHA-256 / version field** is stored alongside the file.
   Re-train output silently overwrites in place.
@@ -34,15 +34,15 @@ the constraints in front of them.
 
 ## Feature schema
 
-15 columns, defined in `src/NIDS/ml/featureset.py:FEATURE_COLUMNS`.
+15 columns, defined in `src/nids/ml/featureset.py:FEATURE_COLUMNS`.
 Include 5-tuple-derived rates, byte/packet counts, TCP-flag
 indicators, and three L7 boolean indicators (`has_dns_qname`,
 `has_http_host`, `has_tls_sni`).
 
 **KNOWN TRAIN/SERVE SKEW (high-severity bug):** The three
 `has_*` indicators are computed from L7 fields at inference
-(`src/NIDS/pipeline/features.py:79-81`) but are hard-coded to `0.0`
-during training (`src/NIDS/ml/feature_builder.py:41-43`) because the
+(`src/nids/pipeline/features.py:79-81`) but are hard-coded to `0.0`
+during training (`src/nids/ml/feature_builder.py:41-43`) because the
 `flows` SQLite table never persisted `dns_qname` / `http_host` /
 `tls_sni`. The model was therefore trained as if every flow had zero
 L7 signal. At serve time these features fire on ~5–20 % of flows.
@@ -55,7 +55,7 @@ re-bootstrapping the training DB, and retraining.
 
 - **Splitter:** `sklearn.model_selection.train_test_split(X, y,
   test_size=0.25, random_state=42, stratify=stratify)` —
-  `src/NIDS/ml/train.py:88`.
+  `src/nids/ml/train.py:88`.
 - **Splitter problem:** random IID shuffle on time-structured /
   duplicated data. Near-duplicate flows can land in both train and
   test, inflating accuracy. **Use a temporal split (sort by KDD's
@@ -88,13 +88,13 @@ re-bootstrapping the training DB, and retraining.
   average. Any per-class table in a paper must list `u2r` explicitly.
 - **Calibration:** none. Outputs are raw ensemble probabilities. The
   serving threshold `score_threshold=0.6`
-  (`src/NIDS/detect/ml.py:30`) was not derived from a precision /
+  (`src/nids/detect/ml.py:30`) was not derived from a precision /
   FPR / recall curve. `reports/threshold_tuning.json` is currently
   populated with `"method": "no_score_data"` and zero values.
 
 ## Bug — `evaluate.py` is not an independent eval
 
-`src/NIDS/ml/evaluate.py:25-26` calls `load_labeled_flows(db_path)`
+`src/nids/ml/evaluate.py:25-26` calls `load_labeled_flows(db_path)`
 with **no split filter**, so `ml_evaluation.json`'s
 `"accuracy": 0.99784` is a score on all 25,000 rows including the
 training partition. Use `ml_metrics.json` (which is the held-out
@@ -102,7 +102,7 @@ split) for the only honest accuracy number this model has produced.
 
 ## Unsupervised path
 
-`src/NIDS/detect/ml_unsupervised.py` (IsolationForest + a shallow
+`src/nids/detect/ml_unsupervised.py` (IsolationForest + a shallow
 MLP autoencoder) is calibrated on training-set percentiles for the
 normalisation bounds (OK), but the autoencoder's reconstruction
 threshold (95th percentile of error) is set from the same buffer
@@ -151,9 +151,9 @@ metric, not a detection-quality metric.
 
 - `docs/validation/soak-claim-audit.md` — what the 87K/0-FP soak does and
   does not show.
-- `src/NIDS/ml/featureset.py` — feature column source of truth.
-- `src/NIDS/ml/feature_builder.py` — training-side feature build
+- `src/nids/ml/featureset.py` — feature column source of truth.
+- `src/nids/ml/feature_builder.py` — training-side feature build
   (where the L7 zero-pinning lives).
-- `src/NIDS/pipeline/features.py` — serving-side feature build.
+- `src/nids/pipeline/features.py` — serving-side feature build.
 - `reports/ml_metrics.json` — the only honest accuracy number.
 - `reports/threshold_tuning.json` — currently empty.

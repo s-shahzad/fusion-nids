@@ -139,7 +139,7 @@ def run_local_pipeline(
         _log_stage("ingest", f"labels={labels_path.resolve()}")
     _log_stage(
         "preprocess",
-        "normalization=src/NIDS/pipeline/parser.py features=src/NIDS/pipeline/features.py",
+        "normalization=src/nids/pipeline/parser.py features=src/nids/pipeline/features.py",
     )
     _log_stage("detect", f"engines={_describe_detectors(cfg)}")
     _log_stage("store", f"sqlite={db_path} jsonl_dir={output_dir}")

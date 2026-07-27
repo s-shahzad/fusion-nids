@@ -7,7 +7,7 @@ from pathlib import Path
 
 from cryptography.fernet import Fernet
 
-from src.NIDS.privacy import (
+from src.nids.privacy import (
     apply_privacy_to_alert,
     privacy_config_from_mapping,
     write_encrypted_json,

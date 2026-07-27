@@ -802,20 +802,20 @@ def _sync_sensor_files(
     extra_relpaths: list[str] | None = None,
 ) -> None:
     files_to_sync = [
-        (REPO_ROOT / "src" / "NIDS" / "pipeline" / "parser.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "pipeline", "parser.py")),
-        (REPO_ROOT / "src" / "NIDS" / "pipeline" / "features.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "pipeline", "features.py")),
-        (REPO_ROOT / "src" / "NIDS" / "ingest" / "__init__.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "ingest", "__init__.py")),
-        (REPO_ROOT / "src" / "NIDS" / "ingest" / "live.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "ingest", "live.py")),
-        (REPO_ROOT / "src" / "NIDS" / "detect" / "__init__.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "detect", "__init__.py")),
-        (REPO_ROOT / "src" / "NIDS" / "detect" / "anomaly.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "detect", "anomaly.py")),
-        (REPO_ROOT / "src" / "NIDS" / "detect" / "ml.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "detect", "ml.py")),
-        (REPO_ROOT / "src" / "NIDS" / "detect" / "ml_unsupervised.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "detect", "ml_unsupervised.py")),
-        (REPO_ROOT / "src" / "NIDS" / "detect" / "suppression.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "detect", "suppression.py")),
-        (REPO_ROOT / "src" / "NIDS" / "runtime.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "runtime.py")),
-        (REPO_ROOT / "src" / "NIDS" / "config.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "config.py")),
-        (REPO_ROOT / "src" / "NIDS" / "storage" / "__init__.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "storage", "__init__.py")),
-        (REPO_ROOT / "src" / "NIDS" / "storage" / "jsonl_store.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "storage", "jsonl_store.py")),
-        (REPO_ROOT / "src" / "NIDS" / "storage" / "sqlite_store.py", posixpath.join("/opt/nids_workspace", "src", "NIDS", "storage", "sqlite_store.py")),
+        (REPO_ROOT / "src" / "nids" / "pipeline" / "parser.py", posixpath.join("/opt/nids_workspace", "src", "nids", "pipeline", "parser.py")),
+        (REPO_ROOT / "src" / "nids" / "pipeline" / "features.py", posixpath.join("/opt/nids_workspace", "src", "nids", "pipeline", "features.py")),
+        (REPO_ROOT / "src" / "nids" / "ingest" / "__init__.py", posixpath.join("/opt/nids_workspace", "src", "nids", "ingest", "__init__.py")),
+        (REPO_ROOT / "src" / "nids" / "ingest" / "live.py", posixpath.join("/opt/nids_workspace", "src", "nids", "ingest", "live.py")),
+        (REPO_ROOT / "src" / "nids" / "detect" / "__init__.py", posixpath.join("/opt/nids_workspace", "src", "nids", "detect", "__init__.py")),
+        (REPO_ROOT / "src" / "nids" / "detect" / "anomaly.py", posixpath.join("/opt/nids_workspace", "src", "nids", "detect", "anomaly.py")),
+        (REPO_ROOT / "src" / "nids" / "detect" / "ml.py", posixpath.join("/opt/nids_workspace", "src", "nids", "detect", "ml.py")),
+        (REPO_ROOT / "src" / "nids" / "detect" / "ml_unsupervised.py", posixpath.join("/opt/nids_workspace", "src", "nids", "detect", "ml_unsupervised.py")),
+        (REPO_ROOT / "src" / "nids" / "detect" / "suppression.py", posixpath.join("/opt/nids_workspace", "src", "nids", "detect", "suppression.py")),
+        (REPO_ROOT / "src" / "nids" / "runtime.py", posixpath.join("/opt/nids_workspace", "src", "nids", "runtime.py")),
+        (REPO_ROOT / "src" / "nids" / "config.py", posixpath.join("/opt/nids_workspace", "src", "nids", "config.py")),
+        (REPO_ROOT / "src" / "nids" / "storage" / "__init__.py", posixpath.join("/opt/nids_workspace", "src", "nids", "storage", "__init__.py")),
+        (REPO_ROOT / "src" / "nids" / "storage" / "jsonl_store.py", posixpath.join("/opt/nids_workspace", "src", "nids", "storage", "jsonl_store.py")),
+        (REPO_ROOT / "src" / "nids" / "storage" / "sqlite_store.py", posixpath.join("/opt/nids_workspace", "src", "nids", "storage", "sqlite_store.py")),
         (REPO_ROOT / "config" / "nids.yml", posixpath.join("/opt/nids_workspace", "config", "nids.yml")),
         (REPO_ROOT / "rules" / "rules.yml", posixpath.join("/opt/nids_workspace", "rules", "rules.yml")),
         (REPO_ROOT / Path(config_relpath), posixpath.join("/opt/nids_workspace", config_relpath.replace("\\", "/"))),
@@ -944,7 +944,7 @@ workspace = {workspace!r}
 db_path = {posixpath.join(workspace, result_rel, 'nids.db')!r}
 sys.path.insert(0, os.path.join(workspace, "src"))
 
-from NIDS.storage.sqlite_store import SQLiteStore
+from nids.storage.sqlite_store import SQLiteStore
 
 store = SQLiteStore(Path(db_path))
 try:

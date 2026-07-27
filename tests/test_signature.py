@@ -1,6 +1,6 @@
-﻿from pathlib import Path
+from pathlib import Path
 
-from src.NIDS.detect.signature import SignatureEngine
+from src.nids.detect.signature import SignatureEngine
 
 
 def test_signature_payload_match(tmp_path: Path) -> None:

@@ -7,10 +7,10 @@ from typing import Any
 
 import pytest
 
-import src.NIDS.detect.ml as ml_module
-import src.NIDS.runtime as runtime_module
-from src.NIDS.config import build_runtime_config, RuntimeConfig
-from src.NIDS.runtime import NIDSRuntime, run_runtime
+import src.nids.detect.ml as ml_module
+import src.nids.runtime as runtime_module
+from src.nids.config import build_runtime_config, RuntimeConfig
+from src.nids.runtime import NIDSRuntime, run_runtime
 
 
 def _rules_file(tmp_path: Path) -> Path:

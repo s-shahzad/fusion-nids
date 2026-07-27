@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.NIDS.threat_intel import IPReputationProvider, IntelCache, ThreatIntelEnricher
+from src.nids.threat_intel import IPReputationProvider, IntelCache, ThreatIntelEnricher
 
 
 def test_ip_reputation_provider_loads_inline_and_file_indicators(tmp_path: Path) -> None:

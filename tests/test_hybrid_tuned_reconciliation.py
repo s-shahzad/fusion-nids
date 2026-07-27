@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import joblib
 
-from src.NIDS.detect.ml_supervised import SupervisedMLEngine
+from src.nids.detect.ml_supervised import SupervisedMLEngine
 
 
 class _PermissionSensitiveModel:

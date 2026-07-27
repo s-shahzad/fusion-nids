@@ -68,15 +68,15 @@ Outputs
 
 ## Module Relationships
 
-- `src/NIDS/cli.py` is the main operator entry point and dispatches runtime, reporting, dashboard, visualization, training, and artifact commands.
-- `src/NIDS/config.py` merges runtime defaults with YAML overrides and CLI arguments into `RuntimeConfig`.
-- `src/NIDS/runtime.py` is the core coordinator for live and replay traffic processing.
-- `src/NIDS/ingest/` provides live capture and replay adapters that all feed normalized event dictionaries into the runtime queue.
-- `src/NIDS/pipeline/` turns normalized events into feature-rich records.
-- `src/NIDS/detect/` contains signature, anomaly, ML, fusion, and duplicate suppression logic.
-- `src/NIDS/storage/` persists alerts, flows, metrics, incidents, and suppression rules.
-- `src/NIDS/visuals/` serves interactive and export-oriented analytics from SQLite.
-- `src/NIDS/artifacts/` provides a parallel static-analysis subsystem for file-based evidence.
+- `src/nids/cli.py` is the main operator entry point and dispatches runtime, reporting, dashboard, visualization, training, and artifact commands.
+- `src/nids/config.py` merges runtime defaults with YAML overrides and CLI arguments into `RuntimeConfig`.
+- `src/nids/runtime.py` is the core coordinator for live and replay traffic processing.
+- `src/nids/ingest/` provides live capture and replay adapters that all feed normalized event dictionaries into the runtime queue.
+- `src/nids/pipeline/` turns normalized events into feature-rich records.
+- `src/nids/detect/` contains signature, anomaly, ML, fusion, and duplicate suppression logic.
+- `src/nids/storage/` persists alerts, flows, metrics, incidents, and suppression rules.
+- `src/nids/visuals/` serves interactive and export-oriented analytics from SQLite.
+- `src/nids/artifacts/` provides a parallel static-analysis subsystem for file-based evidence.
 - `scripts/prepared_env_validation.py` and the lab assets under `lab/` orchestrate real validation evidence capture.
 
 ## Data Flow Explanation
@@ -92,24 +92,24 @@ Outputs
 
 ## Key Files / Modules
 
-- `src/NIDS/cli.py`
-- `src/NIDS/config.py`
-- `src/NIDS/runtime.py`
-- `src/NIDS/ingest/live.py`
-- `src/NIDS/ingest/offline.py`
-- `src/NIDS/pipeline/parser.py`
-- `src/NIDS/pipeline/features.py`
-- `src/NIDS/detect/anomaly.py`
-- `src/NIDS/detect/signature.py`
-- `src/NIDS/detect/ml.py`
-- `src/NIDS/detect/ml_supervised.py`
-- `src/NIDS/detect/ml_unsupervised.py`
-- `src/NIDS/detect/fusion.py`
-- `src/NIDS/storage/sqlite_store.py`
-- `src/NIDS/storage/jsonl_store.py`
-- `src/NIDS/storage/incident_store.py`
-- `src/NIDS/visuals/dashboard.py`
-- `src/NIDS/artifacts/analyzer.py`
+- `src/nids/cli.py`
+- `src/nids/config.py`
+- `src/nids/runtime.py`
+- `src/nids/ingest/live.py`
+- `src/nids/ingest/offline.py`
+- `src/nids/pipeline/parser.py`
+- `src/nids/pipeline/features.py`
+- `src/nids/detect/anomaly.py`
+- `src/nids/detect/signature.py`
+- `src/nids/detect/ml.py`
+- `src/nids/detect/ml_supervised.py`
+- `src/nids/detect/ml_unsupervised.py`
+- `src/nids/detect/fusion.py`
+- `src/nids/storage/sqlite_store.py`
+- `src/nids/storage/jsonl_store.py`
+- `src/nids/storage/incident_store.py`
+- `src/nids/visuals/dashboard.py`
+- `src/nids/artifacts/analyzer.py`
 - `scripts/prepared_env_validation.py`
 
 ## Operational Purpose

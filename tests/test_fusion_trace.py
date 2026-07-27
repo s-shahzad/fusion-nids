@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 
-from src.NIDS.fusion_trace import build_fusion_trace_entry, write_fusion_trace_artifacts
+from src.nids.fusion_trace import build_fusion_trace_entry, write_fusion_trace_artifacts
 
 
 def test_build_fusion_trace_entry_for_confirmed_case() -> None:

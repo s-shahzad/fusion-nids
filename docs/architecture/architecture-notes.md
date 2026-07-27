@@ -6,13 +6,13 @@
 
     ## Component Map
 
-    - Ingest: `src/NIDS/ingest/live.py` and `src/NIDS/ingest/offline.py`
-    - Parsing: `src/NIDS/pipeline/parser.py`
-    - Feature extraction: `src/NIDS/pipeline/features.py`
-    - Detection: `src/NIDS/detect/`
-    - Storage: `src/NIDS/storage/`
-    - Visualization: `src/NIDS/visuals/`
-    - Artifact analysis: `src/NIDS/artifacts/`
+    - Ingest: `src/nids/ingest/live.py` and `src/nids/ingest/offline.py`
+    - Parsing: `src/nids/pipeline/parser.py`
+    - Feature extraction: `src/nids/pipeline/features.py`
+    - Detection: `src/nids/detect/`
+    - Storage: `src/nids/storage/`
+    - Visualization: `src/nids/visuals/`
+    - Artifact analysis: `src/nids/artifacts/`
 
     ## Feature Set
 

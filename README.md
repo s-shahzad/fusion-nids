@@ -253,9 +253,9 @@ The author is first author on IEEE-published research in ML-based attack detecti
 
 ## Licensing
 
-The core detection engine and API (`src/NIDS/` excluding `adversary_lab/`) are licensed under the **MIT License**, see [LICENSE](LICENSE).
+The core detection engine and API (`src/nids/` excluding `adversary_lab/`) are licensed under the **MIT License**, see [LICENSE](LICENSE).
 
-The `src/NIDS/adversary_lab/` component depends on [Scapy](https://scapy.net) (GPL-2.0-only) and is therefore licensed under **GPL-2.0-or-later**, see [src/NIDS/adversary_lab/LICENSE](src/NIDS/adversary_lab/LICENSE). This component is optional and not required to run the core detection pipeline.
+The `src/nids/adversary_lab/` component depends on [Scapy](https://scapy.net) (GPL-2.0-only) and is therefore licensed under **GPL-2.0-or-later**, see [src/nids/adversary_lab/LICENSE](src/nids/adversary_lab/LICENSE). This component is optional and not required to run the core detection pipeline.
 
 ---
 

@@ -6,8 +6,8 @@ import joblib
 import pandas as pd
 from sklearn.datasets import make_classification
 
-from src.NIDS.detect.ml_supervised import SupervisedMLEngine
-from src.NIDS.ml.supervised_ensemble import (
+from src.nids.detect.ml_supervised import SupervisedMLEngine
+from src.nids.ml.supervised_ensemble import (
     build_ensemble_payload,
     payload_algorithm_names,
     payload_model_count,

@@ -35,12 +35,12 @@ Incoming File / Directory
 
 ## Module Relationships
 
-- `src/NIDS/artifacts/intake.py` manages one-shot scans and watch mode.
-- `src/NIDS/artifacts/analyzer.py` performs normalized static analysis.
-- `src/NIDS/artifacts/storage.py` persists records and handles duplicate lookups by SHA-256.
-- `src/NIDS/artifacts/report.py` generates markdown summaries from stored artifact evidence.
-- `src/NIDS/artifacts/parsers/` contains file-type-specific parsers for PDF, DOCX, XLSX, ZIP, HTML, JSON, CSV, Python, and executable-oriented handling.
-- `src/NIDS/cli.py` exposes `artifact-scan`, `artifact-watch`, and `artifact-report`.
+- `src/nids/artifacts/intake.py` manages one-shot scans and watch mode.
+- `src/nids/artifacts/analyzer.py` performs normalized static analysis.
+- `src/nids/artifacts/storage.py` persists records and handles duplicate lookups by SHA-256.
+- `src/nids/artifacts/report.py` generates markdown summaries from stored artifact evidence.
+- `src/nids/artifacts/parsers/` contains file-type-specific parsers for PDF, DOCX, XLSX, ZIP, HTML, JSON, CSV, Python, and executable-oriented handling.
+- `src/nids/cli.py` exposes `artifact-scan`, `artifact-watch`, and `artifact-report`.
 
 ## Data Flow Explanation
 
@@ -54,19 +54,19 @@ Incoming File / Directory
 
 ## Key Files / Modules
 
-- `src/NIDS/artifacts/intake.py`
-- `src/NIDS/artifacts/analyzer.py`
-- `src/NIDS/artifacts/storage.py`
-- `src/NIDS/artifacts/report.py`
-- `src/NIDS/artifacts/parsers/csv_parser.py`
-- `src/NIDS/artifacts/parsers/docx_parser.py`
-- `src/NIDS/artifacts/parsers/exe_parser.py`
-- `src/NIDS/artifacts/parsers/html_parser.py`
-- `src/NIDS/artifacts/parsers/json_parser.py`
-- `src/NIDS/artifacts/parsers/pdf_parser.py`
-- `src/NIDS/artifacts/parsers/py_parser.py`
-- `src/NIDS/artifacts/parsers/xlsx_parser.py`
-- `src/NIDS/artifacts/parsers/zip_parser.py`
+- `src/nids/artifacts/intake.py`
+- `src/nids/artifacts/analyzer.py`
+- `src/nids/artifacts/storage.py`
+- `src/nids/artifacts/report.py`
+- `src/nids/artifacts/parsers/csv_parser.py`
+- `src/nids/artifacts/parsers/docx_parser.py`
+- `src/nids/artifacts/parsers/exe_parser.py`
+- `src/nids/artifacts/parsers/html_parser.py`
+- `src/nids/artifacts/parsers/json_parser.py`
+- `src/nids/artifacts/parsers/pdf_parser.py`
+- `src/nids/artifacts/parsers/py_parser.py`
+- `src/nids/artifacts/parsers/xlsx_parser.py`
+- `src/nids/artifacts/parsers/zip_parser.py`
 
 ## Operational Purpose
 

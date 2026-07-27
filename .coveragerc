@@ -1,9 +1,9 @@
 [run]
 branch = True
 source =
-    src/NIDS
+    src/nids
 omit =
-    src/NIDS/__init__.py
+    src/nids/__init__.py
 
 [report]
 fail_under = 72

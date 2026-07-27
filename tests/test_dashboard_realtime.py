@@ -10,8 +10,8 @@ from fastapi import HTTPException
 from starlette.requests import Request
 import pytest
 
-from src.NIDS.storage.sqlite_store import SQLiteStore
-from src.NIDS.visuals.dashboard import (
+from src.nids.storage.sqlite_store import SQLiteStore
+from src.nids.visuals.dashboard import (
     _build_realtime_payload,
     _dashboard_html,
     _is_authorized_token,

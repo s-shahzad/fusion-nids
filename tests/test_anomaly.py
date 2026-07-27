@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
-from src.NIDS.detect.anomaly import AnomalyEngine
+from src.nids.detect.anomaly import AnomalyEngine
 
 
 def _ts(offset_sec: int) -> str:

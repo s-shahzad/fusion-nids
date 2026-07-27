@@ -4,10 +4,10 @@
 
 Upgrade `NIDS_Workspace` into a production-style, offline-first defensive platform without changing validated detection logic in:
 
-- `src/NIDS/detect/`
-- `src/NIDS/ml/`
-- `src/NIDS/pipeline/`
-- `src/NIDS/runtime.py`
+- `src/nids/detect/`
+- `src/nids/ml/`
+- `src/nids/pipeline/`
+- `src/nids/runtime.py`
 
 The upgrade wraps existing logic with cleaner operational boundaries, stricter API patterns, environment-aware settings, and deployment scaffolding.
 
@@ -67,7 +67,7 @@ The upgrade wraps existing logic with cleaner operational boundaries, stricter A
 ## Proposed Folder Structure
 
 ```text
-src/NIDS/
+src/nids/
   api/
     app.py                      # existing lightweight API/dashboard app
     assist.py                   # existing assist endpoints

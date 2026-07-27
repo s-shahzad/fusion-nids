@@ -29,14 +29,14 @@ Labeled Flows in SQLite
 
 ## Module Relationships
 
-- `src/NIDS/ml/dataset_loader.py` reads labeled flows from SQLite for model-building workflows.
-- `src/NIDS/ml/feature_builder.py` builds training frames from persisted flow rows.
-- `src/NIDS/ml/featureset.py` defines the runtime/training feature vector order.
-- `src/NIDS/ml/supervised_ensemble.py` builds and scores the ensemble payload.
-- `src/NIDS/ml/train.py` trains and persists the supervised model.
-- `src/NIDS/ml/evaluate.py` evaluates trained models against labeled flows.
-- `src/NIDS/detect/ml.py` is the runtime router that invokes supervised and unsupervised inference.
-- `src/NIDS/detect/ml_supervised.py` and `src/NIDS/detect/ml_unsupervised.py` perform runtime scoring.
+- `src/nids/ml/dataset_loader.py` reads labeled flows from SQLite for model-building workflows.
+- `src/nids/ml/feature_builder.py` builds training frames from persisted flow rows.
+- `src/nids/ml/featureset.py` defines the runtime/training feature vector order.
+- `src/nids/ml/supervised_ensemble.py` builds and scores the ensemble payload.
+- `src/nids/ml/train.py` trains and persists the supervised model.
+- `src/nids/ml/evaluate.py` evaluates trained models against labeled flows.
+- `src/nids/detect/ml.py` is the runtime router that invokes supervised and unsupervised inference.
+- `src/nids/detect/ml_supervised.py` and `src/nids/detect/ml_unsupervised.py` perform runtime scoring.
 
 ## Data Flow Explanation
 
@@ -74,14 +74,14 @@ Labeled Flows in SQLite
 
 ## Key Files / Modules
 
-- `src/NIDS/ml/train.py`
-- `src/NIDS/ml/evaluate.py`
-- `src/NIDS/ml/featureset.py`
-- `src/NIDS/ml/feature_builder.py`
-- `src/NIDS/ml/supervised_ensemble.py`
-- `src/NIDS/detect/ml.py`
-- `src/NIDS/detect/ml_supervised.py`
-- `src/NIDS/detect/ml_unsupervised.py`
+- `src/nids/ml/train.py`
+- `src/nids/ml/evaluate.py`
+- `src/nids/ml/featureset.py`
+- `src/nids/ml/feature_builder.py`
+- `src/nids/ml/supervised_ensemble.py`
+- `src/nids/detect/ml.py`
+- `src/nids/detect/ml_supervised.py`
+- `src/nids/detect/ml_unsupervised.py`
 
 ## Operational Purpose
 

@@ -31,12 +31,12 @@ Signature  Stats   Sup ML   Unsup ML
 
 ## Module Relationships
 
-- `src/NIDS/ingest/live.py` captures packets from a real NIC and enqueues normalized events.
-- `src/NIDS/ingest/offline.py` replays PCAPs and normalizes Suricata and Zeek JSON records into the same event shape.
-- `src/NIDS/pipeline/parser.py` extracts protocol-aware fields from packets.
-- `src/NIDS/pipeline/features.py` derives runtime features and rolling-window counters.
-- `src/NIDS/runtime.py` passes each event through detectors, fusion, suppression, and storage.
-- `src/NIDS/storage/` and `src/NIDS/visuals/` consume persisted evidence rather than direct packet streams.
+- `src/nids/ingest/live.py` captures packets from a real NIC and enqueues normalized events.
+- `src/nids/ingest/offline.py` replays PCAPs and normalizes Suricata and Zeek JSON records into the same event shape.
+- `src/nids/pipeline/parser.py` extracts protocol-aware fields from packets.
+- `src/nids/pipeline/features.py` derives runtime features and rolling-window counters.
+- `src/nids/runtime.py` passes each event through detectors, fusion, suppression, and storage.
+- `src/nids/storage/` and `src/nids/visuals/` consume persisted evidence rather than direct packet streams.
 
 ## Data Flow Explanation
 
@@ -48,7 +48,7 @@ Signature  Stats   Sup ML   Unsup ML
 
 ### 2. Event Normalization
 
-`src/NIDS/pipeline/parser.py` emits event records containing:
+`src/nids/pipeline/parser.py` emits event records containing:
 
 - timestamp
 - source and destination IP
@@ -95,13 +95,13 @@ This keeps detector comparisons aligned on identical source context.
 
 ## Key Files / Modules
 
-- `src/NIDS/ingest/live.py`
-- `src/NIDS/ingest/offline.py`
-- `src/NIDS/pipeline/parser.py`
-- `src/NIDS/pipeline/features.py`
-- `src/NIDS/runtime.py`
-- `src/NIDS/storage/sqlite_store.py`
-- `src/NIDS/storage/jsonl_store.py`
+- `src/nids/ingest/live.py`
+- `src/nids/ingest/offline.py`
+- `src/nids/pipeline/parser.py`
+- `src/nids/pipeline/features.py`
+- `src/nids/runtime.py`
+- `src/nids/storage/sqlite_store.py`
+- `src/nids/storage/jsonl_store.py`
 
 ## Operational Purpose
 

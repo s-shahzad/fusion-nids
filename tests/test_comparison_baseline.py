@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.NIDS.adversary import comparison_baseline as baseline
+from src.nids.adversary import comparison_baseline as baseline
 
 
 class _FakeResult:

@@ -8,8 +8,8 @@ from scapy.layers.inet import IP, TCP
 from scapy.packet import Raw
 from scapy.utils import wrpcap
 
-from src.NIDS.config import RuntimeConfig
-from src.NIDS.pipeline.runtime import run_local_pipeline
+from src.nids.config import RuntimeConfig
+from src.nids.pipeline.runtime import run_local_pipeline
 
 
 def _rules_file(tmp_path: Path) -> Path:

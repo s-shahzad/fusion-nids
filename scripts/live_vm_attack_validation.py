@@ -21,7 +21,7 @@ SRC_ROOT = REPO_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from NIDS.utils.secrets import get_secret  # noqa: E402
+from nids.utils.secrets import get_secret  # noqa: E402
 
 
 LAB_VM_USER_ENV = "LAB_VM_USER"
@@ -1245,40 +1245,40 @@ def main(argv: list[str] | None = None) -> int:
     try:
         files_to_sync = [
             (
-                REPO_ROOT / "src" / "NIDS" / "pipeline" / "parser.py",
-                posixpath.join(args.workspace, "src", "NIDS", "pipeline", "parser.py"),
+                REPO_ROOT / "src" / "nids" / "pipeline" / "parser.py",
+                posixpath.join(args.workspace, "src", "nids", "pipeline", "parser.py"),
             ),
             (
-                REPO_ROOT / "src" / "NIDS" / "pipeline" / "features.py",
-                posixpath.join(args.workspace, "src", "NIDS", "pipeline", "features.py"),
+                REPO_ROOT / "src" / "nids" / "pipeline" / "features.py",
+                posixpath.join(args.workspace, "src", "nids", "pipeline", "features.py"),
             ),
             (
-                REPO_ROOT / "src" / "NIDS" / "ingest" / "__init__.py",
-                posixpath.join(args.workspace, "src", "NIDS", "ingest", "__init__.py"),
+                REPO_ROOT / "src" / "nids" / "ingest" / "__init__.py",
+                posixpath.join(args.workspace, "src", "nids", "ingest", "__init__.py"),
             ),
             (
-                REPO_ROOT / "src" / "NIDS" / "ingest" / "live.py",
-                posixpath.join(args.workspace, "src", "NIDS", "ingest", "live.py"),
+                REPO_ROOT / "src" / "nids" / "ingest" / "live.py",
+                posixpath.join(args.workspace, "src", "nids", "ingest", "live.py"),
             ),
             (
-                REPO_ROOT / "src" / "NIDS" / "detect" / "anomaly.py",
-                posixpath.join(args.workspace, "src", "NIDS", "detect", "anomaly.py"),
+                REPO_ROOT / "src" / "nids" / "detect" / "anomaly.py",
+                posixpath.join(args.workspace, "src", "nids", "detect", "anomaly.py"),
             ),
             (
-                REPO_ROOT / "src" / "NIDS" / "detect" / "ml.py",
-                posixpath.join(args.workspace, "src", "NIDS", "detect", "ml.py"),
+                REPO_ROOT / "src" / "nids" / "detect" / "ml.py",
+                posixpath.join(args.workspace, "src", "nids", "detect", "ml.py"),
             ),
             (
-                REPO_ROOT / "src" / "NIDS" / "detect" / "ml_unsupervised.py",
-                posixpath.join(args.workspace, "src", "NIDS", "detect", "ml_unsupervised.py"),
+                REPO_ROOT / "src" / "nids" / "detect" / "ml_unsupervised.py",
+                posixpath.join(args.workspace, "src", "nids", "detect", "ml_unsupervised.py"),
             ),
             (
-                REPO_ROOT / "src" / "NIDS" / "runtime.py",
-                posixpath.join(args.workspace, "src", "NIDS", "runtime.py"),
+                REPO_ROOT / "src" / "nids" / "runtime.py",
+                posixpath.join(args.workspace, "src", "nids", "runtime.py"),
             ),
             (
-                REPO_ROOT / "src" / "NIDS" / "config.py",
-                posixpath.join(args.workspace, "src", "NIDS", "config.py"),
+                REPO_ROOT / "src" / "nids" / "config.py",
+                posixpath.join(args.workspace, "src", "nids", "config.py"),
             ),
             (
                 REPO_ROOT / "config" / "nids.yml",

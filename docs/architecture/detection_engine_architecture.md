@@ -28,13 +28,13 @@ Normalized Event + Features
 
 ## Module Relationships
 
-- `src/NIDS/detect/signature.py` handles rule-based matching.
-- `src/NIDS/detect/anomaly.py` handles threshold, cooldown, and EWMA/z-score logic.
-- `src/NIDS/detect/ml.py` coordinates supervised and unsupervised model evaluation.
-- `src/NIDS/detect/ml_supervised.py` loads and scores the persisted ensemble model.
-- `src/NIDS/detect/ml_unsupervised.py` performs hybrid anomaly scoring and episodic alert gating.
-- `src/NIDS/detect/fusion.py` combines detector outputs into a single weighted decision.
-- `src/NIDS/detect/suppression.py` and runtime suppression checks bound alert repetition.
+- `src/nids/detect/signature.py` handles rule-based matching.
+- `src/nids/detect/anomaly.py` handles threshold, cooldown, and EWMA/z-score logic.
+- `src/nids/detect/ml.py` coordinates supervised and unsupervised model evaluation.
+- `src/nids/detect/ml_supervised.py` loads and scores the persisted ensemble model.
+- `src/nids/detect/ml_unsupervised.py` performs hybrid anomaly scoring and episodic alert gating.
+- `src/nids/detect/fusion.py` combines detector outputs into a single weighted decision.
+- `src/nids/detect/suppression.py` and runtime suppression checks bound alert repetition.
 
 ## Data Flow Explanation
 
@@ -106,13 +106,13 @@ The fusion layer merges signature, anomaly, supervised, and unsupervised scores 
 
 ## Key Files / Modules
 
-- `src/NIDS/detect/signature.py`
-- `src/NIDS/detect/anomaly.py`
-- `src/NIDS/detect/ml.py`
-- `src/NIDS/detect/ml_supervised.py`
-- `src/NIDS/detect/ml_unsupervised.py`
-- `src/NIDS/detect/fusion.py`
-- `src/NIDS/detect/suppression.py`
+- `src/nids/detect/signature.py`
+- `src/nids/detect/anomaly.py`
+- `src/nids/detect/ml.py`
+- `src/nids/detect/ml_supervised.py`
+- `src/nids/detect/ml_unsupervised.py`
+- `src/nids/detect/fusion.py`
+- `src/nids/detect/suppression.py`
 
 ## Operational Purpose
 

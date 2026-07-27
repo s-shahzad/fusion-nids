@@ -4,8 +4,8 @@ import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from src.NIDS.reporting import generate_threshold_tuning_report
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.reporting import generate_threshold_tuning_report
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 def _iso(dt: datetime) -> str:

@@ -1,8 +1,8 @@
 import asyncio
 import os
 
-import src.NIDS.ingest.live as live_module
-from src.NIDS.ingest.live import _resolve_live_capture_backend, run_live_capture
+import src.nids.ingest.live as live_module
+from src.nids.ingest.live import _resolve_live_capture_backend, run_live_capture
 
 
 def test_resolve_live_capture_backend_defaults_to_scapy() -> None:
@@ -32,8 +32,8 @@ def test_run_live_capture_dispatches_tcpdump(monkeypatch) -> None:
         return 0
 
     monkeypatch.setattr(live_module, "_tcpdump_backend_supported", lambda: True)
-    monkeypatch.setattr("src.NIDS.ingest.live._run_scapy_capture", fake_scapy_capture)
-    monkeypatch.setattr("src.NIDS.ingest.live._run_tcpdump_capture", fake_tcpdump_capture)
+    monkeypatch.setattr("src.nids.ingest.live._run_scapy_capture", fake_scapy_capture)
+    monkeypatch.setattr("src.nids.ingest.live._run_tcpdump_capture", fake_tcpdump_capture)
 
     asyncio.run(
         run_live_capture(
@@ -59,8 +59,8 @@ def test_run_live_capture_dispatches_scapy(monkeypatch) -> None:
         called.append("tcpdump")
         return 0
 
-    monkeypatch.setattr("src.NIDS.ingest.live._run_scapy_capture", fake_scapy_capture)
-    monkeypatch.setattr("src.NIDS.ingest.live._run_tcpdump_capture", fake_tcpdump_capture)
+    monkeypatch.setattr("src.nids.ingest.live._run_scapy_capture", fake_scapy_capture)
+    monkeypatch.setattr("src.nids.ingest.live._run_tcpdump_capture", fake_tcpdump_capture)
 
     asyncio.run(
         run_live_capture(

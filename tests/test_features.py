@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
-from src.NIDS.detect.anomaly import AnomalyEngine
-from src.NIDS.pipeline.features import FeatureExtractor
+from src.nids.detect.anomaly import AnomalyEngine
+from src.nids.pipeline.features import FeatureExtractor
 
 
 def _ts(offset_sec: float) -> str:

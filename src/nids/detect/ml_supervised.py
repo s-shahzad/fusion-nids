@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 def _verify_model_integrity(path: Path) -> bool:
     """Verify a model file's SHA-256 before it is unpickled by ``joblib.load``.
 
-    Thin wrapper over :func:`NIDS.ml.integrity.verify_artifact_integrity` so the
+    Thin wrapper over :func:`nids.ml.integrity.verify_artifact_integrity` so the
     supervised engine, the unsupervised snapshot loader, and the offline
     evaluator all enforce the same rule from one implementation.
     """

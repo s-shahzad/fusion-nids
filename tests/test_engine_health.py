@@ -13,7 +13,7 @@ from pathlib import Path
 
 import joblib
 
-from src.NIDS.detect.ml import (
+from src.nids.detect.ml import (
     SUPERVISED_LOAD_FAILED,
     SUPERVISED_MISSING,
     SUPERVISED_OK,

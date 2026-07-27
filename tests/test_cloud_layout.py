@@ -4,8 +4,8 @@ import os
 import time
 from pathlib import Path
 
-from src.NIDS.adversary_lab import generate_bundle, offline_replay_profile
-from src.NIDS.cloud import build_cloud_storage_layout, cleanup_staged_replay, ensure_cloud_storage_layout, stage_validation_bundle
+from src.nids.adversary_lab import generate_bundle, offline_replay_profile
+from src.nids.cloud import build_cloud_storage_layout, cleanup_staged_replay, ensure_cloud_storage_layout, stage_validation_bundle
 
 
 def test_cloud_storage_layout_creates_expected_directories(tmp_path: Path) -> None:

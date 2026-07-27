@@ -6,7 +6,7 @@ from typing import Any
 
 import pytest
 
-from src.NIDS.ingest.live import LiveCaptureTelemetry, _run_scapy_capture, _run_tcpdump_capture
+from src.nids.ingest.live import LiveCaptureTelemetry, _run_scapy_capture, _run_tcpdump_capture
 
 
 pytestmark = [pytest.mark.live, pytest.mark.environment, pytest.mark.integration]
@@ -74,7 +74,7 @@ def test_tcpdump_fifo_streaming_handles_packet_burst_and_drop_count(monkeypatch:
         monkeypatch.setattr("shutil.which", lambda _binary: "/usr/sbin/tcpdump")
         monkeypatch.setattr("os.mkfifo", lambda _path: None, raising=False)
         monkeypatch.setattr(
-            "src.NIDS.ingest.live.parse_packet",
+            "src.nids.ingest.live.parse_packet",
             lambda *_args, **_kwargs: {
                 "timestamp": "2026-03-08T14:00:00+00:00",
                 "src_ip": "10.0.0.50",
@@ -200,7 +200,7 @@ def test_scapy_capture_ignores_malformed_packets_and_stops_cleanly(monkeypatch: 
         ]
 
         monkeypatch.setattr("scapy.sendrecv.AsyncSniffer", FakeAsyncSniffer)
-        monkeypatch.setattr("src.NIDS.ingest.live.parse_packet", lambda *_args, **_kwargs: parse_results.pop(0))
+        monkeypatch.setattr("src.nids.ingest.live.parse_packet", lambda *_args, **_kwargs: parse_results.pop(0))
 
         dropped = await _run_scapy_capture(
             interface="Ethernet",

@@ -3,8 +3,8 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from src.NIDS.storage.sqlite_store import SQLiteStore
-from src.NIDS.visuals.queries import build_analytics
+from src.nids.storage.sqlite_store import SQLiteStore
+from src.nids.visuals.queries import build_analytics
 
 
 def _iso(offset_minutes: int = 0) -> str:

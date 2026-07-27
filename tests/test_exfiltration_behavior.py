@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
-from src.NIDS.detect.exfiltration_behavior import ExfiltrationBehaviorDetector
+from src.nids.detect.exfiltration_behavior import ExfiltrationBehaviorDetector
 
 
 def _ts(offset_sec: int) -> str:

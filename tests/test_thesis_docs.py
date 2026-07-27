@@ -3,15 +3,15 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.NIDS.thesis import generate_thesis_documents
+from src.nids.thesis import generate_thesis_documents
 
 
 def test_generate_thesis_documents(tmp_path: Path) -> None:
-    (tmp_path / "src" / "NIDS" / "artifacts" / "parsers").mkdir(parents=True)
+    (tmp_path / "src" / "nids" / "artifacts" / "parsers").mkdir(parents=True)
     (tmp_path / "reports").mkdir(parents=True)
     (tmp_path / "lab" / "reports").mkdir(parents=True)
-    (tmp_path / "src" / "NIDS" / "artifacts" / "parsers" / "csv_parser.py").write_text("", encoding="utf-8")
-    (tmp_path / "src" / "NIDS" / "artifacts" / "parsers" / "json_parser.py").write_text("", encoding="utf-8")
+    (tmp_path / "src" / "nids" / "artifacts" / "parsers" / "csv_parser.py").write_text("", encoding="utf-8")
+    (tmp_path / "src" / "nids" / "artifacts" / "parsers" / "json_parser.py").write_text("", encoding="utf-8")
     (tmp_path / "requirements.txt").write_text("scapy>=2.5.0\npython-docx>=1.1.2\n", encoding="utf-8")
     (tmp_path / "reports" / "ml_metrics.json").write_text(
         json.dumps(

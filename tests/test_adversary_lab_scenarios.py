@@ -5,8 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-from src.NIDS.adversary_lab import generate_bundle, list_scenarios, offline_replay_profile
-from src.NIDS.adversary_lab.validators import validate_bundle
+from src.nids.adversary_lab import generate_bundle, list_scenarios, offline_replay_profile
+from src.nids.adversary_lab.validators import validate_bundle
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

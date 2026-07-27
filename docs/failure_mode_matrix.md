@@ -8,9 +8,9 @@ This matrix formalizes how the current offline replay workflow is expected to be
 |---|---|---|---|---|
 | Missing replay input | `--pcap-dir` path missing | replay run fails early with readable error | `run_local_pipeline` input validation and tests in `tests/test_local_pipeline_runtime.py` | low |
 | Missing rules file | rules path missing | replay run fails early with readable error | `run_local_pipeline` input validation | low |
-| Non-fresh output directory | API `run-local` target already populated | controlled rejection to avoid mixed SQLite-backed artifacts | API wrapper validation in `src/NIDS/api/app.py` and tests | low |
+| Non-fresh output directory | API `run-local` target already populated | controlled rejection to avoid mixed SQLite-backed artifacts | API wrapper validation in `src/nids/api/app.py` and tests | low |
 | SQLite append drift | replay reuses old output directory | historical counts can mix; current docs require fresh output directory | documented in README and evaluation docs | medium: still policy/documentation dependent outside API path |
-| Runtime stage failure | parser, storage, or runtime exception during local replay | `run-local` and helper paths should raise readable stage-specific failure | `src/NIDS/pipeline/runtime.py` wraps runtime/report/visualization stages | medium |
+| Runtime stage failure | parser, storage, or runtime exception during local replay | `run-local` and helper paths should raise readable stage-specific failure | `src/nids/pipeline/runtime.py` wraps runtime/report/visualization stages | medium |
 | Report generation failure | DB exists but markdown report generation fails | stage-specific error returned rather than silent success | `run_local_pipeline` report wrapper | low |
 | Visualization failure | chart export fails | stage-specific failure returned in `run_local_pipeline`; scenario runner can skip visualization | runtime wrapper plus runner flag | low |
 | Metrics generation failure | invalid or missing ground truth | evaluation stage fails clearly and does not silently fabricate metrics | `write_replay_metrics` and tests in `tests/test_replay_metrics.py` | low |

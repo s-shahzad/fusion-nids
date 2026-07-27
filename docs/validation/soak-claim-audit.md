@@ -71,7 +71,7 @@ because none can be computed.
 
 ## Why "87,533 flows" overstates what the pipeline did
 
-`src/NIDS/runtime.py` writes one `flows` row per packet
+`src/nids/runtime.py` writes one `flows` row per packet
 (`packet_count=1` is hard-coded at insert). There is no 5-tuple
 aggregation, no flow-timeout logic, no bidirectional pairing. The
 table named `flows` is a per-packet log. The actual processed-packet

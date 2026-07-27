@@ -11,7 +11,7 @@ This matrix is based on code and script audit plus the current automated validat
 | Core CLI, storage, reporting, artifact parsing, and visuals | Supported | Supported | Supported | Core code primarily uses `pathlib` and standard Python APIs. |
 | Default fast pytest suite | Supported | Supported | Supported | No hardware capture required. |
 | Live capture via Scapy interface sniffing | Conditional | Conditional | Conditional | Requires elevated permissions and interface-specific setup. |
-| Live capture via `tcpdump` + FIFO | Not supported by code path | Supported | Conditional | `src/NIDS/ingest/live.py` explicitly disables `tcpdump` backend on `nt`; POSIX path requires `mkfifo` and a working `tcpdump`. |
+| Live capture via `tcpdump` + FIFO | Not supported by code path | Supported | Conditional | `src/nids/ingest/live.py` explicitly disables `tcpdump` backend on `nt`; POSIX path requires `mkfifo` and a working `tcpdump`. |
 | Dashboard API and export | Supported | Supported | Supported | `uvicorn`/FastAPI paths are cross-platform; browser/runtime dependencies still need local packaging validation. |
 | VirtualBox / PowerShell lab orchestration | First-class host path | Partial | Partial | Current host automation is PowerShell-centric and Windows-focused. |
 | Linux guest attack scripts and remote validation | Via hosted lab | First-class target path | Future target path | Remote scripts intentionally use `posixpath` and Linux command assumptions. |
@@ -30,7 +30,7 @@ Strengths:
 
 Constraints:
 
-- `src/NIDS/ingest/live.py` intentionally falls back away from `tcpdump` because FIFO capture is not supported on `nt`.
+- `src/nids/ingest/live.py` intentionally falls back away from `tcpdump` because FIFO capture is not supported on `nt`.
 - Several lab summaries and setup docs embed absolute Windows paths; this is operationally acceptable for the current host but not cross-platform-neutral.
 - Some native dependencies such as `python-magic` remain packaging-sensitive on Windows hosts.
 

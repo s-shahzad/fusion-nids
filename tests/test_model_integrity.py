@@ -14,9 +14,9 @@ from pathlib import Path
 import joblib
 import pytest
 
-from src.NIDS.detect.ml_unsupervised import UnsupervisedMLEngine
-from src.NIDS.ml import evaluate as evaluate_module
-from src.NIDS.ml.integrity import (
+from src.nids.detect.ml_unsupervised import UnsupervisedMLEngine
+from src.nids.ml import evaluate as evaluate_module
+from src.nids.ml.integrity import (
     SUPERVISED_MODEL_SHA256_ENV,
     UNSUPERVISED_SNAPSHOT_SHA256_ENV,
     expected_digest_for,
@@ -145,7 +145,7 @@ def test_unsupervised_snapshot_load_is_attempted_when_digest_matches(tmp_path, m
         seen.append(Path(path))
         return real_load(path, *args, **kwargs)
 
-    monkeypatch.setattr("src.NIDS.detect.ml_unsupervised.joblib.load", _spy)
+    monkeypatch.setattr("src.nids.detect.ml_unsupervised.joblib.load", _spy)
     UnsupervisedMLEngine(snapshot_path=snapshot)
 
     assert seen == [snapshot]
