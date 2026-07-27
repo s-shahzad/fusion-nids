@@ -20,15 +20,39 @@ def _reports_root() -> Path:
 def _confine_report_path(out_path: str | Path) -> Path:
     """Resolve out_path under the fixed reports/ root and reject traversal.
 
-    Uses the same relative_to(root) containment check as the API layer so a
-    caller cannot write incident reports to an arbitrary filesystem location.
+    The caller is naming a file *inside* reports/, never a location on the
+    filesystem, so anything that could denote somewhere else is refused up
+    front rather than resolved and then caught by the containment check.
+
+    Rejecting early rather than relying solely on ``relative_to`` matters for
+    two reasons: it is far easier for a human or a scanner to verify, and it
+    removes ``expanduser()`` from an untrusted path entirely. There is no
+    legitimate reason for an API caller to reference the server's home
+    directory, and expanding ``~`` for them only widened what had to be caught
+    later.
+
+    The containment check is kept as the backstop, because symlinks inside
+    reports/ can still redirect a nominally-relative path outward and only a
+    post-resolution comparison catches that.
     """
     reports_root = _reports_root()
-    raw = Path(out_path).expanduser()
-    resolved = (reports_root / raw).resolve() if not raw.is_absolute() else raw.resolve()
+    raw = Path(out_path)
+    text = str(out_path)
+
+    if raw.is_absolute() or raw.drive or raw.root:
+        raise ValueError("out_path must be relative to the reports/ directory.")
+    if text.startswith("~"):
+        raise ValueError("out_path must not reference a home directory.")
+    if any(part == ".." for part in raw.parts):
+        raise ValueError("out_path must not contain parent-directory segments.")
+    if "\x00" in text:
+        raise ValueError("out_path must not contain null bytes.")
+
+    resolved = (reports_root / raw).resolve()
     try:
         resolved.relative_to(reports_root)
     except ValueError as exc:
+        # Reached when a symlink under reports/ points outside it.
         raise ValueError("out_path must stay within the reports/ directory.") from exc
     return resolved
 

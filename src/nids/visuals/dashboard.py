@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import hmac
+import logging
 import os
 import sqlite3
 from datetime import datetime, timedelta, timezone
@@ -13,6 +14,8 @@ from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconn
 from fastapi.responses import HTMLResponse, JSONResponse
 
 from ..storage import IncidentStore, SQLiteStore
+
+logger = logging.getLogger(__name__)
 from ..utils import SlackWebhookNotifier
 from .charts import build_all_figures
 from .queries import build_analytics
@@ -2183,8 +2186,12 @@ def create_dashboard_app(
                         "ready": len(missing) == 0,
                         "missing_tables": missing,
                     }
-            except Exception as exc:
-                incident_subsystem = {"ready": False, "error": str(exc)}
+            except Exception:
+                # /healthz is reachable without a token. A sqlite exception's
+                # text carries the database path and schema detail, so the
+                # caller learns the subsystem is unhealthy and nothing more.
+                logger.exception("Health probe failed while inspecting %s", source_db)
+                incident_subsystem = {"ready": False, "error": "health check failed; see server logs"}
 
         payload = {
             "status": "ok",
@@ -2227,9 +2234,13 @@ def create_dashboard_app(
                 missing = sorted(required - existing)
                 payload["missing_tables"] = missing
                 payload["status"] = "ready" if not missing else "degraded"
-        except Exception as exc:
+        except Exception:
+            # A sqlite exception's text carries the database path and schema
+            # details. /readyz is reachable without a token, so the caller gets
+            # the state and nothing derived from the exception.
+            logger.exception("Readiness probe failed while inspecting %s", source_db)
             payload["status"] = "not_ready"
-            payload["error"] = str(exc)
+            payload["error"] = "readiness check failed; see server logs"
             return JSONResponse(payload, status_code=status.HTTP_503_SERVICE_UNAVAILABLE)
 
         return JSONResponse(payload)

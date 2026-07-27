@@ -23,6 +23,20 @@ logger = logging.getLogger(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MAX_UPLOAD_BYTES = 700 * 1024 * 1024
 
+
+def _safe_for_log(value: object, *, limit: int = 200) -> str:
+    """Render an untrusted value as a single, bounded log field.
+
+    Attacker-controlled text in a log line can carry newlines and forge extra
+    entries, which is how a reader ends up trusting a fabricated log. Control
+    characters are escaped and the result is truncated so one request cannot
+    flood the log either.
+    """
+    text = str(value)
+    if len(text) > limit:
+        text = text[:limit] + "...[truncated]"
+    return text.replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t")
+
 DOMAIN_PROFILES: dict[str, dict[str, Any]] = {
     "universal": {
         "label": "Universal",
@@ -875,9 +889,16 @@ def file_drop_scan() -> Any:
     try:
         result = build_file_response(uploaded.filename or "uploaded.zip", raw)
     except (zipfile.BadZipFile, tarfile.ReadError, ValueError) as exc:
+        # These are validation failures with messages we author, so returning
+        # the text is useful to the caller and discloses nothing.
+        logger.info("Rejected uploaded archive: %s", exc)
         return jsonify({"error": str(exc)}), 400
-    except Exception as exc:
-        return jsonify({"error": f"Scan failed: {exc}"}), 500
+    except Exception:
+        # An unexpected exception's text can carry filesystem paths, library
+        # internals, or fragments of the uploaded data. Log it in full and
+        # return nothing derived from it.
+        logger.exception("Unhandled error while scanning uploaded file")
+        return jsonify({"error": "Scan failed. See server logs for details."}), 500
 
     with state_lock:
         scan_state["last_file_scan"] = result
@@ -994,7 +1015,10 @@ def static_assets(asset_path: str) -> Any:
     # Sanitize path: reject ".." segments and confine to BASE_DIR.
     normalized = os.path.normpath(os.path.join(BASE_DIR, asset_path))
     if not normalized.startswith(os.path.normpath(BASE_DIR)):
-        logger.warning(f"Attempted path traversal in static_assets: {asset_path}")
+        # asset_path is attacker-controlled. Interpolating it raw lets a caller
+        # inject newlines and forge additional log lines, so the value is
+        # sanitised and truncated before it reaches the log.
+        logger.warning("Attempted path traversal in static_assets: %s", _safe_for_log(asset_path))
         return jsonify({"error": "Not found"}), 404
 
     if os.path.isfile(normalized):

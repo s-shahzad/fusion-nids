@@ -47,6 +47,17 @@ def _parse_https_target(url: str) -> tuple[str, int]:
 
 def _collect_tls_snapshot(host: str, port: int, timeout: float) -> TLSSnapshot:
     context = ssl.create_default_context()
+    # create_default_context() still permits TLS 1.0/1.1 on some builds, which
+    # means this auditor could itself negotiate a protocol it is meant to flag.
+    # This snapshot collects certificate and negotiated-protocol facts, and does
+    # not need a legacy handshake to do that.
+    #
+    # Deliberate limitation: an endpoint that only speaks TLS 1.0/1.1 will now
+    # fail to connect rather than being reported as legacy. That is the correct
+    # trade here - the alternative is a security tool that quietly performs the
+    # weak handshake it exists to warn about. Probing legacy-only endpoints
+    # should be an explicit, separately named opt-in, not the default path.
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
     with socket.create_connection((host, int(port)), timeout=float(timeout)) as tcp_sock:
         with context.wrap_socket(tcp_sock, server_hostname=host) as tls_sock:
             cert = tls_sock.getpeercert()
