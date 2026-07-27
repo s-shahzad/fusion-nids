@@ -10,6 +10,7 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 
 from .dataset_loader import load_labeled_flows
 from .feature_builder import build_training_frame
+from .integrity import SUPERVISED_MODEL_SHA256_ENV, verify_artifact_integrity
 from .supervised_ensemble import payload_algorithm_names, predict_from_payload
 
 
@@ -19,6 +20,17 @@ def evaluate_model(
     output_json: str | Path = "reports/ml_evaluation.json",
 ) -> dict[str, Any]:
     """Evaluate an existing supervised model against labeled flow rows."""
+    # joblib.load unpickles, so verify before reading. Unlike the runtime
+    # engines, refusing here raises: an evaluation that silently skipped its
+    # model would report metrics for something other than what was asked for.
+    if not verify_artifact_integrity(
+        Path(model_path),
+        env_var=SUPERVISED_MODEL_SHA256_ENV,
+        label="supervised model",
+    ):
+        raise ValueError(
+            f"Model {model_path} failed SHA-256 integrity verification; refusing to evaluate it."
+        )
     payload = joblib.load(model_path)
     feature_columns = payload.get("feature_columns") if isinstance(payload, dict) else None
 

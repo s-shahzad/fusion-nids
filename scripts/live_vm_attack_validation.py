@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import posixpath
 import shlex
 import sqlite3
@@ -79,9 +80,42 @@ def _quote_remote(path: str) -> str:
     return shlex.quote(path)
 
 
+LAB_KNOWN_HOSTS_ENV = "NIDS_LAB_KNOWN_HOSTS"
+
+
+def _load_known_hosts(client: paramiko.SSHClient) -> None:
+    """Load host keys and refuse unknown hosts.
+
+    The previous policy was ``AutoAddPolicy``, which trusts whatever key answers
+    on first contact. That removes the only protection against a machine in the
+    middle, and a validation run is exactly where the identity of the measured
+    host has to be certain -- results attributed to the wrong machine are worse
+    than no results.
+
+    Keys are read from ``NIDS_LAB_KNOWN_HOSTS`` when set, otherwise from the
+    user's default ``known_hosts``. There is intentionally no auto-add escape
+    hatch: when a lab VM is rebuilt, record its new key explicitly, e.g.
+
+        ssh-keyscan -p 22 <host> >> ~/.ssh/known_hosts
+    """
+    override = (os.getenv(LAB_KNOWN_HOSTS_ENV) or "").strip()
+    if override:
+        known_hosts = Path(override).expanduser()
+        if not known_hosts.exists():
+            raise FileNotFoundError(
+                f"{LAB_KNOWN_HOSTS_ENV} points at {known_hosts}, which does not exist. "
+                "Create it (ssh-keyscan <host> >> <file>) or unset the variable to use the default."
+            )
+        client.load_host_keys(str(known_hosts))
+    else:
+        client.load_system_host_keys()
+
+    client.set_missing_host_key_policy(paramiko.RejectPolicy())
+
+
 def _connect(host: str, port: int, username: str, password: str) -> paramiko.SSHClient:
     client = paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    _load_known_hosts(client)
     client.connect(
         hostname=host,
         port=port,

@@ -1,9 +1,6 @@
 ﻿from __future__ import annotations
 
-import hashlib
-import hmac
 import logging
-import os
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 from ..ml.featureset import build_feature_vector
+from ..ml.integrity import SUPERVISED_MODEL_SHA256_ENV, verify_artifact_integrity
 from ..ml.supervised_ensemble import payload_algorithm_names, payload_model_count, predict_from_payload
 
 logger = logging.getLogger(__name__)
@@ -20,33 +18,16 @@ logger = logging.getLogger(__name__)
 def _verify_model_integrity(path: Path) -> bool:
     """Verify a model file's SHA-256 before it is unpickled by ``joblib.load``.
 
-    ``joblib.load`` unpickles, which executes arbitrary code, so a swapped model
-    file is remote code execution. If an expected digest is configured -- via the
-    ``NIDS_SUPERVISED_MODEL_SHA256`` env var or a sibling ``<model>.sha256`` file --
-    the file is refused on mismatch. With no expected digest configured the load
-    proceeds but is logged as unverified rather than silently trusted.
+    Thin wrapper over :func:`NIDS.ml.integrity.verify_artifact_integrity` so the
+    supervised engine, the unsupervised snapshot loader, and the offline
+    evaluator all enforce the same rule from one implementation.
     """
-    expected = (os.getenv("NIDS_SUPERVISED_MODEL_SHA256") or "").strip().lower()
-    sidecar = path.with_name(path.name + ".sha256")
-    if not expected and sidecar.exists():
-        parts = sidecar.read_text(encoding="utf-8").strip().split()
-        if parts:
-            expected = parts[0].lower()
-    if not expected:
-        logger.warning(
-            "Loading supervised model %s WITHOUT integrity verification "
-            "(set NIDS_SUPERVISED_MODEL_SHA256 or add a <model>.sha256 sidecar).",
-            path,
-        )
-        return True
-    actual = hashlib.sha256(path.read_bytes()).hexdigest()
-    if not hmac.compare_digest(actual, expected):
-        logger.error(
-            "Supervised model %s failed SHA-256 integrity check; refusing to load.",
-            path,
-        )
-        return False
-    return True
+    return verify_artifact_integrity(
+        path,
+        env_var=SUPERVISED_MODEL_SHA256_ENV,
+        label="supervised model",
+        logger=logger,
+    )
 
 
 def _force_single_worker_inference(payload: Any) -> None:
