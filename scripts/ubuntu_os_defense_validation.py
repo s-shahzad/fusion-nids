@@ -40,28 +40,28 @@ from live_vm_attack_validation import (  # noqa: E402
 def _sync_sensor_runtime(sensor_ssh: Any, workspace: str, config_relpath: str, password: str) -> None:
     files_to_sync = [
         (
-            REPO_ROOT / "src" / "NIDS" / "pipeline" / "parser.py",
-            posixpath.join(workspace, "src", "NIDS", "pipeline", "parser.py"),
+            REPO_ROOT / "src" / "nids" / "pipeline" / "parser.py",
+            posixpath.join(workspace, "src", "nids", "pipeline", "parser.py"),
         ),
         (
-            REPO_ROOT / "src" / "NIDS" / "pipeline" / "features.py",
-            posixpath.join(workspace, "src", "NIDS", "pipeline", "features.py"),
+            REPO_ROOT / "src" / "nids" / "pipeline" / "features.py",
+            posixpath.join(workspace, "src", "nids", "pipeline", "features.py"),
         ),
         (
-            REPO_ROOT / "src" / "NIDS" / "ingest" / "live.py",
-            posixpath.join(workspace, "src", "NIDS", "ingest", "live.py"),
+            REPO_ROOT / "src" / "nids" / "ingest" / "live.py",
+            posixpath.join(workspace, "src", "nids", "ingest", "live.py"),
         ),
         (
-            REPO_ROOT / "src" / "NIDS" / "detect" / "anomaly.py",
-            posixpath.join(workspace, "src", "NIDS", "detect", "anomaly.py"),
+            REPO_ROOT / "src" / "nids" / "detect" / "anomaly.py",
+            posixpath.join(workspace, "src", "nids", "detect", "anomaly.py"),
         ),
         (
-            REPO_ROOT / "src" / "NIDS" / "runtime.py",
-            posixpath.join(workspace, "src", "NIDS", "runtime.py"),
+            REPO_ROOT / "src" / "nids" / "runtime.py",
+            posixpath.join(workspace, "src", "nids", "runtime.py"),
         ),
         (
-            REPO_ROOT / "src" / "NIDS" / "config.py",
-            posixpath.join(workspace, "src", "NIDS", "config.py"),
+            REPO_ROOT / "src" / "nids" / "config.py",
+            posixpath.join(workspace, "src", "nids", "config.py"),
         ),
         (
             REPO_ROOT / "config" / "nids.yml",

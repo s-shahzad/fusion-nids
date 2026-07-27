@@ -102,7 +102,7 @@ def _requirements(root: Path) -> list[str]:
 
 
 def _artifact_formats(root: Path) -> list[str]:
-    parser_dir = root / "src" / "NIDS" / "artifacts" / "parsers"
+    parser_dir = root / "src" / "nids" / "artifacts" / "parsers"
     mapping = {
         "csv_parser.py": "CSV",
         "docx_parser.py": "DOCX / Word documents",
