@@ -141,7 +141,9 @@ def test_remote_write_with_correct_action_token_is_allowed():
         allow_mutating_routes=True,
         action_token="act",
     )
-    require_write_access(request, authorization=None, x_action_token="act")
+    require_write_access(
+        request, authorization=None, x_api_token="s3cret", x_action_token="act"
+    )
 
 
 def test_remote_write_with_wrong_action_token_is_rejected():
@@ -154,6 +156,47 @@ def test_remote_write_with_wrong_action_token_is_rejected():
     )
 
     with pytest.raises(HTTPException) as exc:
-        require_write_access(request, authorization=None, x_action_token="nope")
+        require_write_access(
+            request, authorization=None, x_api_token="s3cret", x_action_token="nope"
+        )
+
+    assert exc.value.status_code == 401
+
+
+def test_write_forwards_api_token_to_read_check():
+    """Regression: write routes dropped X-API-Token when delegating.
+
+    `require_write_access` called `require_read_access` without passing
+    `x_api_token`, so the read check saw the `Header(default=None)` sentinel
+    instead of the caller's token and rejected every X-API-Token authenticated
+    write, even with a correct token. Bearer auth masked it.
+    """
+    request = _request(
+        "10.0.0.5",
+        allow_remote_api=True,
+        api_token="s3cret",
+        allow_mutating_routes=True,
+        action_token="act",
+    )
+
+    # No Authorization header at all: the token arrives only via X-API-Token.
+    require_write_access(
+        request, authorization=None, x_api_token="s3cret", x_action_token="act"
+    )
+
+
+def test_write_still_rejects_wrong_api_token():
+    request = _request(
+        "10.0.0.5",
+        allow_remote_api=True,
+        api_token="s3cret",
+        allow_mutating_routes=True,
+        action_token="act",
+    )
+
+    with pytest.raises(HTTPException) as exc:
+        require_write_access(
+            request, authorization=None, x_api_token="wrong", x_action_token="act"
+        )
 
     assert exc.value.status_code == 401
