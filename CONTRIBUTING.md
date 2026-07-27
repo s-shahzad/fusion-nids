@@ -39,6 +39,44 @@ pytest -m "not lab and not environment and not live"
 - Prefer small, readable functions over cleverness.
 - Match the style of the surrounding code.
 
+## Naming and layout conventions
+
+The repository previously mixed several conventions. These are now the rules;
+please follow them so it does not drift back.
+
+| Thing | Convention | Example |
+|---|---|---|
+| Directories | lowercase, hyphen-separated | `docs/architecture/`, `lab/` |
+| Python modules and packages | lowercase with underscores | `src/nids/detect/ml_supervised.py` |
+| Shell and PowerShell scripts | lowercase, hyphen-separated | `lab/run-offline-test.ps1` |
+| Documentation files | lowercase with underscores or hyphens | `docs/validation/soak-claim-audit.md` |
+| Root-level community files | conventional uppercase | `README.md`, `LICENSE`, `SECURITY.md` |
+
+Additional rules:
+
+- **No spaces in filenames.** They break shell pipelines and CI globs.
+- **No absolute local paths in tracked files.** Never commit `C:\Users\<you>\...`
+  or an equivalent — it leaks your username and machine layout into a public
+  repository. Use repo-relative paths in documentation, and a `<workspace>`
+  placeholder in recorded evidence where an absolute path must be represented.
+- **One package spelling.** The importable package is `src/nids/`. The root
+  `nids/` directory is a documented CLI shim for `python -m nids` and should not
+  grow beyond dispatching.
+- **Generated output is not tracked.** See `reports/README.md`. Evidence is
+  tracked; renders are not.
+
+## What does not belong in this repository
+
+- Unpublished manuscripts, thesis source, or presentation decks. `paper/`,
+  `thesis/`, and `docs/paper_*.md` are gitignored deliberately.
+- Any capture or scan data describing a network you do not own. The synthetic
+  bundles under `pcaps/` are lab-generated against mock targets; real captures
+  stay in the gitignored `lab/pcaps/`.
+
+Note that removing such a file in a later commit does **not** remove it from
+GitHub — orphaned objects stay fetchable by SHA until GitHub garbage-collects
+them. Keep it out in the first place.
+
 ## Licensing of contributions
 
 This project is dual-licensed:

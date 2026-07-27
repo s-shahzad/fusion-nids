@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-07-16T14:21:10+00:00",
+  "scenario_id": "ADVLAB-001",
+  "scenario_name": "Port Scan Pattern Simulation",
+  "scenario_key": "port_scan_pattern",
+  "attack_type": "lab_generated:port_scan_pattern",
+  "lab_generated": true,
+  "label": "lab_generated",
+  "description": "Low-noise TCP SYN sweep against a mock internal target for scan-threshold validation.",
+  "tags": [
+    "recon",
+    "scan",
+    "offline_bundle"
+  ],
+  "notes": [
+    "Dummy offline replay only.",
+    "Designed to exercise existing port-scan signature and anomaly paths."
+  ],
+  "target_ips": [
+    "10.77.0.20",
+    "10.77.0.30"
+  ],
+  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo",
+  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\port-scan-pattern.pcap",
+  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\labels.csv",
+  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\normalized_events.jsonl",
+  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\suricata_eve.jsonl",
+  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\zeek_conn.jsonl",
+  "packet_count": 28,
+  "event_summary": {
+    "event_count": 28,
+    "proto_counts": {
+      "TCP": 28
+    },
+    "first_timestamp": "2026-03-14T12:00:00+00:00",
+    "last_timestamp": "2026-03-14T12:00:00.810000+00:00"
+  },
+  "safety_policy": {
+    "name": "offline-replay-only",
+    "offline_bundle_only": true,
+    "allow_loopback": true,
+    "allow_private_ranges": true,
+    "allow_documentation_ranges": true,
+    "allowed_cidrs": [],
+    "max_packets": 4096,
+    "max_total_bytes": 1500000,
+    "banner": "Lab-generated adversary emulation only. Generate artifacts only for offline replay, localhost, containers, or explicitly configured isolated lab CIDRs."
+  },
+  "metadata": {
+    "expected_detectors": [
+      "signature",
+      "anomaly"
+    ]
+  }
+}

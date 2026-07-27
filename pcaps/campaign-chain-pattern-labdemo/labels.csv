@@ -1,0 +1,2 @@
+pcap_file,start_time,end_time,src_ip,dst_ip,src_port,dst_port,proto,label,attack_type
+campaign-chain-pattern.pcap,,,,,,,,lab_generated,lab_generated:campaign_chain_pattern

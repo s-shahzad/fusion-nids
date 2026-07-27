@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-07-16T14:21:10+00:00",
+  "scenario_id": "ADVLAB-004",
+  "scenario_name": "Exfiltration-Like Transfer Simulation",
+  "scenario_key": "exfiltration_pattern",
+  "attack_type": "lab_generated:exfiltration_pattern",
+  "lab_generated": true,
+  "label": "lab_generated",
+  "description": "Dummy DNS and HTTP transfer patterns that resemble covert data egress without using real data.",
+  "tags": [
+    "exfiltration",
+    "dns",
+    "http",
+    "offline_bundle"
+  ],
+  "notes": [
+    "Only dummy strings are transmitted.",
+    "No files, secrets, or live external targets are involved."
+  ],
+  "target_ips": [
+    "10.77.0.26",
+    "10.77.0.53",
+    "198.51.100.90"
+  ],
+  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo",
+  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\exfiltration-pattern.pcap",
+  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\labels.csv",
+  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\normalized_events.jsonl",
+  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\suricata_eve.jsonl",
+  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\zeek_conn.jsonl",
+  "packet_count": 7,
+  "event_summary": {
+    "event_count": 7,
+    "proto_counts": {
+      "UDP": 4,
+      "TCP": 3
+    },
+    "first_timestamp": "2026-03-14T12:20:00+00:00",
+    "last_timestamp": "2026-03-14T12:20:06.400000+00:00"
+  },
+  "safety_policy": {
+    "name": "offline-replay-only",
+    "offline_bundle_only": true,
+    "allow_loopback": true,
+    "allow_private_ranges": true,
+    "allow_documentation_ranges": true,
+    "allowed_cidrs": [],
+    "max_packets": 4096,
+    "max_total_bytes": 1500000,
+    "banner": "Lab-generated adversary emulation only. Generate artifacts only for offline replay, localhost, containers, or explicitly configured isolated lab CIDRs."
+  },
+  "metadata": {
+    "expected_detectors": [
+      "signature",
+      "exfiltration_behavior"
+    ]
+  }
+}

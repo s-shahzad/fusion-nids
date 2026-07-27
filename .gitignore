@@ -141,9 +141,13 @@ cloud_data/
 # generic archive/output ignore (replaces removed literal historical paths)
 archives/**
 
+# Synthetic demo bundles are the exception to the blanket *.jsonl rule above:
+# the Suricata and Zeek adapter replay paths documented in each bundle README
+# do not work without them.
+!pcaps/*-labdemo/*.jsonl
+
 # preserved local-only evidence and scratch - never publish
 _lab-evidence/
-pcaps/*-labdemo/
 CI_FIX_STATUS.md
 .venv-ci/
 
