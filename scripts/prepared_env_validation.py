@@ -944,7 +944,7 @@ workspace = {workspace!r}
 db_path = {posixpath.join(workspace, result_rel, 'nids.db')!r}
 sys.path.insert(0, os.path.join(workspace, "src"))
 
-from NIDS.storage.sqlite_store import SQLiteStore
+from nids.storage.sqlite_store import SQLiteStore
 
 store = SQLiteStore(Path(db_path))
 try:
