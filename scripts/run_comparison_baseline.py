@@ -15,7 +15,7 @@ from src.NIDS.adversary import run_comparison_baseline, write_comparison_baselin
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run deterministic offline comparative baseline study.")
     parser.add_argument("--pcap", required=True, help="Replay PCAP path.")
-    parser.add_argument("--config", default=str(REPO_ROOT / "NIDS_TestLab" / "config" / "offline_replay_profile.yml"))
+    parser.add_argument("--config", default=str(REPO_ROOT / "lab" / "config" / "offline_replay_profile.yml"))
     parser.add_argument("--rules", default=str(REPO_ROOT / "rules" / "rules.yml"))
     parser.add_argument("--model", default=str(REPO_ROOT / "models" / "model.pkl"))
     parser.add_argument("--ground-truth", help="Optional replay-review ground truth JSON path.")

@@ -29,7 +29,7 @@ These areas belong to the maintained active research platform:
 These areas are part of project operations or validation history, but they are
 not assumed to be public-release content by default:
 
-- `NIDS_TestLab/`
+- `lab/`
 - `data/`
 - `artifacts/`
 - `reports/`

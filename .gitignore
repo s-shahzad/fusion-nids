@@ -104,20 +104,26 @@ artifacts/incoming/
 artifacts/quarantine/
 
 # VirtualBox lab runtime artifacts
-NIDS_TestLab/artifacts/processed/
-NIDS_TestLab/artifacts/quarantine/
-NIDS_TestLab/artifacts/*.tar.gz
-NIDS_TestLab/isos/
-NIDS_TestLab/pcaps/
-NIDS_TestLab/results/
-NIDS_TestLab/vms/
-NIDS_TestLab/reports/*.png
-NIDS_TestLab/reports/**/*.png
-NIDS_TestLab/reports/*.docx
-NIDS_TestLab/reports/**/*.docx
-NIDS_TestLab/reports/*.log
-NIDS_TestLab/reports/**/*.log
-NIDS_TestLab/reports/*.launch.json
+lab/artifacts/processed/
+lab/artifacts/quarantine/
+lab/artifacts/*.tar.gz
+lab/isos/
+lab/pcaps/
+lab/results/
+lab/vms/
+lab/reports/*.png
+lab/reports/**/*.png
+lab/reports/*.docx
+lab/reports/**/*.docx
+lab/reports/*.log
+lab/reports/**/*.log
+lab/reports/*.launch.json
+
+# Lab runtime status snapshots. These describe the state of one operator's VMs
+# at one moment; they are not evidence and go stale immediately.
+lab/guest_install_status.json
+lab/realistic_lab_summary.json
+lab/virtualbox_lab_summary.json
 
 # Root-level internal operational docs (contain local C:\ paths)
 cloud_vm_deployment.md
@@ -145,11 +151,11 @@ CI_FIX_STATUS.md
 paper/
 thesis/
 docs/paper_*.md
-NIDS_TestLab/reports/nids_project_master_thesis.md
+lab/reports/nids_project_master_thesis.md
 
 # Generated report output. Regenerate with the reporting/visualisation commands;
 # see reports/README.md. Curated showcase charts live in docs/figures/ instead.
-# Evidence indices under NIDS_TestLab/reports/ stay TRACKED on purpose - they
+# Evidence indices under lab/reports/ stay TRACKED on purpose - they
 # are the record behind the prepared-environment claims, not build output.
 reports/graphs/
 reports/artifacts/

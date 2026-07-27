@@ -182,7 +182,7 @@ def _dashboard_html() -> str:
 
 
 def _baseline_profile() -> dict[str, Any]:
-    profile_path = _repo_root() / "NIDS_TestLab" / "config" / "offline_replay_profile.yml"
+    profile_path = _repo_root() / "lab" / "config" / "offline_replay_profile.yml"
     payload = _read_yaml(profile_path)
     ml_cfg = dict(payload.get("ml") or {})
     fusion_cfg = dict(payload.get("fusion") or {})

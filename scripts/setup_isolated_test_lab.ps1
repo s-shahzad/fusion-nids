@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$LabRoot = "$env:USERPROFILE\NIDS_Workspace\NIDS_TestLab",
+    [string]$LabRoot = "$env:USERPROFILE\NIDS_Workspace\lab",
     [string]$WorkspaceRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
     [string]$DistributionName = "Ubuntu"
 )
@@ -100,4 +100,4 @@ Write-Host "Isolated test lab prepared."
 Write-Host "Workspace root: $workspaceRootResolved"
 Write-Host "Lab root: $labRootResolved"
 Write-Host "Blocked remote range: $remoteAddress"
-Write-Host "Use C:\NIDS_Workspace\NIDS_TestLab\RUN_OFFLINE_TEST.ps1 for offline replay inside the lab folder."
+Write-Host "Use C:\NIDS_Workspace\lab\run-offline-test.ps1 for offline replay inside the lab folder."

@@ -276,7 +276,7 @@ def test_write_manifest_includes_environment_expected_and_actual(tmp_path: Path)
         scenario,
         run_name="phase6-benign/phase6-benign-saas-polling-20260312-180000",
         result_dir=result_dir,
-        config_relpath="NIDS_TestLab/config/live_vm_phase5_tuned_profile.yml",
+        config_relpath="lab/config/live_vm_phase5_tuned_profile.yml",
         capture_config={},
         remote_environment={"sensor": {"hostname": "nids-ubuntu-sensor"}, "target": {"hostname": "nids-ubuntu-target"}},
         execution={"kind": "custom_remote_validation", "duration_sec": 12.3, "returncode": 0},
@@ -308,7 +308,7 @@ def test_sync_sensor_files_includes_jsonl_store(monkeypatch) -> None:
 
     module._sync_sensor_files(
         object(),
-        "NIDS_TestLab/config/live_vm_phase5_tuned_profile.yml",
+        "lab/config/live_vm_phase5_tuned_profile.yml",
         "placeholder-password",
     )
 

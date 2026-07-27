@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 from pathlib import Path
@@ -9,7 +9,7 @@ from src.NIDS.thesis import generate_thesis_documents
 def test_generate_thesis_documents(tmp_path: Path) -> None:
     (tmp_path / "src" / "NIDS" / "artifacts" / "parsers").mkdir(parents=True)
     (tmp_path / "reports").mkdir(parents=True)
-    (tmp_path / "NIDS_TestLab" / "reports").mkdir(parents=True)
+    (tmp_path / "lab" / "reports").mkdir(parents=True)
     (tmp_path / "src" / "NIDS" / "artifacts" / "parsers" / "csv_parser.py").write_text("", encoding="utf-8")
     (tmp_path / "src" / "NIDS" / "artifacts" / "parsers" / "json_parser.py").write_text("", encoding="utf-8")
     (tmp_path / "requirements.txt").write_text("scapy>=2.5.0\npython-docx>=1.1.2\n", encoding="utf-8")
@@ -29,7 +29,7 @@ def test_generate_thesis_documents(tmp_path: Path) -> None:
         json.dumps({"samples": 25000, "accuracy": 0.99784, "f1_weighted": 0.99792}),
         encoding="utf-8",
     )
-    (tmp_path / "NIDS_TestLab" / "reports" / "attack_test_ledger.json").write_text(
+    (tmp_path / "lab" / "reports" / "attack_test_ledger.json").write_text(
         json.dumps(
             {
                 "completed_network_detections": [{"attack_case": "DNS burst / DGA-like activity", "status": "pass"}],

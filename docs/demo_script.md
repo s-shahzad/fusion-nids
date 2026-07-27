@@ -14,8 +14,8 @@
 
 - `docs/project_one_pager.md`
 - `docs/current_status.md`
-- `NIDS_TestLab/reports/lab_execution_index.md`
-- `NIDS_TestLab/reports/prepared_env_validation_index.md`
+- `lab/reports/lab_execution_index.md`
+- `lab/reports/prepared_env_validation_index.md`
 - one prepared-environment bundle from `PREP-ENV-003`
 - one tuning bundle from `PREP-ENV-005`
 - one evidence bundle from `LAB-SCN-005`

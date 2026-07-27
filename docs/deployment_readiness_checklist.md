@@ -9,16 +9,16 @@ Last evidence refresh: March 14, 2026
 - [x] Default pytest suite passes with no unexpected failures. Evidence: `149 passed, 8 deselected`.
 - [x] Coverage remains above the enforced CI threshold in `.coveragerc`. Evidence: `79.16%`, threshold `72%`.
 - [x] Extended safe validation has been run for the current candidate. Evidence: `pytest -m slow` returned `4 passed`; `pytest -m "live and environment"` returned `3 passed`; `pytest -m lab` returned `1 passed`.
-- [x] Prepared-environment live capture has been executed against the intended VirtualBox sensor VM. Evidence: `PREP-ENV-001` through `PREP-ENV-013` in `NIDS_TestLab/reports/prepared_env_validation_index.md`.
-- [x] Packet-loss and queue-drop behavior are evidenced under live pressure for the current prepared-environment profile. Evidence: `PREP-ENV-003` recorded `8127` packets received, `23` processed, `8100` dropped, and `99.6678%` loss in `NIDS_TestLab/results/phase5-tuning/phase5-loss-accounting-dns-flood-20260312-163750/`.
+- [x] Prepared-environment live capture has been executed against the intended VirtualBox sensor VM. Evidence: `PREP-ENV-001` through `PREP-ENV-013` in `lab/reports/prepared_env_validation_index.md`.
+- [x] Packet-loss and queue-drop behavior are evidenced under live pressure for the current prepared-environment profile. Evidence: `PREP-ENV-003` recorded `8127` packets received, `23` processed, `8100` dropped, and `99.6678%` loss in `lab/results/phase5-tuning/phase5-loss-accounting-dns-flood-20260312-163750/`.
 - [x] The previous Scapy DNS deprecation warning has been fixed. Current default pytest warning count: `0`.
 
 ## Detection and Data Quality
 
-- [x] Signature, anomaly, ML, and fusion paths are exercised on representative inputs. Evidence: `docs/testing_validation_master.md`, `NIDS_TestLab/reports/lab_execution_index.md`, and `NIDS_TestLab/reports/prepared_env_validation_index.md`.
+- [x] Signature, anomaly, ML, and fusion paths are exercised on representative inputs. Evidence: `docs/testing_validation_master.md`, `lab/reports/lab_execution_index.md`, and `lab/reports/prepared_env_validation_index.md`.
 - [x] Suppression behavior has been reviewed under realistic mixed-traffic and live-noise conditions. Evidence: latest `PREP-ENV-013` retained live suppression-rule state, derived duplicate suppressions `25`, derived policy suppressions `35`, and final operator-visible alert volume `1`.
 - [x] False-positive review is recorded for the tuned deployment profile. Evidence: `docs/false_positive_analysis.md`, `PREP-ENV-005`, `PREP-ENV-011`, and `PREP-ENV-012`.
-- [x] SQLite and JSONL outputs have been inspected for schema completeness and field integrity. Evidence: direct storage tests plus per-scenario SQLite/JSONL artifacts in `NIDS_TestLab/results/`.
+- [x] SQLite and JSONL outputs have been inspected for schema completeness and field integrity. Evidence: direct storage tests plus per-scenario SQLite/JSONL artifacts in `lab/results/`.
 - [x] Artifact triage pipeline is verified for supported file types and unsupported-file behavior. Evidence: `tests/test_artifact_pipeline.py` and `LAB-SCN-005`.
 
 ## Operational Readiness
@@ -35,7 +35,7 @@ Last evidence refresh: March 14, 2026
 ## Security and Incident Readiness
 
 - [x] Threat-informed scenarios are mapped to ATT&CK-aligned behavior families where practical. Evidence: `docs/lab_validation_plan.md`.
-- [x] Logging and alert evidence is retained in reproducible locations. Evidence: `NIDS_TestLab/results/`, `prepared_env_manifest.json`, `prepared_env_summary.md`, SQLite, JSONL, and report artifacts.
+- [x] Logging and alert evidence is retained in reproducible locations. Evidence: `lab/results/`, `prepared_env_manifest.json`, `prepared_env_summary.md`, SQLite, JSONL, and report artifacts.
 - [x] Incident-response handoff artifacts are available. Evidence: per-run `serious_test_report.md`, `threshold_tuning.md`, `attack_validation_summary.json`, and bundle manifests.
 - [x] Residual risks are documented with evidence paths and next actions. Evidence: `docs/current_status.md`, `docs/next_actions.md`, `docs/false_positive_analysis.md`, and `docs/maintenance_strategy_decision.md`.
 
@@ -60,10 +60,10 @@ What is evidence-backed now:
 - broader benign adjudication across the tuned benign samples, including Phase 9 reruns where `PREP-ENV-011` and `PREP-ENV-012` both cleared on the updated profile
 - live suppression validation under noisy repeated signature traffic with final operator-visible alert volume held at `1`
 - restart-based operator workflows for rule refresh, model swap, and config override, with a documented maintenance recommendation
-- completed Phase 8 soak evidence in `NIDS_TestLab/results/phase6-soak/phase6-full-duration-soak-20260312-203803/`
-- completed Phase 10 rerun evidence in `NIDS_TestLab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/` with `87533` flows, `0` alerts, `107.0%` peak CPU, and `13.335s` reload latency
+- completed Phase 8 soak evidence in `lab/results/phase6-soak/phase6-full-duration-soak-20260312-203803/`
+- completed Phase 10 rerun evidence in `lab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/` with `87533` flows, `0` alerts, `107.0%` peak CPU, and `13.335s` reload latency
 - Phase 9 focused reruns that preserved attack detection in `LAB-SCN-003`, cleared `PREP-ENV-012`, and bounded a focused live DoS burst to `1` operator-visible `DoS Rate Threshold` alert
-- Phase 10 rerun orchestration completed with deterministic run stamp `20260313-165040` and retained evidence in `NIDS_TestLab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`
+- Phase 10 rerun orchestration completed with deterministic run stamp `20260313-165040` and retained evidence in `lab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`
 
 What still blocks real-world deployment:
 

@@ -18,7 +18,7 @@ from src.NIDS.adversary_lab import (  # noqa: E402
     offline_replay_profile,
 )
 
-DEFAULT_OUTPUT_ROOT = REPO_ROOT / "NIDS_TestLab" / "results" / "adversary_lab"
+DEFAULT_OUTPUT_ROOT = REPO_ROOT / "lab" / "results" / "adversary_lab"
 
 
 def _build_policy(args: argparse.Namespace):

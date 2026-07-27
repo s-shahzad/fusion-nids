@@ -2,7 +2,7 @@
 
 Generated: 2026-03-11 22:55 UTC
 
-This plan extends `NIDS_TestLab` from network-only validation into host and operating-system defense validation. The goal is to test not only whether the NIDS detects hostile traffic, but also whether the defended OS and its surrounding controls hold up under realistic attack pressure inside the isolated lab.
+This plan extends `lab` from network-only validation into host and operating-system defense validation. The goal is to test not only whether the NIDS detects hostile traffic, but also whether the defended OS and its surrounding controls hold up under realistic attack pressure inside the isolated lab.
 
 ## Scope
 
@@ -13,13 +13,13 @@ The practical operating-system scope for the current lab is:
 - `Windows`: safe-only defense validation on the host or a future Windows lab VM
 - `macOS`: future target only if a dedicated macOS VM is added later
 
-This is not a license to test outside the isolated lab. All active attack simulation should stay inside `NIDS_TestLab`.
+This is not a license to test outside the isolated lab. All active attack simulation should stay inside `lab`.
 
 ## Evidence Rule
 
 Every OS-level test should produce:
 
-1. a result folder under `NIDS_TestLab\results\`
+1. a result folder under `lab\results\`
 2. the runtime `nids.db`
 3. `alerts.jsonl`
 4. `flows.jsonl`
@@ -37,9 +37,9 @@ Every OS-level test should produce:
 
 Completed OS-defense cases so far:
 
-- `Ubuntu cron persistence + suspicious HTTP beacon`: pass in [ubuntu-os-cron-http-beacon-20260311-161200](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200)
-- `Ubuntu systemd persistence + DNS beacon`: pass in [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948)
-- `Ubuntu defense-tamper simulation + service-stop intent`: pass in [ubuntu-os-defense-tamper-20260311-attack-defense](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-defense-tamper-20260311-attack-defense)
+- `Ubuntu cron persistence + suspicious HTTP beacon`: pass in [ubuntu-os-cron-http-beacon-20260311-161200](C:/NIDS_Workspace/lab/results/ubuntu-os-cron-http-beacon-20260311-161200)
+- `Ubuntu systemd persistence + DNS beacon`: pass in [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/NIDS_Workspace/lab/results/ubuntu-os-systemd-dns-beacon-20260311-162948)
+- `Ubuntu defense-tamper simulation + service-stop intent`: pass in [ubuntu-os-defense-tamper-20260311-attack-defense](C:/NIDS_Workspace/lab/results/ubuntu-os-defense-tamper-20260311-attack-defense)
 
 ## OS Test Matrix
 
@@ -67,7 +67,7 @@ To count as a strong environment:
 - keep all active attack traffic inside the isolated VM network
 - snapshot the target VM before and after each destructive phase
 - keep the sensor VM separate from the target VM
-- preserve `NIDS_TestLab\results\` evidence for every run
+- preserve `lab\results\` evidence for every run
 - log the exact profile, command, and target OS in the ledger
 - never use the everyday Windows host as the malware execution target
 

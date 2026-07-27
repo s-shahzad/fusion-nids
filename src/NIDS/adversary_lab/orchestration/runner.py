@@ -134,7 +134,7 @@ def _build_readme(
             "## Existing Ingest Paths",
             "",
             "Offline replay:",
-            f"`python -m nids run --pcap-dir {bundle_dir / pcap_name} --labels {bundle_dir / 'labels.csv'} --config NIDS_TestLab/config/offline_replay_profile.yml --rules rules/rules.yml --output-dir {bundle_dir / 'runtime_output'} --sensor-id adversary-lab`",
+            f"`python -m nids run --pcap-dir {bundle_dir / pcap_name} --labels {bundle_dir / 'labels.csv'} --config lab/config/offline_replay_profile.yml --rules rules/rules.yml --output-dir {bundle_dir / 'runtime_output'} --sensor-id adversary-lab`",
             "",
             "Suricata-style adapter replay:",
             f"`python -m nids run --enable-suricata --suricata-log {bundle_dir / 'suricata_eve.jsonl'} --config config/nids.yml --rules rules/rules.yml --output-dir {bundle_dir / 'suricata_output'} --sensor-id adversary-lab-suricata`",

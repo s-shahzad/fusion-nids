@@ -18,7 +18,7 @@ Expect a response within 7 days. Please do not open a public GitHub issue for se
 This policy covers:
 - The NIDS core detection engine (`src/NIDS/`)
 - The REST API (`src/NIDS/api/`)
-- Lab scripts (`scripts/`, `NIDS_TestLab/`)
+- Lab scripts (`scripts/`, `lab/`)
 
 ## Security Notes
 

@@ -21,7 +21,7 @@ The Phase 9 change is intentionally narrow. It raises the two-component agreemen
 
 The baseline live profile produced a real false-positive issue before tuning:
 
-- Comparison run: `NIDS_TestLab/results/phase4-live-benign-soak-20260312-143826/`
+- Comparison run: `lab/results/phase4-live-benign-soak-20260312-143826/`
 - Scenario ID: `PREP-ENV-005` on the baseline live profile
 - Flows: `414`
 - Alerts: `2`
@@ -34,11 +34,11 @@ This baseline comparison is retained as the reference point for the later tuning
 
 | Sample ID | Scenario ID | Objective | Flow count | Alert count | Adjudication result | Generalization / overfit assessment | Actual outcome | Evidence path | Verdict |
 |---|---|---|---:|---:|---|---|---|---|---|
-| `BENIGN-LIVE-001` | `PREP-ENV-005` | Re-run the original benign polling sample on the tuned live profile. | `1404` | `0` | `cleared_after_tuning` | `clears_exercised_sample_only` | The original exercised sample stayed clear on the tuned profile. | `NIDS_TestLab/results/phase5-tuning/phase5-benign-soak-tuned-20260312-200047/` | `pass` |
-| `BENIGN-LIVE-002` | `PREP-ENV-011` | Validate tuned unsupervised behavior against a broader SaaS/API polling mix. | `1452` | `0` | `cleared_after_tuning` | `supports_generalization` | The broader benign SaaS polling sample cleared on the earlier tuned profile. | `NIDS_TestLab/results/phase6-benign/phase6-benign-saas-polling-20260312-200422/` | `pass` |
-| `BENIGN-LIVE-003` | `PREP-ENV-012` | Validate tuned unsupervised behavior against a burstier browsing and collaboration mix. | `1216` | `1` | `still_false_positive_risk` | `possible_overfit` | The earlier tuned profile reproduced one `Hybrid Unsupervised Anomaly Score` alert. | `NIDS_TestLab/results/phase6-benign/phase6-benign-browsing-collaboration-20260312-200827/` | `partial` |
-| `BENIGN-LIVE-002-RERUN` | `PREP-ENV-011` | Re-check broader benign SaaS/API polling after the Phase 9 candidate changes. | `1622` | `0` | `cleared_after_phase9_tuning` | `supports_generalization` | The broader benign SaaS polling sample remained clear on the updated profile. | `NIDS_TestLab/results/phase6-benign/phase6-benign-saas-polling-20260313-161149/` | `pass` |
-| `BENIGN-LIVE-003-RERUN` | `PREP-ENV-012` | Re-check the earlier burstier benign false-positive sample after the Phase 9 candidate changes. | `1814` | `0` | `cleared_after_phase9_tuning` | `improved_but_full_soak_still_pending` | The previously failing browsing and collaboration sample cleared on rerun with the updated profile. | `NIDS_TestLab/results/phase6-benign/phase6-benign-browsing-collaboration-20260313-160630/` | `pass` |
+| `BENIGN-LIVE-001` | `PREP-ENV-005` | Re-run the original benign polling sample on the tuned live profile. | `1404` | `0` | `cleared_after_tuning` | `clears_exercised_sample_only` | The original exercised sample stayed clear on the tuned profile. | `lab/results/phase5-tuning/phase5-benign-soak-tuned-20260312-200047/` | `pass` |
+| `BENIGN-LIVE-002` | `PREP-ENV-011` | Validate tuned unsupervised behavior against a broader SaaS/API polling mix. | `1452` | `0` | `cleared_after_tuning` | `supports_generalization` | The broader benign SaaS polling sample cleared on the earlier tuned profile. | `lab/results/phase6-benign/phase6-benign-saas-polling-20260312-200422/` | `pass` |
+| `BENIGN-LIVE-003` | `PREP-ENV-012` | Validate tuned unsupervised behavior against a burstier browsing and collaboration mix. | `1216` | `1` | `still_false_positive_risk` | `possible_overfit` | The earlier tuned profile reproduced one `Hybrid Unsupervised Anomaly Score` alert. | `lab/results/phase6-benign/phase6-benign-browsing-collaboration-20260312-200827/` | `partial` |
+| `BENIGN-LIVE-002-RERUN` | `PREP-ENV-011` | Re-check broader benign SaaS/API polling after the Phase 9 candidate changes. | `1622` | `0` | `cleared_after_phase9_tuning` | `supports_generalization` | The broader benign SaaS polling sample remained clear on the updated profile. | `lab/results/phase6-benign/phase6-benign-saas-polling-20260313-161149/` | `pass` |
+| `BENIGN-LIVE-003-RERUN` | `PREP-ENV-012` | Re-check the earlier burstier benign false-positive sample after the Phase 9 candidate changes. | `1814` | `0` | `cleared_after_phase9_tuning` | `improved_but_full_soak_still_pending` | The previously failing browsing and collaboration sample cleared on rerun with the updated profile. | `lab/results/phase6-benign/phase6-benign-browsing-collaboration-20260313-160630/` | `pass` |
 
 ## Historical Residual Alert Detail
 

@@ -74,16 +74,16 @@ Repo action completed:
 2. Ubuntu OS-defense automation and thesis reporting
    Files:
    [ubuntu_os_defense_validation.py](C:/NIDS_Workspace/scripts/ubuntu_os_defense_validation.py)
-   [RUN_UBUNTU_OS_DEFENSE_TEST.ps1](C:/NIDS_Workspace/NIDS_TestLab/RUN_UBUNTU_OS_DEFENSE_TEST.ps1)
-   [os_defense_profile.yml](C:/NIDS_Workspace/NIDS_TestLab/config/os_defense_profile.yml)
+   [run-ubuntu-os-defense-test.ps1](C:/NIDS_Workspace/lab/run-ubuntu-os-defense-test.ps1)
+   [os_defense_profile.yml](C:/NIDS_Workspace/lab/config/os_defense_profile.yml)
 
 3. Thesis-ready evidence outputs
    Successful cases:
-   [ubuntu-os-cron-http-beacon-20260311-161200](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-cron-http-beacon-20260311-161200)
-   [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-162948)
+   [ubuntu-os-cron-http-beacon-20260311-161200](C:/NIDS_Workspace/lab/results/ubuntu-os-cron-http-beacon-20260311-161200)
+   [ubuntu-os-systemd-dns-beacon-20260311-162948](C:/NIDS_Workspace/lab/results/ubuntu-os-systemd-dns-beacon-20260311-162948)
    Preserved failed systemd iterations:
-   [ubuntu-os-systemd-dns-beacon-20260311-165700](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-165700)
-   [ubuntu-os-systemd-dns-beacon-20260311-170500](C:/NIDS_Workspace/NIDS_TestLab/results/ubuntu-os-systemd-dns-beacon-20260311-170500)
+   [ubuntu-os-systemd-dns-beacon-20260311-165700](C:/NIDS_Workspace/lab/results/ubuntu-os-systemd-dns-beacon-20260311-165700)
+   [ubuntu-os-systemd-dns-beacon-20260311-170500](C:/NIDS_Workspace/lab/results/ubuntu-os-systemd-dns-beacon-20260311-170500)
 
 ## Current Research-Relevant Gaps Still Open
 

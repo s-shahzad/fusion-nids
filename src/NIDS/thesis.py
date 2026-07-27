@@ -120,7 +120,7 @@ def _artifact_formats(root: Path) -> list[str]:
 def _state(root: Path) -> dict[str, Any]:
     metrics = _read_json(root / "reports" / "ml_metrics.json", {})
     evaluation = _read_json(root / "reports" / "ml_evaluation.json", {})
-    ledger = _read_json(root / "NIDS_TestLab" / "reports" / "attack_test_ledger.json", {})
+    ledger = _read_json(root / "lab" / "reports" / "attack_test_ledger.json", {})
     overlap = list(ledger.get("concurrent_overlap_runs") or [])
     return {
         "root": root,
@@ -636,8 +636,8 @@ def _thesis_readme() -> str:
         - `docs/architecture/architecture-notes.md`
         - `docs/architecture/algorithms.md`
         - `docs/validation/experiments.md`
-        - `NIDS_TestLab/reports/nids_project_master_thesis.md`
-        - `NIDS_TestLab/reports/nids_project_master_thesis.docx`
+        - `lab/reports/nids_project_master_thesis.md`
+        - `lab/reports/nids_project_master_thesis.docx`
         - `thesis/thesis_metadata.json`
         """
     ).strip()
@@ -696,7 +696,7 @@ def generate_thesis_documents(repo_root: Path | str | None = None, out_md: Path 
     docs_dir = root / "documentation"
     diagrams_dir = thesis_dir / "diagrams"
     figures_dir = thesis_dir / "figures"
-    reports_dir = root / "NIDS_TestLab" / "reports"
+    reports_dir = root / "lab" / "reports"
     md_text = _normalize_md(_build_master_markdown(state))
     md_path = Path(out_md).resolve() if out_md else reports_dir / "nids_project_master_thesis.md"
     docx_path = Path(out_docx).resolve() if out_docx else reports_dir / "nids_project_master_thesis.docx"

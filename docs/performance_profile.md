@@ -8,7 +8,7 @@ This document records bounded performance evidence for the offline replay path. 
 
 Primary comparison replay:
 
-- PCAP: `NIDS_TestLab/pcaps/serious_synthetic_20260310.pcap`
+- PCAP: `lab/pcaps/serious_synthetic_20260310.pcap`
 - flows observed per mode: `509`
 - comparison artifacts:
   - `docs/generated/comparison_baseline.json`
@@ -23,7 +23,7 @@ Smoke-level runtime evidence:
 Long-duration operational evidence:
 
 - `docs/testing_validation_master.md`
-- `NIDS_TestLab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`
+- `lab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`
 
 ## Offline Replay Comparison Runtimes
 

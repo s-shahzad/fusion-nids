@@ -7,7 +7,7 @@ from run_lab_scenario import REPORTS_ROOT, RESULTS_ROOT, _write_json, _write_tex
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Summarize manifest-backed NIDS_TestLab runs.")
+    parser = argparse.ArgumentParser(description="Summarize manifest-backed lab runs.")
     parser.add_argument("--results-root", default=str(RESULTS_ROOT), help="Root directory containing result manifests.")
     parser.add_argument("--out-json", default=str(REPORTS_ROOT / "lab_execution_index.json"), help="Output JSON path.")
     parser.add_argument("--out-md", default=str(REPORTS_ROOT / "lab_execution_index.md"), help="Output markdown path.")

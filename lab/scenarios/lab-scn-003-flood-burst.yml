@@ -9,10 +9,10 @@ environment:
     - mode: live_vm
       reason: Requires the isolated lab sensor and a flood-capable attacker host or replay target.
       prerequisites:
-        - Built NIDS_TestLab VirtualBox topology
+        - Built lab VirtualBox topology
         - Sensor live capture interface ready
 runtime:
-  config: NIDS_TestLab/config/offline_replay_profile.yml
+  config: lab/config/offline_replay_profile.yml
   rules: rules/rules.yml
   model_path: models/model.pkl
   sensor_id: nids-phase3-offline

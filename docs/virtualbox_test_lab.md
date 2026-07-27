@@ -112,13 +112,13 @@ PowerShell -ExecutionPolicy Bypass -File C:\NIDS_Workspace\scripts\setup_virtual
 After VirtualBox is installed, create the first Ubuntu lab VM with:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File C:\NIDS_Workspace\scripts\create_virtualbox_lab_vm.ps1 -VMName nids-ubuntu-lab -LabRoot C:\NIDS_Workspace\NIDS_TestLab -IsoPath C:\NIDS_Workspace\NIDS_TestLab\isos\ubuntu.iso
+PowerShell -ExecutionPolicy Bypass -File C:\NIDS_Workspace\scripts\create_virtualbox_lab_vm.ps1 -VMName nids-ubuntu-lab -LabRoot C:\NIDS_Workspace\lab -IsoPath C:\NIDS_Workspace\lab\isos\ubuntu.iso
 ```
 
 Or use the wrapper inside the lab folder:
 
 ```powershell
-C:\NIDS_Workspace\NIDS_TestLab\CREATE_FIRST_VM.ps1 -IsoPath C:\NIDS_Workspace\NIDS_TestLab\isos\ubuntu.iso
+C:\NIDS_Workspace\lab\create-first-vm.ps1 -IsoPath C:\NIDS_Workspace\lab\isos\ubuntu.iso
 ```
 
 The wrapper creates:
@@ -134,20 +134,20 @@ The wrapper creates:
 Use the realistic builder when you want attacker/target/sensor isolation instead of a single utility VM:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File C:\NIDS_Workspace\scripts\build_realistic_virtualbox_lab.ps1 -LabRoot C:\NIDS_Workspace\NIDS_TestLab -AttachIso -UbuntuIsoPath C:\NIDS_Workspace\NIDS_TestLab\isos\ubuntu-24.04.4-live-server-amd64.iso
+PowerShell -ExecutionPolicy Bypass -File C:\NIDS_Workspace\scripts\build_realistic_virtualbox_lab.ps1 -LabRoot C:\NIDS_Workspace\lab -AttachIso -UbuntuIsoPath C:\NIDS_Workspace\lab\isos\ubuntu-24.04.4-live-server-amd64.iso
 ```
 
 Or let it fetch the official Ubuntu ISO first:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File C:\NIDS_Workspace\scripts\build_realistic_virtualbox_lab.ps1 -LabRoot C:\NIDS_Workspace\NIDS_TestLab -DownloadUbuntuIso
+PowerShell -ExecutionPolicy Bypass -File C:\NIDS_Workspace\scripts\build_realistic_virtualbox_lab.ps1 -LabRoot C:\NIDS_Workspace\lab -DownloadUbuntuIso
 ```
 
 ## Lab Files
 
 The local lab root is:
 
-`C:\NIDS_Workspace\NIDS_TestLab`
+`C:\NIDS_Workspace\lab`
 
 Useful folders:
 
@@ -160,10 +160,10 @@ Useful folders:
 ## Testing Flow
 
 1. Install VirtualBox.
-2. Place an Ubuntu ISO in `C:\NIDS_Workspace\NIDS_TestLab\isos\`.
+2. Place an Ubuntu ISO in `C:\NIDS_Workspace\lab\isos\`.
 3. Create a VM using NAT only.
 4. Install Ubuntu inside the guest.
-5. Put your PCAPs in `C:\NIDS_Workspace\NIDS_TestLab\pcaps`.
+5. Put your PCAPs in `C:\NIDS_Workspace\lab\pcaps`.
 6. Run offline replay from the host or from the lab workflow you prepared.
 7. Generate threshold guidance after replay.
 8. Later, build the multi-VM internal-network lab for load and attack testing.

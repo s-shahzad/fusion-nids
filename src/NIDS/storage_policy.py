@@ -12,7 +12,7 @@ from typing import Any
 RUNTIME_ROOTS = (
     "output",
     "realtime_lab/output",
-    "NIDS_TestLab/results",
+    "lab/results",
     "artifacts/portfolio_bundles",
 )
 

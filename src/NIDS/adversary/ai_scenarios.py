@@ -5,7 +5,7 @@ from typing import Any
 
 
 _BASE_RUNTIME = {
-    "config": "NIDS_TestLab/config/offline_replay_profile.yml",
+    "config": "lab/config/offline_replay_profile.yml",
     "rules": "rules/rules.yml",
     "model_path": "models/model.pkl",
     "sensor_id": "nids-phase17-ai-replay",

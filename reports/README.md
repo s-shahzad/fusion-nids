@@ -30,11 +30,11 @@ that escapes it is rejected.
 | Content | Location | Why |
 |---|---|---|
 | Curated showcase charts | `docs/figures/` | A small, captioned set worth reading in the repository |
-| Prepared-environment evidence | `NIDS_TestLab/reports/*.json` and `*.md` | The record behind the validation claims. Deliberately kept — see below |
+| Prepared-environment evidence | `lab/reports/*.json` and `*.md` | The record behind the validation claims. Deliberately kept — see below |
 
 ## Why the lab evidence stays tracked
 
-`NIDS_TestLab/reports/prepared_env_validation_index.json` is about 1 MB, which
+`lab/reports/prepared_env_validation_index.json` is about 1 MB, which
 is large for a tracked file. It is kept anyway because it is the evidence behind
 every prepared-environment number this project reports — queue loss, benign
 false positives, restart recovery, the six-hour soak. Untracking it would leave

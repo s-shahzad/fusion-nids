@@ -30,9 +30,9 @@ from src.NIDS.adversary import (
     write_robustness_matrix,
 )
 
-SCENARIOS_ROOT = REPO_ROOT / "NIDS_TestLab" / "scenarios"
-RESULTS_ROOT = REPO_ROOT / "NIDS_TestLab" / "results"
-REPORTS_ROOT = REPO_ROOT / "NIDS_TestLab" / "reports"
+SCENARIOS_ROOT = REPO_ROOT / "lab" / "scenarios"
+RESULTS_ROOT = REPO_ROOT / "lab" / "results"
+REPORTS_ROOT = REPO_ROOT / "lab" / "reports"
 
 
 def _utc_now() -> datetime:
@@ -874,7 +874,7 @@ def run_scenario(
         _write_yaml(result_dir / "scenario.generated.yml", definition)
         _write_yaml(scenario_bundle_path, definition)
 
-    config_path = _resolve_repo_path(str(runtime_cfg.get("config") or "NIDS_TestLab/config/offline_replay_profile.yml"))
+    config_path = _resolve_repo_path(str(runtime_cfg.get("config") or "lab/config/offline_replay_profile.yml"))
     if config_path is None or not config_path.exists():
         raise FileNotFoundError(f"Runtime config not found: {config_path}")
     _copy_text_file(config_path, result_dir / "runtime_config.yml")
@@ -1159,7 +1159,7 @@ def _write_robustness_matrix_for_manifests(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Run repeatable offline-safe NIDS_TestLab scenarios.")
+    parser = argparse.ArgumentParser(description="Run repeatable offline-safe lab scenarios.")
     parser.add_argument(
         "--scenario",
         action="append",
@@ -1179,7 +1179,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--write-index",
         action="store_true",
-        help="After scenario execution, write a consolidated lab execution index into NIDS_TestLab/reports.",
+        help="After scenario execution, write a consolidated lab execution index into lab/reports.",
     )
     return parser
 

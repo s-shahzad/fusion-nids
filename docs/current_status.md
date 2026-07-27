@@ -88,19 +88,19 @@ Last updated: March 14, 2026
 
 Offline evidence index:
 
-- `NIDS_TestLab/reports/lab_execution_index.md`
+- `lab/reports/lab_execution_index.md`
 
 Prepared-environment evidence index:
 
-- `NIDS_TestLab/reports/prepared_env_validation_index.md`
+- `lab/reports/prepared_env_validation_index.md`
 
 Latest high-value reruns:
 
-- `LAB-SCN-003` flood and burst offline replay: pass, `296` flows, `5` alerts. `DoS Rate Threshold`, `DNS Burst / DGA-like Activity`, `Hybrid Unsupervised Anomaly Score`, and `Hybrid Fusion Decision` still fired on the updated code path. Evidence: `NIDS_TestLab/results/phase9-flood-burst-offline-20260313-160502/`.
-- `PREP-ENV-011` benign SaaS polling mix: pass, `1622` flows, `0` alerts on the updated tuned live profile. Evidence: `NIDS_TestLab/results/phase6-benign/phase6-benign-saas-polling-20260313-161149/`.
-- `PREP-ENV-012` benign browsing and collaboration mix: pass, `1814` flows, `0` alerts on the updated tuned live profile. Evidence: `NIDS_TestLab/results/phase6-benign/phase6-benign-browsing-collaboration-20260313-160630/`.
-- `PHASE9-DOS-BURST-001` focused live DoS burst validation: pass, `2410` flows, `1` `DoS Rate Threshold` alert across the whole burst window. Evidence: `NIDS_TestLab/results/phase9-live-dos-burst-validation-20260313-161100/`.
-- `PREP-ENV-007` Phase 10 rerun: pass, `87533` flows, `0` alerts, `21600.0s`, `409444 KiB` peak RSS, `107.0%` peak CPU, `13.335s` reload latency. Evidence: `NIDS_TestLab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`.
+- `LAB-SCN-003` flood and burst offline replay: pass, `296` flows, `5` alerts. `DoS Rate Threshold`, `DNS Burst / DGA-like Activity`, `Hybrid Unsupervised Anomaly Score`, and `Hybrid Fusion Decision` still fired on the updated code path. Evidence: `lab/results/phase9-flood-burst-offline-20260313-160502/`.
+- `PREP-ENV-011` benign SaaS polling mix: pass, `1622` flows, `0` alerts on the updated tuned live profile. Evidence: `lab/results/phase6-benign/phase6-benign-saas-polling-20260313-161149/`.
+- `PREP-ENV-012` benign browsing and collaboration mix: pass, `1814` flows, `0` alerts on the updated tuned live profile. Evidence: `lab/results/phase6-benign/phase6-benign-browsing-collaboration-20260313-160630/`.
+- `PHASE9-DOS-BURST-001` focused live DoS burst validation: pass, `2410` flows, `1` `DoS Rate Threshold` alert across the whole burst window. Evidence: `lab/results/phase9-live-dos-burst-validation-20260313-161100/`.
+- `PREP-ENV-007` Phase 10 rerun: pass, `87533` flows, `0` alerts, `21600.0s`, `409444 KiB` peak RSS, `107.0%` peak CPU, `13.335s` reload latency. Evidence: `lab/results/phase6-soak/phase6-full-duration-soak-20260313-165040/`.
 
 Long-duration soak history:
 
