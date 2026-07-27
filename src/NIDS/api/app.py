@@ -35,6 +35,7 @@ from .. import __version__
 from ..ai.services.explainer_service import ExplainerService
 from ..config import build_runtime_config
 from ..config import _read_yaml
+from ..detect.ml import supervised_model_health
 from ..pipeline.runtime import LocalPipelineResult, run_local_pipeline
 from ..privacy import privacy_config_from_env
 from ..services.export_service import ExportService
@@ -108,6 +109,9 @@ class SystemStatusResponse(BaseModel):
     privacy_mode: str
     hot_cold_enabled: bool
     cold_worker_enabled: bool
+    # Engine availability. Without this a refused or broken model produces zero
+    # alerts, which looks exactly like clean traffic from the outside (#14).
+    engines: dict[str, Any] = {}
     latest_run: dict[str, Any] | None = None
 
 
@@ -339,12 +343,24 @@ def _system_status_snapshot(run_service: RunInspectionService) -> SystemStatusRe
     if runs:
         latest_run = runs[0]
     pipeline_cfg = dict(config.get("pipeline") or {})
+
+    ml_cfg = dict(config.get("ml") or {})
+    model_path = str(ml_cfg.get("model_path") or "models/model.pkl")
+    try:
+        supervised_health = supervised_model_health(model_path)
+    except Exception:
+        # Status must not 500 because a model is unreadable -- reporting the
+        # degraded state is the entire point of this field.
+        logger.exception("Could not determine supervised model health for %s", model_path)
+        supervised_health = {"available": False, "reason": "health_check_failed", "model_path": model_path}
+
     return SystemStatusResponse(
         api_health="ok",
         version=__version__,
         privacy_mode=privacy.mode,
         hot_cold_enabled=bool(pipeline_cfg.get("enable_hot_cold_pipeline", False)),
         cold_worker_enabled=bool(pipeline_cfg.get("cold_worker_enabled", False)),
+        engines={"supervised": supervised_health},
         latest_run=latest_run,
     )
 

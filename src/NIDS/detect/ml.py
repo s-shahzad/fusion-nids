@@ -1,13 +1,54 @@
 from __future__ import annotations
 
 import copy
+import logging
 from pathlib import Path
 import time
 from typing import Any
 
+from ..ml.integrity import SUPERVISED_MODEL_SHA256_ENV, expected_digest_for
 from ..utils.time import parse_epoch
 from .ml_supervised import SupervisedMLEngine
 from .ml_unsupervised import UnsupervisedMLEngine
+
+logger = logging.getLogger(__name__)
+
+# Reasons the supervised engine may not be running. Reported by
+# supervised_model_health so an operator can tell "no model configured" apart
+# from "model configured but refused" -- issue #14. Both previously presented
+# as a silent absence of alerts, which is indistinguishable from clean traffic.
+SUPERVISED_OK = "ok"
+SUPERVISED_MISSING = "model_file_missing"
+SUPERVISED_LOAD_FAILED = "load_failed_or_integrity_refused"
+
+
+def supervised_model_health(model_path: str | Path) -> dict[str, Any]:
+    """Report whether the configured supervised model would load.
+
+    Deliberately static: it answers a question about configuration, so the
+    status endpoint can report model health without holding a live pipeline.
+    Constructing the engine here also exercises the real integrity check rather
+    than approximating it.
+    """
+    path = Path(model_path)
+    if not path.exists():
+        return {
+            "available": False,
+            "reason": SUPERVISED_MISSING,
+            "model_path": str(path),
+            "integrity_digest_configured": False,
+        }
+
+    digest_configured = bool(expected_digest_for(path, SUPERVISED_MODEL_SHA256_ENV))
+    engine = SupervisedMLEngine(model_path=path)
+    return {
+        "available": bool(engine.available),
+        "reason": SUPERVISED_OK if engine.available else SUPERVISED_LOAD_FAILED,
+        "model_path": str(path),
+        "integrity_digest_configured": digest_configured,
+        "model_count": int(engine.model_count),
+        "algorithms": list(engine.algorithm_names),
+    }
 
 
 class MLEngineRouter:
@@ -23,10 +64,23 @@ class MLEngineRouter:
         self._live_cleanup_counter = 0
 
         self.supervised: SupervisedMLEngine | None = None
+        self.supervised_model_path = model_path
+        # Keep the reason, not just the None. A configured-but-refused model and
+        # no model at all both produce zero supervised alerts, and an operator
+        # cannot tell those apart from the alert stream alone (#14).
+        self.supervised_status: str = SUPERVISED_MISSING
         if model_path.exists():
             engine = SupervisedMLEngine(model_path=model_path, score_threshold=score_threshold)
             if engine.available:
                 self.supervised = engine
+                self.supervised_status = SUPERVISED_OK
+            else:
+                self.supervised_status = SUPERVISED_LOAD_FAILED
+                logger.error(
+                    "Supervised model %s is present but unavailable (load failed or integrity refused); "
+                    "supervised detection is DISABLED for this run.",
+                    model_path,
+                )
 
         self.unsupervised_enabled = bool(config.get("unsupervised", False))
         self.unsupervised: UnsupervisedMLEngine | None = None
@@ -44,6 +98,20 @@ class MLEngineRouter:
                 autoencoder_max_iter=int(config.get("unsupervised_autoencoder_max_iter", 400)),
                 snapshot_path=snapshot_path,
             )
+
+    def health(self) -> dict[str, Any]:
+        """Runtime engine availability, for health surfaces and diagnostics."""
+        return {
+            "supervised": {
+                "available": self.supervised is not None,
+                "reason": self.supervised_status,
+                "model_path": str(self.supervised_model_path),
+            },
+            "unsupervised": {
+                "enabled": self.unsupervised_enabled,
+                "available": self.unsupervised is not None,
+            },
+        }
 
     @staticmethod
     def _empty_prediction() -> dict[str, Any]:
