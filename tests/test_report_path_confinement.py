@@ -20,6 +20,9 @@ from src.nids.services.report_service import _confine_report_path, _reports_root
 # --------------------------------------------------------------------------
 
 
+# The allowlist rejects traversal, home references, absolute paths and
+# backslashes through one code path, so these all surface the same message.
+# The assertion that matters is that they are refused at all.
 @pytest.mark.parametrize(
     "bad",
     [
@@ -27,29 +30,23 @@ from src.nids.services.report_service import _confine_report_path, _reports_root
         "../../secrets.md",
         "sub/../../escape.md",
         "a/b/../../../out.md",
-    ],
-)
-def test_parent_traversal_is_rejected(bad):
-    with pytest.raises(ValueError, match="(?i)parent-directory|within"):
-        _confine_report_path(bad)
-
-
-@pytest.mark.parametrize(
-    "bad",
-    [
         "/etc/passwd",
         "/tmp/out.md",
+        "~/owned.md",
+        "~root/.ssh/authorized_keys",
+        r"..\..\windows\system32\out.md",
+        "reports\\..\\..\\out.md",
+        "sub//../out.md",
+        "  /etc/passwd",
+        "out.md ",
+        "café.md",
+        "out;rm -rf.md",
+        "out\nmd",
     ],
 )
-def test_absolute_posix_path_is_rejected(bad):
-    with pytest.raises(ValueError, match="(?i)relative"):
+def test_paths_that_could_escape_are_rejected(bad):
+    with pytest.raises(ValueError):
         _confine_report_path(bad)
-
-
-def test_home_directory_reference_is_rejected():
-    """`~` had been expanded for the caller, widening what had to be caught later."""
-    with pytest.raises(ValueError, match="(?i)home directory"):
-        _confine_report_path("~/owned.md")
 
 
 def test_null_byte_is_rejected():
@@ -85,10 +82,20 @@ def test_returned_path_is_absolute_and_resolved():
     assert resolved.name == "summary.md"
 
 
-def test_windows_style_absolute_is_rejected_where_recognised():
-    """On Windows a drive-qualified path must not slip through as 'relative'."""
-    candidate = Path("C:/Windows/Temp/out.md")
-    if not (candidate.is_absolute() or candidate.drive):
-        pytest.skip("POSIX host does not treat a drive letter as absolute")
-    with pytest.raises(ValueError, match="(?i)relative"):
+def test_windows_drive_qualified_path_is_rejected_on_every_platform():
+    """A drive letter must not slip through, POSIX or Windows.
+
+    Worth pinning cross-platform: on POSIX ``Path('C:/x').is_absolute()`` is
+    False, so a check relying only on that would let it past. The allowlist
+    refuses the colon regardless of host.
+    """
+    with pytest.raises(ValueError):
         _confine_report_path("C:/Windows/Temp/out.md")
+
+
+def test_unvalidated_input_is_not_carried_into_the_resolved_path():
+    """The returned path is rebuilt from validated parts, not the raw string."""
+    resolved = _confine_report_path("nested/incident.md")
+
+    assert resolved.is_relative_to(_reports_root())
+    assert resolved.parts[-2:] == ("nested", "incident.md")
