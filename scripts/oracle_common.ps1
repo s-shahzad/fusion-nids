@@ -141,7 +141,7 @@ function Get-OracleDeploymentItems {
         "PROVENANCE.md",
         "README.md",
         "RELEASE_BOUNDARY.md",
-        "SCAPY_REVIEW.md",
+        "docs/architecture/SCAPY_REVIEW.md",
         "THIRD_PARTY.md",
         "config",
         "deployment/oracle_vm.env.example",
