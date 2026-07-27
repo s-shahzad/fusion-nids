@@ -108,6 +108,47 @@ def test_unreadable_artefact_refuses_when_digest_configured(tmp_path, monkeypatc
     assert verify_artifact_integrity(missing, env_var=ENV_VAR, label="test artefact") is False
 
 
+def test_unreadable_sidecar_fails_closed(tmp_path, monkeypatch):
+    """A sidecar that exists but cannot be read must refuse the load.
+
+    Regression for a fail-open found in review: the sidecar read swallowed
+    OSError and returned "no digest configured", so anyone able to make the
+    sidecar unreadable could switch verification off entirely. "Unconfigured"
+    and "configured but unreadable" are opposite security outcomes and must not
+    collapse into the same branch.
+    """
+    monkeypatch.delenv(ENV_VAR, raising=False)
+    path = _artefact(tmp_path)
+    sidecar = path.with_name(path.name + ".sha256")
+    sidecar.write_text(_digest(path), encoding="utf-8")
+
+    def _explode(*_args, **_kwargs):
+        raise OSError("permission denied")
+
+    monkeypatch.setattr(type(sidecar), "read_text", _explode)
+
+    assert _verify(path) is False
+
+
+def test_large_artefact_is_hashed_without_reading_whole_file(tmp_path, monkeypatch):
+    """Hashing is chunked, so read_bytes must not be used on the artefact."""
+    monkeypatch.delenv(ENV_VAR, raising=False)
+    path = _artefact(tmp_path, content=b"x" * (3 * 1024 * 1024))
+    path.with_name(path.name + ".sha256").write_text(_digest(path), encoding="utf-8")
+
+    called = {"read_bytes": False}
+    original = Path.read_bytes
+
+    def _tracked(self):
+        called["read_bytes"] = True
+        return original(self)
+
+    monkeypatch.setattr(Path, "read_bytes", _tracked)
+
+    assert _verify(path) is True
+    assert called["read_bytes"] is False
+
+
 # --------------------------------------------------------------------------
 # Call site: unsupervised snapshot loader
 # --------------------------------------------------------------------------
