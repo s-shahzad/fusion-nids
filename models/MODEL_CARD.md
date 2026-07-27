@@ -115,7 +115,7 @@ traffic.
 Research / lab. The model is part of a hybrid IDS evaluated against
 synthetic and lab scenarios; it has not been evaluated against any
 externally labeled corpus (CIC-IDS, UNSW-NB15, MAWI, etc.). The
-soak result (see `NIDS_Docs/SOAK_CLAIM_AUDIT.md`) is a stability
+soak result (see `docs/validation/soak-claim-audit.md`) is a stability
 metric, not a detection-quality metric.
 
 ## Prohibited / unsupported use
@@ -149,7 +149,7 @@ metric, not a detection-quality metric.
 
 ## Cross-references
 
-- `NIDS_Docs/SOAK_CLAIM_AUDIT.md` — what the 87K/0-FP soak does and
+- `docs/validation/soak-claim-audit.md` — what the 87K/0-FP soak does and
   does not show.
 - `src/NIDS/ml/featureset.py` — feature column source of truth.
 - `src/NIDS/ml/feature_builder.py` — training-side feature build

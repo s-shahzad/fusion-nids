@@ -1,4 +1,4 @@
-﻿
+
 from __future__ import annotations
 
 import json
@@ -633,9 +633,9 @@ def _thesis_readme() -> str:
         - `thesis/references.bib`
         - `thesis/diagrams/system_architecture.mmd`
         - `thesis/diagrams/threat_workflow.mmd`
-        - `documentation/architecture.md`
-        - `documentation/algorithms.md`
-        - `documentation/experiments.md`
+        - `docs/architecture/architecture-notes.md`
+        - `docs/architecture/algorithms.md`
+        - `docs/validation/experiments.md`
         - `NIDS_TestLab/reports/nids_project_master_thesis.md`
         - `NIDS_TestLab/reports/nids_project_master_thesis.docx`
         - `thesis/thesis_metadata.json`

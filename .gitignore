@@ -146,3 +146,13 @@ paper/
 thesis/
 docs/paper_*.md
 NIDS_TestLab/reports/nids_project_master_thesis.md
+
+# Generated report output. Regenerate with the reporting/visualisation commands;
+# see reports/README.md. Curated showcase charts live in docs/figures/ instead.
+# Evidence indices under NIDS_TestLab/reports/ stay TRACKED on purpose - they
+# are the record behind the prepared-environment claims, not build output.
+reports/graphs/
+reports/artifacts/
+reports/*.json
+reports/*.md
+!reports/README.md
