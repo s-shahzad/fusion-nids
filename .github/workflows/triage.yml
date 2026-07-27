@@ -1,0 +1,67 @@
+name: Triage
+
+# Keeps the issue and PR list honest without anyone doing it by hand:
+# path-based labelling, and marking genuinely abandoned items rather than
+# letting them rot silently.
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+  schedule:
+    # Weekly. Stale handling does not need to run daily on a repo this size.
+    - cron: "17 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  label:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          sync-labels: false
+
+  stale:
+    if: github.event_name != 'pull_request_target'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+          days-before-issue-stale: 90
+          days-before-issue-close: 30
+          days-before-pr-stale: 30
+          days-before-pr-close: 14
+
+          stale-issue-message: >
+            No activity for 90 days. Marking stale. This is a prompt, not a
+            verdict - comment to keep it open. It will close in 30 days
+            otherwise, and closing is not the same as deciding it was wrong.
+          stale-pr-message: >
+            No activity for 30 days. Marking stale. Comment or push to keep it
+            open; it will close in 14 days otherwise.
+
+          stale-issue-label: stale
+          stale-pr-label: stale
+
+          # Never touch security work, decisions waiting on the owner, or
+          # anything on a milestone. Those are open because they matter, and a
+          # bot closing them would lose real information.
+          exempt-issue-labels: "area/security,severity/critical,severity/high,needs-decision"
+          exempt-pr-labels: "area/security,severity/critical,severity/high,needs-decision,dependencies"
+          exempt-all-milestones: true
+
+          # Dependabot manages its own PR lifecycle.
+          exempt-pr-authors: "dependabot[bot]"
+
+          ascending: true
+          operations-per-run: 60

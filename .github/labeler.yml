@@ -1,0 +1,55 @@
+# Path-based PR labelling. Keeps the board and PR list filterable without
+# anyone remembering to label by hand.
+
+"area/security":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "src/nids/api/dependencies.py"
+          - "src/nids/ml/integrity.py"
+          - "SECURITY.md"
+          - ".github/workflows/security.yml"
+          - ".github/workflows/codeql.yml"
+
+"area/correctness":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "src/nids/detect/**"
+          - "src/nids/ml/**"
+
+"area/reliability":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "src/nids/hot_cold.py"
+          - "src/nids/runtime*.py"
+          - "src/nids/pipeline/**"
+
+"area/hygiene":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "*.md"
+          - ".gitignore"
+          - "CONTRIBUTING.md"
+
+"ci":
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/workflows/**"
+          - ".github/dependabot.yml"
+
+"dependencies":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "requirements*.txt"
+          - "Dockerfile*"
+
+"lab":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "lab/**"
+          - "scripts/**"
+
+"tests":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "tests/**"
