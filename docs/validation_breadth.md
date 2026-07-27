@@ -59,7 +59,7 @@ This document formalizes the replay families currently used to broaden evaluatio
 
 ## Family 5: AI Robustness Replay Scenarios
 
-- Source: `src/NIDS/adversary/ai_scenarios.py`
+- Source: `src/nids/adversary/ai_scenarios.py`
 - Role: bounded evasion-style and robustness-oriented replay review
 - Coverage includes:
   - `slow_scan`

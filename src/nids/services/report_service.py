@@ -9,7 +9,7 @@ from ..platform.settings import PlatformSettings
 
 
 def _repo_root() -> Path:
-    # src/NIDS/services/report_service.py -> repository root
+    # src/nids/services/report_service.py -> repository root
     return Path(__file__).resolve().parents[3]
 
 

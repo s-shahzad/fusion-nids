@@ -9,8 +9,8 @@ from typing import Any
 
 import pytest
 
-from src.NIDS.storage.sqlite_store import SQLiteStore
-from src.NIDS.visuals.dashboard import create_dashboard_app, run_dashboard
+from src.nids.storage.sqlite_store import SQLiteStore
+from src.nids.visuals.dashboard import create_dashboard_app, run_dashboard
 
 
 def _route_endpoint(app: Any, path: str, method: str):
@@ -226,7 +226,7 @@ def test_dashboard_websocket_streams_one_payload_then_exits_on_runtime_error(
     db_path = tmp_path / "nids.db"
     _seed_dashboard_db(db_path)
 
-    import src.NIDS.visuals.dashboard as dashboard_module
+    import src.nids.visuals.dashboard as dashboard_module
 
     async def fake_sleep(_seconds: float) -> None:
         raise RuntimeError("test-stop")

@@ -4,8 +4,8 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from src.NIDS.storage.incident_store import IncidentStore
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.storage.incident_store import IncidentStore
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 def test_incident_store_graceful_without_alerts_table(tmp_path: Path) -> None:

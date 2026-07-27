@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.NIDS.replay_metrics import compute_replay_metrics
+from src.nids.replay_metrics import compute_replay_metrics
 
 
 def _alert(rule_name: str, *, summary: str = "", engine: str = "signature") -> dict[str, str]:

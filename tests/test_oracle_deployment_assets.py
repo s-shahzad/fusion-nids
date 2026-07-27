@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from src.NIDS.cloud import build_cloud_storage_layout
+from src.nids.cloud import build_cloud_storage_layout
 
 # Oracle VM deployment docs/scripts live in the private ops workspace and are
 # not part of the public repository; run these in that environment only.

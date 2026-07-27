@@ -10,7 +10,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.NIDS.adversary_lab import (  # noqa: E402
+from src.nids.adversary_lab import (  # noqa: E402
     explicit_lab_cidrs_profile,
     generate_bundle,
     list_scenarios,

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.NIDS.thesis import generate_thesis_documents
+from src.nids.thesis import generate_thesis_documents
 
 
 def test_generate_thesis_documents(tmp_path: Path) -> None:

@@ -10,8 +10,8 @@ from types import SimpleNamespace
 import pytest
 import yaml
 
-from src.NIDS.config import RuntimeConfig
-from src.NIDS.runtime_live import LiveCaptureController, process_packet_batch, start_live_capture, stop_live_capture, validate_interface
+from src.nids.config import RuntimeConfig
+from src.nids.runtime_live import LiveCaptureController, process_packet_batch, start_live_capture, stop_live_capture, validate_interface
 
 # The realtime_lab package ships only on the self-hosted lab runner; skip this
 # module cleanly everywhere else instead of failing collection.
@@ -66,8 +66,8 @@ def test_runtime_live_start_stop_without_crash(tmp_path: Path, monkeypatch) -> N
         adapters={},
     )
 
-    monkeypatch.setattr("src.NIDS.runtime_live.NIDSRuntime", _FakeRuntime)
-    monkeypatch.setattr("src.NIDS.runtime_live.list_available_interfaces", lambda: ["lo"])
+    monkeypatch.setattr("src.nids.runtime_live.NIDSRuntime", _FakeRuntime)
+    monkeypatch.setattr("src.nids.runtime_live.list_available_interfaces", lambda: ["lo"])
 
     controller = start_live_capture("lo", cfg=cfg, duration=None, batch_size=4)
     snapshot = process_packet_batch(controller)
@@ -122,7 +122,7 @@ def test_runtime_live_latency_calculation() -> None:
 
 
 def test_validate_interface_rejects_unknown_interface(monkeypatch) -> None:
-    monkeypatch.setattr("src.NIDS.runtime_live.list_available_interfaces", lambda: ["lo", "eth0"])
+    monkeypatch.setattr("src.nids.runtime_live.list_available_interfaces", lambda: ["lo", "eth0"])
     try:
         validate_interface("missing0")
     except ValueError as exc:

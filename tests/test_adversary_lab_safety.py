@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import pytest
 
-from src.NIDS.adversary_lab import generate_bundle, localhost_only_profile
-from src.NIDS.adversary_lab.profiles.defaults import explicit_lab_cidrs_profile
-from src.NIDS.adversary_lab.safety import SafetyPolicyError, validate_targets
+from src.nids.adversary_lab import generate_bundle, localhost_only_profile
+from src.nids.adversary_lab.profiles.defaults import explicit_lab_cidrs_profile
+from src.nids.adversary_lab.safety import SafetyPolicyError, validate_targets
 
 
 def test_adversary_lab_rejects_public_targets_outside_lab_boundary() -> None:

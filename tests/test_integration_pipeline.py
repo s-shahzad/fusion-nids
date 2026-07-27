@@ -1,14 +1,14 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
-from src.NIDS.config import RuntimeConfig
-from src.NIDS.reporting import generate_incident_report
-from src.NIDS.runtime import NIDSRuntime
-from src.NIDS.visuals.export import run_visual_export
+from src.nids.config import RuntimeConfig
+from src.nids.reporting import generate_incident_report
+from src.nids.runtime import NIDSRuntime
+from src.nids.visuals.export import run_visual_export
 
 
 def _ts() -> str:

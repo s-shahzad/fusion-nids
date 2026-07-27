@@ -10,11 +10,11 @@ from scapy.layers.inet import IP, TCP
 from scapy.packet import Raw
 from scapy.utils import wrpcap
 
-from src.NIDS.config import RuntimeConfig
-from src.NIDS.ingest.offline import run_offline_pcaps
-from src.NIDS.runtime import NIDSRuntime
-from src.NIDS.storage.jsonl_store import JSONLStore
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.config import RuntimeConfig
+from src.nids.ingest.offline import run_offline_pcaps
+from src.nids.runtime import NIDSRuntime
+from src.nids.storage.jsonl_store import JSONLStore
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 pytestmark = [pytest.mark.slow, pytest.mark.integration]

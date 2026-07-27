@@ -1,4 +1,4 @@
-﻿from src.NIDS.detect.suppression import AlertSuppressor
+from src.nids.detect.suppression import AlertSuppressor
 
 
 def test_alert_suppression_window() -> None:

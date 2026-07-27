@@ -312,7 +312,7 @@ def test_sync_sensor_files_includes_jsonl_store(monkeypatch) -> None:
         "placeholder-password",
     )
 
-    assert any(path.endswith("/src/NIDS/storage/jsonl_store.py") for path in uploaded)
+    assert any(path.endswith("/src/nids/storage/jsonl_store.py") for path in uploaded)
 
 
 def test_build_soak_analysis_captures_phase10_comparison_fields(tmp_path: Path) -> None:

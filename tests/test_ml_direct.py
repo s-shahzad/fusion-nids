@@ -10,12 +10,12 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.NIDS.ml import evaluate as evaluate_module
-from src.NIDS.ml import train as train_module
-from src.NIDS.ml.dataset_loader import TRAINING_COLUMNS, load_labeled_flows
-from src.NIDS.ml.feature_builder import build_training_frame
-from src.NIDS.ml.featureset import FEATURE_COLUMNS, build_feature_vector
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.ml import evaluate as evaluate_module
+from src.nids.ml import train as train_module
+from src.nids.ml.dataset_loader import TRAINING_COLUMNS, load_labeled_flows
+from src.nids.ml.feature_builder import build_training_frame
+from src.nids.ml.featureset import FEATURE_COLUMNS, build_feature_vector
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 def _iso(offset_minutes: int) -> str:

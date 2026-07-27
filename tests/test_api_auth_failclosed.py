@@ -18,8 +18,8 @@ from types import SimpleNamespace
 import pytest
 from fastapi import HTTPException
 
-from src.NIDS.api.dependencies import require_read_access, require_write_access
-from src.NIDS.platform.errors import RouteDisabledError
+from src.nids.api.dependencies import require_read_access, require_write_access
+from src.nids.platform.errors import RouteDisabledError
 
 
 def _request(

@@ -5,11 +5,11 @@ from pathlib import Path
 
 import plotly.graph_objects as go
 
-import src.NIDS.visuals.export as export_module
-from src.NIDS.storage.sqlite_store import SQLiteStore
-from src.NIDS.visuals.charts import build_all_figures
-from src.NIDS.visuals.export import ExportedChart, export_fig, generate_index_page, run_visual_export
-from src.NIDS.visuals.queries import build_analytics
+import src.nids.visuals.export as export_module
+from src.nids.storage.sqlite_store import SQLiteStore
+from src.nids.visuals.charts import build_all_figures
+from src.nids.visuals.export import ExportedChart, export_fig, generate_index_page, run_visual_export
+from src.nids.visuals.queries import build_analytics
 
 
 def _seed_analytics_db(db_path: Path) -> None:

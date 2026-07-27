@@ -1,11 +1,11 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from src.NIDS.config import RuntimeConfig
-from src.NIDS.runtime import NIDSRuntime
+from src.nids.config import RuntimeConfig
+from src.nids.runtime import NIDSRuntime
 
 
 def _ts(days_offset: int) -> str:

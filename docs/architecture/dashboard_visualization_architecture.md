@@ -31,12 +31,12 @@ SQLite Evidence
 
 ## Module Relationships
 
-- `src/NIDS/visuals/queries.py` builds Pandas-based analytics frames from SQLite.
-- `src/NIDS/visuals/charts.py` converts analytics frames into Plotly figures.
-- `src/NIDS/visuals/dashboard.py` exposes FastAPI endpoints, realtime payloads, incident APIs, and a browser dashboard.
-- `src/NIDS/visuals/export.py` generates offline chart bundles from the same analytics path.
-- `src/NIDS/storage/sqlite_store.py` and `src/NIDS/storage/incident_store.py` provide the underlying state.
-- `src/NIDS/utils/notifications.py` is optionally used for incident-update notifications.
+- `src/nids/visuals/queries.py` builds Pandas-based analytics frames from SQLite.
+- `src/nids/visuals/charts.py` converts analytics frames into Plotly figures.
+- `src/nids/visuals/dashboard.py` exposes FastAPI endpoints, realtime payloads, incident APIs, and a browser dashboard.
+- `src/nids/visuals/export.py` generates offline chart bundles from the same analytics path.
+- `src/nids/storage/sqlite_store.py` and `src/nids/storage/incident_store.py` provide the underlying state.
+- `src/nids/utils/notifications.py` is optionally used for incident-update notifications.
 
 ## Data Flow Explanation
 
@@ -76,12 +76,12 @@ The CLI `visualize` command uses the same query and chart modules to produce off
 
 ## Key Files / Modules
 
-- `src/NIDS/visuals/queries.py`
-- `src/NIDS/visuals/charts.py`
-- `src/NIDS/visuals/dashboard.py`
-- `src/NIDS/visuals/export.py`
-- `src/NIDS/storage/sqlite_store.py`
-- `src/NIDS/storage/incident_store.py`
+- `src/nids/visuals/queries.py`
+- `src/nids/visuals/charts.py`
+- `src/nids/visuals/dashboard.py`
+- `src/nids/visuals/export.py`
+- `src/nids/storage/sqlite_store.py`
+- `src/nids/storage/incident_store.py`
 
 ## Operational Purpose
 

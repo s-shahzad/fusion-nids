@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 SERVICE_PORT_MAP = {

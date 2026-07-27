@@ -10,7 +10,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.NIDS.cloud import (  # noqa: E402
+from src.nids.cloud import (  # noqa: E402
     build_cloud_storage_layout,
     cleanup_staged_replay,
     ensure_cloud_storage_layout,

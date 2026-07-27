@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from src.NIDS.storage_policy import RetentionPolicy, execute_retention_plan, plan_retention
+from src.nids.storage_policy import RetentionPolicy, execute_retention_plan, plan_retention
 
 
 def _touch_bundle(path: Path, *, days_old: int) -> None:

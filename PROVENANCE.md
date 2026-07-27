@@ -13,7 +13,7 @@ The following directories and files are considered part of the clean active
 platform boundary:
 
 - `nids/`
-- `src/NIDS/`
+- `src/nids/`
 - `scripts/`
   - only the current maintained validation, reporting, and orchestration scripts
 - `config/`
@@ -34,7 +34,7 @@ excluded from release packaging pending provenance review:
 - `_archive/provenance_review_pending/phase13_20260314/src/CAPSTON/`
 - `_archive/provenance_review_pending/phase13_20260314/src/merged_unique/`
 - `_archive/provenance_review_pending/phase13_20260314/src/ev_related_data/`
-- `_archive/provenance_review_pending/phase13_20260314/src/NIDS/src/`
+- `_archive/provenance_review_pending/phase13_20260314/src/nids/src/`
 - `_archive/provenance_review_pending/phase13_20260314/nids_server.py`
 - `_archive/provenance_review_pending/phase13_20260314/nids_page.html`
 - `_archive/provenance_review_pending/phase13_20260314/nids_page.js`

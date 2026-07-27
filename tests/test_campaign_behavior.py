@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
-from src.NIDS.detect.campaign_behavior import CampaignBehaviorDetector
+from src.nids.detect.campaign_behavior import CampaignBehaviorDetector
 
 
 def _ts(offset_sec: int) -> str:

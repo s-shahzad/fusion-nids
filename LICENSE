@@ -22,7 +22,7 @@ SOFTWARE.
 
 ---
 
-EXCEPTION: The `src/NIDS/adversary_lab/` directory and any scripts that import
+EXCEPTION: The `src/nids/adversary_lab/` directory and any scripts that import
 Scapy are licensed separately under GPL-2.0-or-later (see
-`src/NIDS/adversary_lab/LICENSE`). Those components are optional and not
+`src/nids/adversary_lab/LICENSE`). Those components are optional and not
 required to run the core NIDS detection engine or API.

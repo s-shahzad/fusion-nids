@@ -16,7 +16,7 @@ def main() -> None:
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
 
-    from src.NIDS.api.app import app
+    from src.nids.api.app import app
 
     host = os.getenv("NIDS_API_HOST", "127.0.0.1")
     port = int(os.getenv("NIDS_API_PORT", "8010"))

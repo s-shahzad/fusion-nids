@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 def _now_iso() -> str:

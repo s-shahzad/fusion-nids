@@ -8,19 +8,19 @@ from pathlib import Path
 import pytest
 from pypdf import PdfWriter
 
-import src.NIDS.artifacts.intake as intake_module
-from src.NIDS.artifacts.intake import ArtifactScanSummary, run_artifact_scan, run_artifact_watch
-from src.NIDS.artifacts.parsers.csv_parser import parse_csv
-from src.NIDS.artifacts.parsers.docx_parser import parse_docx
-from src.NIDS.artifacts.parsers.exe_parser import parse_exe
-from src.NIDS.artifacts.parsers.html_parser import parse_html
-from src.NIDS.artifacts.parsers.json_parser import parse_json
-from src.NIDS.artifacts.parsers.pdf_parser import parse_pdf
-from src.NIDS.artifacts.parsers.py_parser import parse_python
-from src.NIDS.artifacts.parsers.xlsx_parser import parse_xlsx
-from src.NIDS.artifacts.parsers.zip_parser import parse_zip
-from src.NIDS.artifacts.report import generate_artifact_report
-from src.NIDS.artifacts.storage import ArtifactStore
+import src.nids.artifacts.intake as intake_module
+from src.nids.artifacts.intake import ArtifactScanSummary, run_artifact_scan, run_artifact_watch
+from src.nids.artifacts.parsers.csv_parser import parse_csv
+from src.nids.artifacts.parsers.docx_parser import parse_docx
+from src.nids.artifacts.parsers.exe_parser import parse_exe
+from src.nids.artifacts.parsers.html_parser import parse_html
+from src.nids.artifacts.parsers.json_parser import parse_json
+from src.nids.artifacts.parsers.pdf_parser import parse_pdf
+from src.nids.artifacts.parsers.py_parser import parse_python
+from src.nids.artifacts.parsers.xlsx_parser import parse_xlsx
+from src.nids.artifacts.parsers.zip_parser import parse_zip
+from src.nids.artifacts.report import generate_artifact_report
+from src.nids.artifacts.storage import ArtifactStore
 
 
 def _make_pdf(path: Path) -> Path:

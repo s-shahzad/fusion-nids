@@ -45,12 +45,12 @@ The framework does not implement:
 
 ## Module Layout
 
-- `src/NIDS/adversary_lab/scenarios/`
-- `src/NIDS/adversary_lab/traffic_generators/`
-- `src/NIDS/adversary_lab/log_emulators/`
-- `src/NIDS/adversary_lab/validators/`
-- `src/NIDS/adversary_lab/profiles/`
-- `src/NIDS/adversary_lab/orchestration/`
+- `src/nids/adversary_lab/scenarios/`
+- `src/nids/adversary_lab/traffic_generators/`
+- `src/nids/adversary_lab/log_emulators/`
+- `src/nids/adversary_lab/validators/`
+- `src/nids/adversary_lab/profiles/`
+- `src/nids/adversary_lab/orchestration/`
 
 ## Supported Scenarios
 

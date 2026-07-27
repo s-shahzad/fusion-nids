@@ -5,8 +5,8 @@ import urllib.error
 from pathlib import Path
 from typing import Any
 
-import src.NIDS.utils.notifications as notifications
-from src.NIDS.utils.notifications import SlackWebhookNotifier
+import src.nids.utils.notifications as notifications
+from src.nids.utils.notifications import SlackWebhookNotifier
 
 
 class _FakeResponse:

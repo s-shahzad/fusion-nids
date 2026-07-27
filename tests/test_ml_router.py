@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from src.NIDS.detect import ml as ml_module
+from src.nids.detect import ml as ml_module
 
 
 class _DummySupervisedEngine:

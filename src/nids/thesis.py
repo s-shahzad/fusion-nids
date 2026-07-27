@@ -205,13 +205,13 @@ def _architecture_doc(state: dict[str, Any]) -> str:
 
         ## Component Map
 
-        - Ingest: `src/NIDS/ingest/live.py` and `src/NIDS/ingest/offline.py`
-        - Parsing: `src/NIDS/pipeline/parser.py`
-        - Feature extraction: `src/NIDS/pipeline/features.py`
-        - Detection: `src/NIDS/detect/`
-        - Storage: `src/NIDS/storage/`
-        - Visualization: `src/NIDS/visuals/`
-        - Artifact analysis: `src/NIDS/artifacts/`
+        - Ingest: `src/nids/ingest/live.py` and `src/nids/ingest/offline.py`
+        - Parsing: `src/nids/pipeline/parser.py`
+        - Feature extraction: `src/nids/pipeline/features.py`
+        - Detection: `src/nids/detect/`
+        - Storage: `src/nids/storage/`
+        - Visualization: `src/nids/visuals/`
+        - Artifact analysis: `src/nids/artifacts/`
 
         ## Feature Set
 
@@ -396,13 +396,13 @@ def _build_master_markdown(state: dict[str, Any]) -> str:
         The system is organized into ingestion, parsing, feature extraction, detection, storage, and visualization layers.
 
         ## 7.2 Offline Pipeline
-        Offline PCAP replay enters through `src/NIDS/ingest/offline.py`, then follows the same parsing and detection path as live traffic.
+        Offline PCAP replay enters through `src/nids/ingest/offline.py`, then follows the same parsing and detection path as live traffic.
 
         ## 7.3 Live Monitoring Pipeline
-        Live capture enters through `src/NIDS/ingest/live.py`, is normalized by the pipeline, scored by multiple engines, and persisted to SQLite and JSONL outputs.
+        Live capture enters through `src/nids/ingest/live.py`, is normalized by the pipeline, scored by multiple engines, and persisted to SQLite and JSONL outputs.
 
         ## 7.4 Component Interaction
-        Runtime coordination is centered in `src/NIDS/runtime.py`, with detection modules in `src/NIDS/detect/`, storage in `src/NIDS/storage/`, and visualization in `src/NIDS/visuals/`.
+        Runtime coordination is centered in `src/nids/runtime.py`, with detection modules in `src/nids/detect/`, storage in `src/nids/storage/`, and visualization in `src/nids/visuals/`.
 
         ## 7.5 Diagram Sources
         - `thesis/diagrams/system_architecture.mmd`
@@ -414,7 +414,7 @@ def _build_master_markdown(state: dict[str, Any]) -> str:
         The system currently supports {formats}, plus logs, live packets, offline PCAPs, and adapter JSON feeds.
 
         ## 8.2 Parsing and Normalization
-        Artifact parsers operate in `src/NIDS/artifacts/parsers/`, while network normalization is handled by `src/NIDS/pipeline/parser.py`.
+        Artifact parsers operate in `src/nids/artifacts/parsers/`, while network normalization is handled by `src/nids/pipeline/parser.py`.
 
         ## 8.3 Feature Extraction
         The current feature set includes {features}.
@@ -453,10 +453,10 @@ def _build_master_markdown(state: dict[str, Any]) -> str:
         # 11. Graphical Threat Pattern Analysis
 
         ## 11.1 Offline Analytics
-        `src/NIDS/visuals/charts.py` and `src/NIDS/visuals/export.py` support chart generation and evidence packaging.
+        `src/nids/visuals/charts.py` and `src/nids/visuals/export.py` support chart generation and evidence packaging.
 
         ## 11.2 Live Dashboard
-        `src/NIDS/visuals/dashboard.py` exposes rolling metrics, alerts, sensor comparison, and incident-oriented views.
+        `src/nids/visuals/dashboard.py` exposes rolling metrics, alerts, sensor comparison, and incident-oriented views.
 
         ## 11.3 Analyst Value
         Visualization improves interpretability by showing how multiple detectors align across time and severity.
@@ -464,7 +464,7 @@ def _build_master_markdown(state: dict[str, Any]) -> str:
         # 12. Implementation Details
 
         ## 12.1 Languages and Core Modules
-        The project is primarily implemented in Python under `src/NIDS/`.
+        The project is primarily implemented in Python under `src/nids/`.
 
         ## 12.2 Frameworks and Libraries
         The active dependency set includes {requirements}.

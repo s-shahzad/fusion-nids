@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-import src.NIDS.cli as cli_module
+import src.nids.cli as cli_module
 
 
 @dataclass

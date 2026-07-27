@@ -41,7 +41,7 @@ Last updated: March 14, 2026
   - provenance, release-boundary, Scapy-review, and legal-safe development rules were documented
   - active runtime and validation entry points do not import from the archived legacy trees
 - Phase 14A safe adversary emulation framework is complete:
-  - a new `src/NIDS/adversary_lab/` module area now generates lab-only offline replay bundles
+  - a new `src/nids/adversary_lab/` module area now generates lab-only offline replay bundles
   - seven safe scenarios were added for scan, auth abuse, beaconing, exfiltration-like flow, lateral sequencing, protocol anomalies, and chained campaign validation
   - generated artifacts include labeled PCAP, labels CSV, Suricata-style logs, and Zeek-style logs
   - safety guardrails restrict the framework to offline replay, localhost, documentation ranges, private lab ranges, or explicitly configured lab CIDRs
@@ -112,7 +112,7 @@ Long-duration soak history:
 Clean active platform boundary:
 
 - `nids/`
-- `src/NIDS/`
+- `src/nids/`
 - maintained `scripts/`
 - `config/`
 - `rules/`

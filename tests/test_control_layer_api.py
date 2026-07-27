@@ -5,16 +5,16 @@ import importlib
 import json
 from pathlib import Path
 
-from src.NIDS.ai.providers.ollama_provider import OllamaProvider
-from src.NIDS.ai.services.explainer_service import ExplainerService
-from src.NIDS.pipeline.runtime import LocalPipelineResult
-from src.NIDS.services.export_service import ExportService
-from src.NIDS.services.run_inspection_service import RunInspectionService
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.ai.providers.ollama_provider import OllamaProvider
+from src.nids.ai.services.explainer_service import ExplainerService
+from src.nids.pipeline.runtime import LocalPipelineResult
+from src.nids.services.export_service import ExportService
+from src.nids.services.run_inspection_service import RunInspectionService
+from src.nids.storage.sqlite_store import SQLiteStore
 from starlette.requests import Request
 
 
-app_module = importlib.import_module("src.NIDS.api.app")
+app_module = importlib.import_module("src.nids.api.app")
 
 
 def _alert_payload(**overrides: object) -> dict[str, object]:

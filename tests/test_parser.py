@@ -4,7 +4,7 @@ from scapy.layers.dns import DNS, DNSQR
 from scapy.layers.inet import IP, TCP, UDP
 from scapy.packet import Raw
 
-from src.NIDS.pipeline.parser import parse_packet
+from src.nids.pipeline.parser import parse_packet
 
 
 def test_parse_packet_extracts_dns_qname_from_dns_query() -> None:

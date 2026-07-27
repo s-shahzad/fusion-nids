@@ -10,8 +10,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.NIDS.config import _read_yaml
-from src.NIDS.storage_policy import ensure_storage_layout, execute_retention_plan, plan_retention, retention_policy_from_mapping, write_storage_profile
+from src.nids.config import _read_yaml
+from src.nids.storage_policy import ensure_storage_layout, execute_retention_plan, plan_retention, retention_policy_from_mapping, write_storage_profile
 
 
 def main() -> int:

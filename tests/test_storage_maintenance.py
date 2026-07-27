@@ -1,9 +1,9 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 def _iso(days_offset: int) -> str:

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.NIDS.detect.fusion import FusionEngine
+from src.nids.detect.fusion import FusionEngine
 
 
 def test_fusion_engine_agreement_alone_no_longer_bypasses_score_threshold() -> None:

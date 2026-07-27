@@ -9,8 +9,8 @@ from pathlib import Path
 
 import yaml
 
-from src.NIDS.adversary_lab import generate_bundle, offline_replay_profile
-from src.NIDS.ingest.offline import run_suricata_eve
+from src.nids.adversary_lab import generate_bundle, offline_replay_profile
+from src.nids.ingest.offline import run_suricata_eve
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

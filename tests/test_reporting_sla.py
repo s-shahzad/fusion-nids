@@ -1,12 +1,12 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from src.NIDS.reporting import generate_sla_weekly_summary
-from src.NIDS.storage.incident_store import IncidentStore
-from src.NIDS.storage.sqlite_store import SQLiteStore
+from src.nids.reporting import generate_sla_weekly_summary
+from src.nids.storage.incident_store import IncidentStore
+from src.nids.storage.sqlite_store import SQLiteStore
 
 
 def _iso(dt: datetime) -> str:

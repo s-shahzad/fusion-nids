@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from src.NIDS.artifacts.analyzer import analyze_artifact
+from src.nids.artifacts.analyzer import analyze_artifact
 
 
 def test_analyze_artifact_flags_exe_with_suspicious_strings_as_high(tmp_path: Path) -> None:

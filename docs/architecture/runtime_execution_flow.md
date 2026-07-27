@@ -2,7 +2,7 @@
 
 ## Component Description
 
-`src/NIDS/runtime.py` is the central orchestrator for packet and adapter event processing. It is responsible for queueing, feature extraction, detector invocation, storage, suppression handling, metric emission, and optional maintenance scheduling.
+`src/nids/runtime.py` is the central orchestrator for packet and adapter event processing. It is responsible for queueing, feature extraction, detector invocation, storage, suppression handling, metric emission, and optional maintenance scheduling.
 
 ## ASCII Runtime Flow Diagram
 
@@ -34,12 +34,12 @@ periodic metrics + optional maintenance
 
 ## Module Relationships
 
-- `src/NIDS/cli.py` calls `run_runtime(...)`.
-- `src/NIDS/config.py` builds the runtime configuration used by the runtime.
-- `src/NIDS/ingest/live.py` and `src/NIDS/ingest/offline.py` feed the runtime queue.
-- `src/NIDS/runtime.py` owns detector and storage object lifecycles.
-- `src/NIDS/utils/notifications.py` supplies optional webhook notifications.
-- `src/NIDS/storage/sqlite_store.py` and `src/NIDS/storage/jsonl_store.py` are the main evidence sinks.
+- `src/nids/cli.py` calls `run_runtime(...)`.
+- `src/nids/config.py` builds the runtime configuration used by the runtime.
+- `src/nids/ingest/live.py` and `src/nids/ingest/offline.py` feed the runtime queue.
+- `src/nids/runtime.py` owns detector and storage object lifecycles.
+- `src/nids/utils/notifications.py` supplies optional webhook notifications.
+- `src/nids/storage/sqlite_store.py` and `src/nids/storage/jsonl_store.py` are the main evidence sinks.
 
 ## Data Flow Explanation
 
@@ -86,14 +86,14 @@ If enabled, scheduled maintenance can run retention cleanup and optional `VACUUM
 
 ## Key Files / Modules
 
-- `src/NIDS/runtime.py`
-- `src/NIDS/config.py`
-- `src/NIDS/ingest/live.py`
-- `src/NIDS/ingest/offline.py`
-- `src/NIDS/pipeline/features.py`
-- `src/NIDS/detect/`
-- `src/NIDS/storage/`
-- `src/NIDS/utils/notifications.py`
+- `src/nids/runtime.py`
+- `src/nids/config.py`
+- `src/nids/ingest/live.py`
+- `src/nids/ingest/offline.py`
+- `src/nids/pipeline/features.py`
+- `src/nids/detect/`
+- `src/nids/storage/`
+- `src/nids/utils/notifications.py`
 
 ## Operational Purpose
 

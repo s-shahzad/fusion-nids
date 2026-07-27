@@ -24,7 +24,7 @@ not intended for release packaging until provenance review is completed.
 - `requirements.txt`
 - `Dockerfile`
 - local `.venv` package metadata via `importlib.metadata`
-- repository import and usage references under `src/NIDS/`, `scripts/`, and `tests/`
+- repository import and usage references under `src/nids/`, `scripts/`, and `tests/`
 
 ## Review Status Legend
 
@@ -41,9 +41,9 @@ not intended for release packaging until provenance review is completed.
 - local license field: `GPL-2.0-only`
 - local classifier: `License :: OSI Approved :: GNU General Public License v2 (GPLv2)`
 - repo usage evidence:
-  - `src/NIDS/ingest/live.py`
-  - `src/NIDS/ingest/offline.py`
-  - `src/NIDS/pipeline/parser.py`
+  - `src/nids/ingest/live.py`
+  - `src/nids/ingest/offline.py`
+  - `src/nids/pipeline/parser.py`
   - `scripts/run_lab_scenario.py`
   - test fixtures under `tests/`
 - review status: `high_review_needed`
@@ -64,17 +64,17 @@ not intended for release packaging until provenance review is completed.
 | numpy | 2.4.3 | BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0 | `requirements.txt`; local `.venv` metadata; repo imports | ML, charts, training, feature support | review_needed | Composite license expression should be carried carefully into a maintained SBOM. |
 | pytest | 9.0.2 | MIT | `requirements.txt`; local `.venv` metadata; repo imports | test framework | recorded | Test-only role should still be marked in maintained inventory. |
 | pytest-cov | 7.0.0 | MIT classifier observed | `requirements.txt`; local `.venv` metadata | coverage tooling | review_needed | Treat as test-only dependency. |
-| plotly | 6.6.0 | MIT License | `requirements.txt`; local `.venv` metadata; repo imports | charts, dashboard visuals | recorded | Used in `src/NIDS/visuals/charts.py`. |
-| pandas | 3.0.1 | BSD 3-Clause License | `requirements.txt`; local `.venv` metadata; repo imports | analytics queries, ML/training helpers | recorded | Used in `src/NIDS/visuals/queries.py` and ML utilities. |
+| plotly | 6.6.0 | MIT License | `requirements.txt`; local `.venv` metadata; repo imports | charts, dashboard visuals | recorded | Used in `src/nids/visuals/charts.py`. |
+| pandas | 3.0.1 | BSD 3-Clause License | `requirements.txt`; local `.venv` metadata; repo imports | analytics queries, ML/training helpers | recorded | Used in `src/nids/visuals/queries.py` and ML utilities. |
 | kaleido | 1.2.0 | MIT text observed locally | `requirements.txt`; local `.venv` metadata | chart export support | review_needed | Direct runtime import path should be confirmed in maintained inventory. |
-| pypdf | 6.9.1 | BSD-3-Clause | `requirements.txt`; local `.venv` metadata; repo imports | PDF artifact parsing | recorded | Used in `src/NIDS/artifacts/parsers/pdf_parser.py`. |
+| pypdf | 6.9.1 | BSD-3-Clause | `requirements.txt`; local `.venv` metadata; repo imports | PDF artifact parsing | recorded | Used in `src/nids/artifacts/parsers/pdf_parser.py`. |
 | python-docx | 1.2.0 | MIT | `requirements.txt`; local `.venv` metadata; repo imports | DOCX parsing and report/document generation | recorded | Used in artifact parsing and validation/report generation scripts. |
-| openpyxl | 3.1.5 | MIT | `requirements.txt`; local `.venv` metadata; repo imports | XLSX artifact parsing | recorded | Used in `src/NIDS/artifacts/parsers/xlsx_parser.py`. |
-| beautifulsoup4 | 4.14.3 | MIT License | `requirements.txt`; local `.venv` metadata; repo imports | HTML parsing | recorded | Used in `src/NIDS/artifacts/parsers/html_parser.py`. |
+| openpyxl | 3.1.5 | MIT | `requirements.txt`; local `.venv` metadata; repo imports | XLSX artifact parsing | recorded | Used in `src/nids/artifacts/parsers/xlsx_parser.py`. |
+| beautifulsoup4 | 4.14.3 | MIT License | `requirements.txt`; local `.venv` metadata; repo imports | HTML parsing | recorded | Used in `src/nids/artifacts/parsers/html_parser.py`. |
 | lxml | 6.0.2 | BSD-3-Clause | `requirements.txt`; local `.venv` metadata; repo imports | HTML parsing backend | recorded | Used via BeautifulSoup parser selection. |
-| pefile | 2024.8.26 | MIT | `requirements.txt`; local `.venv` metadata; repo imports | PE / executable artifact parsing | recorded | Used in `src/NIDS/artifacts/parsers/exe_parser.py`. |
+| pefile | 2024.8.26 | MIT | `requirements.txt`; local `.venv` metadata; repo imports | PE / executable artifact parsing | recorded | Used in `src/nids/artifacts/parsers/exe_parser.py`. |
 | scikit-learn | 1.8.0 | BSD-3-Clause | `requirements.txt`; local `.venv` metadata; repo imports | supervised ML, unsupervised ML, training, evaluation | recorded | Core ML dependency. |
-| python-magic | 0.4.27 | MIT | `requirements.txt`; local `.venv` metadata; repo imports | MIME detection for artifact analysis | recorded | Used in `src/NIDS/artifacts/analyzer.py`. |
+| python-magic | 0.4.27 | MIT | `requirements.txt`; local `.venv` metadata; repo imports | MIME detection for artifact analysis | recorded | Used in `src/nids/artifacts/analyzer.py`. |
 | xgboost | 3.2.0 | Apache-2.0 | `requirements.txt`; local `.venv` metadata; repo imports | supervised ensemble option | recorded | Optional model path appears to exist in the current architecture. |
 
 ## System And Container Components

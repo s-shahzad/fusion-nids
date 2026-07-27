@@ -11,9 +11,9 @@ matters to the release/legal review.
 
 Active platform usage:
 
-- `src/NIDS/ingest/live.py`
-- `src/NIDS/ingest/offline.py`
-- `src/NIDS/pipeline/parser.py`
+- `src/nids/ingest/live.py`
+- `src/nids/ingest/offline.py`
+- `src/nids/pipeline/parser.py`
 - `scripts/run_lab_scenario.py`
 - packet/PCAP-related tests under `tests/`
 
