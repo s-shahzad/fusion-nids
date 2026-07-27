@@ -11,7 +11,7 @@ from typing import Any
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import HTMLResponse, JSONResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 
 from .assist import AnalyzeAlertsRequest
@@ -40,6 +40,9 @@ from ..pipeline.runtime import LocalPipelineResult, run_local_pipeline
 from ..privacy import privacy_config_from_env
 from ..services.export_service import ExportService
 from ..services.run_inspection_service import RunInspectionService
+
+
+logger = logging.getLogger(__name__)
 
 
 def _repo_root() -> Path:
@@ -111,7 +114,7 @@ class SystemStatusResponse(BaseModel):
     cold_worker_enabled: bool
     # Engine availability. Without this a refused or broken model produces zero
     # alerts, which looks exactly like clean traffic from the outside (#14).
-    engines: dict[str, Any] = {}
+    engines: dict[str, Any] = Field(default_factory=dict)
     latest_run: dict[str, Any] | None = None
 
 

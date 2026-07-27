@@ -42,6 +42,11 @@ def expected_digest_for(path: Path, env_var: str) -> str:
     Precedence is environment variable first, then a ``<name>.sha256`` sidecar.
     The sidecar may be bare hex or ``sha256sum`` output, so only the first
     whitespace-delimited field is read.
+
+    An empty return means **no digest is configured**. It never means "a digest
+    was configured but could not be read" - that case raises, because the two
+    are opposite security outcomes. Silently collapsing them would let an
+    attacker disable verification simply by making the sidecar unreadable.
     """
     expected = (os.getenv(env_var) or "").strip().lower()
     if expected:
@@ -49,13 +54,25 @@ def expected_digest_for(path: Path, env_var: str) -> str:
 
     sidecar = path.with_name(path.name + ".sha256")
     if sidecar.exists():
-        try:
-            parts = sidecar.read_text(encoding="utf-8").strip().split()
-        except OSError:
-            return ""
+        # Deliberately not caught here. A sidecar that exists but cannot be read
+        # is a verification failure, not an absent configuration.
+        parts = sidecar.read_text(encoding="utf-8").strip().split()
         if parts:
             return parts[0].lower()
     return ""
+
+
+def _sha256_of(path: Path, *, chunk_size: int = 1024 * 1024) -> str:
+    """Hash a file in chunks rather than reading it whole.
+
+    Model artefacts can be large; ``read_bytes()`` would pull the entire file
+    into memory during startup for no benefit.
+    """
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(chunk_size), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def verify_artifact_integrity(
@@ -77,7 +94,19 @@ def verify_artifact_integrity(
     """
     log = logger or logging.getLogger(__name__)
 
-    expected = expected_digest_for(path, env_var)
+    try:
+        expected = expected_digest_for(path, env_var)
+    except OSError:
+        # A configured-but-unreadable sidecar must fail closed. Treating it as
+        # "unconfigured" would mean an attacker who can chmod the sidecar can
+        # switch verification off entirely.
+        log.error(
+            "%s %s has a .sha256 sidecar that could not be read; refusing to load.",
+            label.capitalize(),
+            path,
+        )
+        return False
+
     if not expected:
         log.warning(
             "Loading %s %s WITHOUT integrity verification (set %s or add a <file>.sha256 sidecar).",
@@ -88,7 +117,7 @@ def verify_artifact_integrity(
         return True
 
     try:
-        actual = hashlib.sha256(path.read_bytes()).hexdigest()
+        actual = _sha256_of(path)
     except OSError:
         # Unreadable when a digest is configured is a failure, not a pass: the
         # caller asked for verification and we cannot provide it.

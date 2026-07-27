@@ -89,8 +89,10 @@ re-bootstrapping the training DB, and retraining.
 - **Calibration:** none. Outputs are raw ensemble probabilities. The
   serving threshold `score_threshold=0.6`
   (`src/nids/detect/ml.py:30`) was not derived from a precision /
-  FPR / recall curve. `reports/threshold_tuning.json` is currently
-  populated with `"method": "no_score_data"` and zero values.
+  FPR / recall curve. Regenerating threshold tuning
+  (`python -m nids threshold-report --from-db <db>`) currently yields
+  `"method": "no_score_data"` and zero values. That output is generated,
+  not tracked — see `reports/README.md`.
 
 ## Bug — `evaluate.py` is not an independent eval
 
@@ -155,5 +157,8 @@ metric, not a detection-quality metric.
 - `src/nids/ml/feature_builder.py` — training-side feature build
   (where the L7 zero-pinning lives).
 - `src/nids/pipeline/features.py` — serving-side feature build.
-- `reports/ml_metrics.json` — the only honest accuracy number.
-- `reports/threshold_tuning.json` — currently empty.
+- `reports/ml_metrics.json` — the only honest accuracy number. **Generated,
+  not tracked**; regenerate with `python -m nids evaluate`. See
+  `reports/README.md`.
+- `reports/threshold_tuning.json` — generated, not tracked, and currently
+  empty when produced (`"method": "no_score_data"`).
