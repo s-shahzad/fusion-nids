@@ -16,9 +16,28 @@ def get_settings(request: Request) -> PlatformSettings:
     return request.app.state.settings
 
 
+LOOPBACK_HOSTS = frozenset({"127.0.0.1", "::1", "localhost"})
+
+
 def _client_host(request: Request) -> str:
     client = request.client
     return client.host if client else ""
+
+
+def _is_loopback(host: str) -> bool:
+    return host in LOOPBACK_HOSTS
+
+
+def _header_value(value: object) -> str | None:
+    """Return ``value`` only when it is a real header string.
+
+    These dependencies are also called directly -- ``require_write_access``
+    delegates to ``require_read_access`` -- and a direct call leaves unpassed
+    parameters holding their ``Header(default=None)`` sentinel rather than
+    ``None``. Comparing that sentinel against a token silently misbehaves, so
+    anything that is not a string is treated as "no header supplied".
+    """
+    return value if isinstance(value, str) else None
 
 
 def require_read_access(
@@ -28,30 +47,59 @@ def require_read_access(
 ) -> None:
     settings = get_settings(request)
     host = _client_host(request)
-    if not settings.allow_remote_api and host not in {"127.0.0.1", "::1", "localhost"}:
+    if not settings.allow_remote_api and not _is_loopback(host):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="remote access disabled")
+
+    # Fail closed for non-loopback callers. Previously the token check was
+    # skipped entirely when no token was configured, so enabling remote access
+    # without also setting a token silently served an unauthenticated API. This
+    # mirrors the policy scripts/run_dashboard_container.sh already enforces:
+    # loopback is always allowed, anything else needs a token.
+    if not _is_loopback(host) and not settings.api_token:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="remote access is enabled but NIDS_API_TOKEN is not configured; refusing to serve unauthenticated requests",
+        )
+
     if settings.api_token:
-        supplied = x_api_token
-        if authorization and authorization.lower().startswith("bearer "):
-            supplied = authorization.split(" ", 1)[1].strip()
-        if supplied != settings.api_token:
+        supplied = _header_value(x_api_token)
+        auth = _header_value(authorization)
+        if auth and auth.lower().startswith("bearer "):
+            supplied = auth.split(" ", 1)[1].strip()
+        if not supplied or not hmac.compare_digest(supplied, settings.api_token):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="invalid api token")
 
 
 def require_write_access(
     request: Request,
     authorization: str | None = Header(default=None),
+    x_api_token: str | None = Header(default=None),
     x_action_token: str | None = Header(default=None),
 ) -> None:
-    require_read_access(request, authorization=authorization)
+    # x_api_token must be forwarded: without it the read check below saw a
+    # Header sentinel instead of the caller's token, so a remote client
+    # authenticating with X-API-Token was rejected on every write route even
+    # when the token was correct.
+    require_read_access(request, authorization=authorization, x_api_token=x_api_token)
     settings = get_settings(request)
     if not settings.allow_mutating_routes:
         raise RouteDisabledError("mutating routes are disabled")
+
+    # Same fail-closed rule for mutations: a remote caller must present an
+    # action token, and an unset token means the route is unavailable rather
+    # than unguarded.
+    if not _is_loopback(_client_host(request)) and not settings.action_token:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="mutating routes are enabled but NIDS_ACTION_TOKEN is not configured; refusing to serve unauthenticated writes",
+        )
+
     if settings.action_token:
-        supplied = x_action_token
-        if authorization and authorization.lower().startswith("bearer "):
-            supplied = authorization.split(" ", 1)[1].strip()
-        if supplied != settings.action_token:
+        supplied = _header_value(x_action_token)
+        auth = _header_value(authorization)
+        if auth and auth.lower().startswith("bearer "):
+            supplied = auth.split(" ", 1)[1].strip()
+        if not supplied or not hmac.compare_digest(supplied, settings.action_token):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="invalid action token")
 
 

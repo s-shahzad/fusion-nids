@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import warnings
 from pathlib import Path
 from typing import Any
@@ -12,6 +13,9 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.preprocessing import StandardScaler
 
 from ..ml.featureset import FEATURE_COLUMNS, build_feature_vector
+from ..ml.integrity import UNSUPERVISED_SNAPSHOT_SHA256_ENV, verify_artifact_integrity
+
+logger = logging.getLogger(__name__)
 
 SNAPSHOT_VERSION = 1
 
@@ -112,9 +116,27 @@ class UnsupervisedMLEngine:
         if self.snapshot_path is None or not self.snapshot_path.exists():
             return
 
+        # joblib.load unpickles, so a swapped snapshot is code execution. Verify
+        # before reading the file, exactly as the supervised engine does.
+        if not verify_artifact_integrity(
+            self.snapshot_path,
+            env_var=UNSUPERVISED_SNAPSHOT_SHA256_ENV,
+            label="unsupervised snapshot",
+            logger=logger,
+        ):
+            return
+
         try:
             payload = joblib.load(self.snapshot_path)
         except Exception:
+            # Starting cold is the correct fallback, but it must not be silent:
+            # a corrupt or tampered snapshot otherwise looks identical to a
+            # first run. See issue #14 on swallowed exceptions.
+            logger.warning(
+                "Could not load unsupervised snapshot %s; continuing without it.",
+                self.snapshot_path,
+                exc_info=True,
+            )
             return
 
         if not isinstance(payload, dict):
