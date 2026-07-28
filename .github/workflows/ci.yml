@@ -35,3 +35,41 @@ jobs:
       - name: Run tests
         run: pytest -q -m "not lab and not environment and not live"
 
+  # The Dockerfile ships with the project but nothing ever built it. Not CI, and not
+  # locally either - the last local build was 2026-06-08. So a base-image bump like
+  # "python:3.11-slim -> 3.14-slim" (dependabot #18) had no test anywhere that could
+  # catch a break before it reached a public repo.
+  #
+  # This builds the image and runs the packaged entrypoint's help, which is enough to
+  # prove the base image, apt packages and pip install all still resolve together.
+  # No registry push: the point is verification, not distribution.
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: fusion-nids:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Deliberately not invoking the nids CLI here. `python -m nids --help` goes through
+      # `from src.nids.cli import main` and pulls in scapy, so a failure would be
+      # ambiguous between "the image is broken" and "the CLI needs a capture context".
+      # These two checks cannot fail for reasons unrelated to the image: the first proves
+      # the base image runs, the second proves the installed dependency graph is
+      # self-consistent. The build step above already proves apt and pip resolve.
+      - name: Smoke test the built image
+        run: |
+          docker run --rm fusion-nids:ci python -c "import sys; print(sys.version)"
+          docker run --rm fusion-nids:ci pip check
+
