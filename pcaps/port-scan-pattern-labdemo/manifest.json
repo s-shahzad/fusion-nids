@@ -20,12 +20,12 @@
     "10.77.0.20",
     "10.77.0.30"
   ],
-  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo",
-  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\port-scan-pattern.pcap",
-  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\labels.csv",
-  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\normalized_events.jsonl",
-  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\suricata_eve.jsonl",
-  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\port-scan-pattern-labdemo\\zeek_conn.jsonl",
+  "bundle_dir": "pcaps/port-scan-pattern-labdemo",
+  "pcap_path": "pcaps/port-scan-pattern-labdemo/port-scan-pattern.pcap",
+  "labels_path": "pcaps/port-scan-pattern-labdemo/labels.csv",
+  "normalized_events_path": "pcaps/port-scan-pattern-labdemo/normalized_events.jsonl",
+  "suricata_eve_path": "pcaps/port-scan-pattern-labdemo/suricata_eve.jsonl",
+  "zeek_conn_path": "pcaps/port-scan-pattern-labdemo/zeek_conn.jsonl",
   "packet_count": 28,
   "event_summary": {
     "event_count": 28,

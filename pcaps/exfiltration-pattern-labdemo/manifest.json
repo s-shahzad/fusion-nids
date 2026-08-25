@@ -22,12 +22,12 @@
     "10.77.0.53",
     "198.51.100.90"
   ],
-  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo",
-  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\exfiltration-pattern.pcap",
-  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\labels.csv",
-  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\normalized_events.jsonl",
-  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\suricata_eve.jsonl",
-  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\exfiltration-pattern-labdemo\\zeek_conn.jsonl",
+  "bundle_dir": "pcaps/exfiltration-pattern-labdemo",
+  "pcap_path": "pcaps/exfiltration-pattern-labdemo/exfiltration-pattern.pcap",
+  "labels_path": "pcaps/exfiltration-pattern-labdemo/labels.csv",
+  "normalized_events_path": "pcaps/exfiltration-pattern-labdemo/normalized_events.jsonl",
+  "suricata_eve_path": "pcaps/exfiltration-pattern-labdemo/suricata_eve.jsonl",
+  "zeek_conn_path": "pcaps/exfiltration-pattern-labdemo/zeek_conn.jsonl",
   "packet_count": 7,
   "event_summary": {
     "event_count": 7,

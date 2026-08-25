@@ -28,12 +28,12 @@
     "198.51.100.120",
     "198.51.100.121"
   ],
-  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo",
-  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\campaign-chain-pattern.pcap",
-  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\labels.csv",
-  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\normalized_events.jsonl",
-  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\suricata_eve.jsonl",
-  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\campaign-chain-pattern-labdemo\\zeek_conn.jsonl",
+  "bundle_dir": "pcaps/campaign-chain-pattern-labdemo",
+  "pcap_path": "pcaps/campaign-chain-pattern-labdemo/campaign-chain-pattern.pcap",
+  "labels_path": "pcaps/campaign-chain-pattern-labdemo/labels.csv",
+  "normalized_events_path": "pcaps/campaign-chain-pattern-labdemo/normalized_events.jsonl",
+  "suricata_eve_path": "pcaps/campaign-chain-pattern-labdemo/suricata_eve.jsonl",
+  "zeek_conn_path": "pcaps/campaign-chain-pattern-labdemo/zeek_conn.jsonl",
   "packet_count": 41,
   "event_summary": {
     "event_count": 41,

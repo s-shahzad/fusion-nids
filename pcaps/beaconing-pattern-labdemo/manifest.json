@@ -20,12 +20,12 @@
     "10.77.0.25",
     "198.51.100.80"
   ],
-  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo",
-  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\beaconing-pattern.pcap",
-  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\labels.csv",
-  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\normalized_events.jsonl",
-  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\suricata_eve.jsonl",
-  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\beaconing-pattern-labdemo\\zeek_conn.jsonl",
+  "bundle_dir": "pcaps/beaconing-pattern-labdemo",
+  "pcap_path": "pcaps/beaconing-pattern-labdemo/beaconing-pattern.pcap",
+  "labels_path": "pcaps/beaconing-pattern-labdemo/labels.csv",
+  "normalized_events_path": "pcaps/beaconing-pattern-labdemo/normalized_events.jsonl",
+  "suricata_eve_path": "pcaps/beaconing-pattern-labdemo/suricata_eve.jsonl",
+  "zeek_conn_path": "pcaps/beaconing-pattern-labdemo/zeek_conn.jsonl",
   "packet_count": 8,
   "event_summary": {
     "event_count": 8,

@@ -22,12 +22,12 @@
     "10.77.0.41",
     "10.77.0.42"
   ],
-  "bundle_dir": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo",
-  "pcap_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\lateral-sequence-pattern.pcap",
-  "labels_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\labels.csv",
-  "normalized_events_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\normalized_events.jsonl",
-  "suricata_eve_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\suricata_eve.jsonl",
-  "zeek_conn_path": "C:\\Users\\shaik\\VECTOR_SANDBOX\\NIDS_Workspace\\pcaps\\lateral-sequence-pattern-labdemo\\zeek_conn.jsonl",
+  "bundle_dir": "pcaps/lateral-sequence-pattern-labdemo",
+  "pcap_path": "pcaps/lateral-sequence-pattern-labdemo/lateral-sequence-pattern.pcap",
+  "labels_path": "pcaps/lateral-sequence-pattern-labdemo/labels.csv",
+  "normalized_events_path": "pcaps/lateral-sequence-pattern-labdemo/normalized_events.jsonl",
+  "suricata_eve_path": "pcaps/lateral-sequence-pattern-labdemo/suricata_eve.jsonl",
+  "zeek_conn_path": "pcaps/lateral-sequence-pattern-labdemo/zeek_conn.jsonl",
   "packet_count": 12,
   "event_summary": {
     "event_count": 12,
