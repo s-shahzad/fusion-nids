@@ -1,0 +1,18 @@
+# Security gate (same mechanism across all repos). Security checks only, no formatting:
+# paper fixtures, LaTeX and captured transcripts must stay byte-exact.
+# Optional locally: `pre-commit install`. CI (.github/workflows/secret-scan.yml) always runs it.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: detect-private-key
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=2048"]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      # Local commits: scans the staged change. CI scans the pushed commit range instead,
+      # because a CI runner has nothing staged and this hook would pass vacuously there.
+      - id: gitleaks
