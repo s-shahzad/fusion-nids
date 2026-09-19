@@ -1,0 +1,35 @@
+{
+  "mode": "synthetic-offline",
+  "engine": "Fusion NIDS SignatureEngine",
+  "description": "Saved output of a real detector using synthetic input; not live traffic.",
+  "positive_alert_count": 1,
+  "negative_alert_count": 0,
+  "alerts": [
+    {
+      "engine": "signature",
+      "severity": "medium",
+      "rule_name": "Demo restricted service access",
+      "summary": "Synthetic connection to a restricted administration port.",
+      "extra": {
+        "match": {
+          "proto": "TCP",
+          "dst_ports": [
+            3389
+          ],
+          "dataset_sources": [
+            "vpn-demo"
+          ]
+        },
+        "action": "alert"
+      }
+    }
+  ],
+  "event": {
+    "proto": "TCP",
+    "src_ip": "192.0.2.10",
+    "dst_ip": "198.51.100.20",
+    "src_port": 51000,
+    "dst_port": 3389,
+    "dataset_source": "vpn-demo"
+  }
+}

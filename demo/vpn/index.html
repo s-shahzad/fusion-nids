@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light"><title>Fusion / Managed access demo</title>
+  <link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+</head>
+<body>
+<div class="demo-banner">LOCAL CONCEPT DEMO <span>Simulated devices and tunnel · no traffic captured · no VPN connected</span></div>
+<div class="shell">
+<aside><a class="brand" href="#overview" aria-label="Fusion overview"><span class="mark">F/</span> FUSION<span class="brand-sub">MANAGED ACCESS</span></a>
+<nav aria-label="Main navigation"><a href="#overview">01 <span>Overview</span></a><a href="#devices">02 <span>Devices & access</span></a><a href="#activity">03 <span>Security activity</span></a></nav>
+<div class="sidebar-note"><span class="eyebrow">WORKSPACE</span><strong>Northstar Studio</strong><p>Fictional customer<br>Single gateway concept</p></div>
+</aside>
+<main id="overview">
+<header><div><span class="eyebrow">SERVICE PREVIEW / 001</span><h1>Access, with oversight.</h1><p>A private connection for your team. A clear view for the people protecting it.</p></div><button id="reset" class="quiet">Reset demo ↺</button></header>
+<section class="overview-grid" aria-label="Gateway overview">
+<article class="gateway"><div class="section-top"><span class="eyebrow">PROPOSED CUSTOMER GATEWAY</span><span class="badge">Simulation</span></div><h2>One team.<br>One protected route.</h2><div class="route" aria-label="Devices connect to WireGuard, with Fusion observing traffic at the gateway"><span>Devices</span><b>→</b><span>WireGuard</span><b>→</b><span>Company apps</span></div><div class="observation">└ &nbsp; Fusion NIDS observes the inner interface</div><p class="footnote">VPN encryption ends at the gateway. HTTPS content stays encrypted.<br>This prototype does not create a tunnel or block traffic.</p></article>
+<article class="health"><span class="eyebrow">MONITORING / SIMULATED</span><div id="health-label" class="health-label">Capture healthy</div><p id="health-detail">The simulated worker is running and receiving events.</p><label for="capture-state">Explore a monitoring state</label><select id="capture-state"><option value="healthy">Healthy · receiving traffic</option><option value="idle">Idle · no recent traffic</option><option value="stale">Stale · heartbeat missing</option><option value="failed">Failed · capture stopped</option></select><p class="footnote">Tunnel availability and capture health are separate signals.</p></article>
+</section>
+<section class="metrics" aria-label="Demo metrics"><div><span>Approved devices</span><strong id="approved-count">2</strong></div><div><span>Pending approval</span><strong id="pending-count">1</strong></div><div><span>Replayed alerts</span><strong id="alert-count">0</strong></div><div><span>Enforcement mode</span><strong class="small">Observe only</strong></div></section>
+<section id="devices" class="panel"><div class="section-top"><div><span class="eyebrow">ACCESS CONTROL / SIMULATED</span><h2>Your team’s devices</h2></div><span class="muted">Up to 5 demo devices</span></div>
+<form id="device-form"><label for="device-name">Fictional device name</label><div class="form-row"><input id="device-name" maxlength="48" placeholder="e.g. Design laptop" required autocomplete="off"><button type="submit">Add demo device +</button></div></form>
+<div class="table-wrap"><table><thead><tr><th scope="col">Device</th><th scope="col">Demo access</th><th scope="col">Action</th></tr></thead><tbody id="device-list"></tbody></table></div><p class="footnote">Approval and revocation affect this demonstration only. No real device access changes.</p></section>
+<section id="activity" class="panel"><div class="section-top"><div><span class="eyebrow">DETECTION EVIDENCE</span><h2>Show the signal.</h2></div><button id="replay" disabled>Loading evidence…</button></div><p>Replay saved output from Fusion’s signature detector: a synthetic restricted-port connection, plus a benign HTTPS control.</p><div id="evidence-status" class="evidence-note">Checking local evidence file…</div><ol id="alerts" class="alerts"><li class="empty">No demo alerts replayed yet.</li></ol><div class="report-row"><span>Session-only data. Reloading clears all changes.</span><button id="export" class="quiet">Export demo report ↓</button></div></section>
+<p id="announcement" role="status" aria-live="polite"></p><footer>FUSION / PRODUCT EXPLORATION <span>Local prototype · not a production security service</span></footer>
+</main></div>
+</body></html>

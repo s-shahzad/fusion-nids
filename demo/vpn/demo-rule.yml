@@ -1,0 +1,7 @@
+- name: Demo restricted service access
+  severity: medium
+  summary: Synthetic connection to a restricted administration port.
+  match:
+    proto: TCP
+    dst_ports: [3389]
+    dataset_sources: [vpn-demo]
