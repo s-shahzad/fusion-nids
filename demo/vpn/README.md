@@ -47,9 +47,12 @@ its Chromium installation. These are local checks, not physical-device tests.
 
 ## Next engineering milestone
 
-Build a two-peer Linux WireGuard lab with a dedicated customer gateway, then
-verify reachability, real peer revocation, capture on the inner interface,
-DNS/IPv6 routing, isolation, and failover behavior. Customer access controls,
+The first real isolated tunnel baseline has now been exercised; see
+[WireGuard lab evidence](../../docs/validation/wireguard-isolated-lab.md).
+The browser demo remains simulated and is not connected to that lab.
+
+Extend the isolated baseline into a dedicated customer gateway, then validate
+DNS/IPv6 routing, customer isolation, and failover behavior. Customer access controls,
 device-held private keys, data retention, and operational support need their
 own implementation and tests before a paid pilot. No production claims or
 pricing commitments are made by this demo.
