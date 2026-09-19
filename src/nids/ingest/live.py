@@ -125,6 +125,13 @@ async def _run_scapy_capture(
     try:
         sniffer.start()
         while not stop_event.is_set():
+            # AsyncSniffer stores worker failures rather than raising in start().
+            # Inspect the thread, not running: running can still be false during
+            # startup, or remain true after an exception in the worker.
+            worker = getattr(sniffer, "thread", None)
+            if worker is not None and not worker.is_alive():
+                sniffer.join()  # Re-raise any saved exception for reporting below.
+                break
             await asyncio.sleep(0.4)
     except PermissionError:
         print("live-capture: permission denied. Run with admin/root privileges for interface sniffing.")
