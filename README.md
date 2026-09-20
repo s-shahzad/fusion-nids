@@ -181,15 +181,23 @@ python -m nids evaluate --from-db output/nids.db --model models/model.pkl --out 
 
 ## Validation snapshot
 
-This project treats validation as a first-class output. The current baseline:
+The latest local offline measurement was on 2026-09-19 at commit `3a0ccc0`,
+Windows / Python 3.11 / Scapy 2.6.0. CI measures coverage on each main push and
+pull request; use its run-linked artifacts for hosted results (see
+[CONTRIBUTING.md](CONTRIBUTING.md)). Local results are not hosted-CI evidence.
 
 | Measure | Result |
 |---------|-------:|
-| Test suite collected | 152 |
-| Default suite result | 144 passed, 8 deselected |
-| Active pytest warnings | 0 |
-| Coverage | 79.16% |
-| Coverage floor (enforced) | 72% |
+| Test suite collected | 312 |
+| Default suite result | 295 passed, 1 skipped, 16 deselected |
+| Active pytest warnings | 11 |
+| Combined statement/branch coverage (local, 2026-09-19) | 76.89% |
+| Coverage floor | 72% |
+
+The following are historical lab results, not rerun by the offline suite above:
+
+| Measure | Recorded result |
+|---------|----------------:|
 | Latest offline lab scenario passes | 5 |
 | Latest prepared-environment passes | 10 of 17 manifests |
 | Benign soak (tuned) | 1,416 flows, 0 alerts |

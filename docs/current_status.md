@@ -65,7 +65,11 @@ Last updated: March 14, 2026
   - generated cloud data, deployment bundles, and collected Oracle VM evidence now stay out of Git by default
   - existing detector, ML, fusion, parsing, storage, and adversary-lab behavior remains unchanged
 
-## Current Metrics
+## Historical Metrics
+
+These figures describe an earlier validation state. For current offline test
+and coverage measurements, use the dated [README snapshot](../README.md#validation-snapshot)
+and run-linked CI evidence. Historical lab results below were not rerun by that suite.
 
 - Total pytest items collected: `195`
 - Default selected tests: `187`

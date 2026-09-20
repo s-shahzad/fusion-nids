@@ -1,5 +1,9 @@
 # Demo Script
 
+The numerical examples below are historical. For current test counts and
+coverage, quote the dated [README snapshot](../README.md#validation-snapshot)
+or a verified CI run; do not present the older 79.16% figure as current.
+
 ## General Demo Rules
 
 - Present the project as evidence-backed and research-first.

@@ -4,6 +4,11 @@ Use this checklist before promoting the repository from development validation t
 
 Last evidence refresh: March 14, 2026
 
+Historical checklist: checked items below do not establish readiness of today's
+revision. Revalidate them for any deployment candidate. Current offline test
+and coverage evidence is linked in [README](../README.md#validation-snapshot);
+it does not revalidate the live/environment/operational acceptance below.
+
 ## Quality Gates
 
 - [x] Default pytest suite passes with no unexpected failures. Evidence: `149 passed, 8 deselected`.
