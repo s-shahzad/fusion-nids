@@ -2,7 +2,9 @@
 
 ## Baseline Snapshot
 
-Use the following as the current public-facing baseline unless newer validated evidence replaces it:
+This is a historical snapshot, not the current public-facing baseline. Use the
+dated validation snapshot in [README](../README.md#validation-snapshot) and
+run-linked CI artifacts described in [CONTRIBUTING](../CONTRIBUTING.md).
 
 - `152` collected tests
 - `144` passed, `8` deselected

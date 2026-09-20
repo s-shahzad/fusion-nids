@@ -25,6 +25,21 @@ that require external infrastructure):
 pytest -m "not lab and not environment and not live"
 ```
 
+CI also measures coverage with branch tracking on every pull request and push
+to `main`, on Python 3.11 and 3.12. The unchanged 72% floor in `.coveragerc`
+applies to the combined statement/branch percentage, not branch-only coverage:
+
+```bash
+python -m pytest -q -m "not lab and not environment and not live" --cov=src/nids --cov-config=.coveragerc --cov-report=term:skip-covered
+```
+
+Each CI run retains JSON/XML coverage and JUnit results in the
+`ci-validation-python-<version>` artifact. Quote coverage with its run URL,
+commit, measurement date and Python version. Coverage measures exercised code,
+not detection accuracy, and excludes the lab/environment/live test suites.
+Extended Validation remains an optional deeper run; it is no longer the only
+workflow that enforces coverage.
+
 ## Pull request process
 
 1. Fork the repo and create a feature branch from `main`.
