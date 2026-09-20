@@ -57,11 +57,6 @@ jobs:
           python -m pip install scapy==2.6.0
           python -m pytest -q tests/test_live_worker_lifecycle.py tests/test_live_capture_operational.py tests/test_live_ingest.py
 
-      - name: Verify live capture at the minimum supported Scapy version
-        run: |
-          python -m pip install scapy==2.6.0
-          python -m pytest -q tests/test_live_worker_lifecycle.py tests/test_live_capture_operational.py tests/test_live_ingest.py
-
   # The Dockerfile ships with the project but nothing ever built it. Not CI, and not
   # locally either - the last local build was 2026-06-08. So a base-image bump like
   # "python:3.11-slim -> 3.14-slim" (dependabot #18) had no test anywhere that could
