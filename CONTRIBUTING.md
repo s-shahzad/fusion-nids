@@ -104,7 +104,35 @@ This project is dual-licensed:
 By submitting a contribution, you agree that your contribution is licensed under
 the same license as the file(s) you modify.
 
-## Security issues
+## Dependency review order
+
+Review dependency updates in this order:
+
+1. Confirmed security advisories affecting the installed dependency graph.
+2. Security-sensitive libraries and scanners (`cryptography`, `paramiko`, Scapy,
+   and CodeQL), even when an update is routine rather than an advisory fix.
+3. Other libraries and GitHub Actions, with major versions reviewed separately.
+4. Python/container runtime changes, after library compatibility is established.
+
+Patch/minor Dependabot updates may use the existing auto-merge workflow only
+after required checks pass against an up-to-date branch. Repository auto-merge
+and strict required checks must remain enabled; never bypass a failed check.
+Major updates require individual review, relevant runtime tests and an explicit
+merge action. A human-authored PR or major update skipping auto-merge is expected.
+
+For each major update, read the upstream migration notes, inspect actual imports
+and exercised functionality, refresh the branch against main, and validate the
+resulting diff as well as CI. Security-library changes need their functional
+tests (for example encryption round trips or SSH host-key rejection); package
+installation alone is insufficient. Test dependency consistency with `pip check`.
+Runtime updates also need a successful Docker build and its smoke checks.
+
+Record the tested versions and run links in the PR. If a required capability is
+not covered, add a focused regression or keep that update pending with the exact
+gap. Check open PR state live rather than treating an old queue count as current.
+Do not merge all updates together merely to empty the dependency queue.
+
+## Reporting vulnerabilities
 
 Do **not** open a public issue for a suspected vulnerability. Follow the process
 in [SECURITY.md](SECURITY.md).
