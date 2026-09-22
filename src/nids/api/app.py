@@ -24,7 +24,8 @@ from .assist import SummarizeRunRequest
 from .assist import SummarizeRunResponse
 from .assist import get_assist_provider
 from .dependencies import enforce_rate_limit
-from .dependencies import get_universal_nids_api_key
+from .dependencies import require_read_access, require_write_access
+from ..platform.settings import PlatformSettings
 from .dashboard_page import render_dashboard_html
 from .ops import InMemoryRateLimiter
 from .ops import error_payload
@@ -437,6 +438,7 @@ def create_app() -> FastAPI:
         version=__version__,
         description="Minimal API wrapper for the validated Universal NIDS baseline.",
     )
+    app.state.settings = PlatformSettings.from_env()
     app.state.rate_limiter = limiter
     app.state.rate_limit_clock = time.monotonic
 
@@ -546,7 +548,7 @@ def create_app() -> FastAPI:
     async def routes() -> RoutesResponse:
         return _route_listing(app)
 
-    @app.get("/status", response_model=SystemStatusResponse)
+    @app.get("/status", response_model=SystemStatusResponse, dependencies=[Depends(require_read_access)])
     async def status() -> SystemStatusResponse:
         return await run_in_threadpool(_system_status_snapshot, run_service)
 
@@ -554,7 +556,7 @@ def create_app() -> FastAPI:
     async def dashboard() -> HTMLResponse:
         return HTMLResponse(_dashboard_html())
 
-    @app.get("/runs", response_model=RunsResponse)
+    @app.get("/runs", response_model=RunsResponse, dependencies=[Depends(require_read_access)])
     async def runs(limit: int = 12) -> RunsResponse:
         items = await run_in_threadpool(run_service.list_runs, limit=max(1, min(int(limit), 50)))
         return RunsResponse(runs=[RunListItem(**item) for item in items])
@@ -562,7 +564,7 @@ def create_app() -> FastAPI:
     @app.post(
         "/run-local",
         response_model=RunLocalResponse,
-        dependencies=[Depends(get_universal_nids_api_key), Depends(enforce_rate_limit(limit=2, window_sec=60))],
+        dependencies=[Depends(require_write_access), Depends(enforce_rate_limit(limit=2, window_sec=60))],
     )
     async def run_local(
         request: RunLocalRequest,
@@ -583,7 +585,7 @@ def create_app() -> FastAPI:
     @app.get(
         "/runs/{run_name}/summary",
         response_model=RunSummaryResponse,
-        dependencies=[Depends(get_universal_nids_api_key), Depends(enforce_rate_limit(limit=30, window_sec=60))],
+        dependencies=[Depends(require_read_access), Depends(enforce_rate_limit(limit=30, window_sec=60))],
     )
     async def run_summary(run_name: str, request: Request) -> RunSummaryResponse:
         try:
@@ -597,7 +599,7 @@ def create_app() -> FastAPI:
     @app.get(
         "/runs/{run_name}/alerts",
         response_model=RunAlertsResponse,
-        dependencies=[Depends(get_universal_nids_api_key), Depends(enforce_rate_limit(limit=20, window_sec=60))],
+        dependencies=[Depends(require_read_access), Depends(enforce_rate_limit(limit=20, window_sec=60))],
     )
     async def run_alerts(run_name: str, request: Request, limit: int = 10) -> RunAlertsResponse:
         try:
@@ -611,7 +613,7 @@ def create_app() -> FastAPI:
     @app.get(
         "/runs/{run_name}/metrics",
         response_model=RunMetricsResponse,
-        dependencies=[Depends(get_universal_nids_api_key)],
+        dependencies=[Depends(require_read_access)],
     )
     async def run_metrics(run_name: str, request: Request) -> RunMetricsResponse:
         try:
@@ -626,7 +628,7 @@ def create_app() -> FastAPI:
     @app.post(
         "/runs/{run_name}/explain",
         response_model=ExplainRunResponse,
-        dependencies=[Depends(get_universal_nids_api_key)],
+        dependencies=[Depends(require_write_access)],
     )
     async def run_explain(run_name: str, payload: ExplainRunRequest, request: Request) -> ExplainRunResponse:
         try:
@@ -654,7 +656,7 @@ def create_app() -> FastAPI:
     @app.post(
         "/exports/portfolio-bundle",
         response_model=PortfolioBundleResponse,
-        dependencies=[Depends(get_universal_nids_api_key)],
+        dependencies=[Depends(require_write_access)],
     )
     async def export_portfolio_bundle(payload: PortfolioBundleRequest, request: Request) -> PortfolioBundleResponse:
         try:
@@ -674,7 +676,7 @@ def create_app() -> FastAPI:
     @app.post(
         "/llm/summarize-run",
         response_model=SummarizeRunResponse,
-        dependencies=[Depends(get_universal_nids_api_key)],
+        dependencies=[Depends(require_write_access)],
     )
     async def llm_summarize_run(request: SummarizeRunRequest, http_request: Request) -> SummarizeRunResponse:
         try:
@@ -697,7 +699,7 @@ def create_app() -> FastAPI:
     @app.post(
         "/llm/explain-alert",
         response_model=ExplainAlertResponse,
-        dependencies=[Depends(get_universal_nids_api_key)],
+        dependencies=[Depends(require_write_access)],
     )
     async def llm_explain_alert(request: ExplainAlertRequest, http_request: Request) -> ExplainAlertResponse:
         try:
@@ -720,7 +722,7 @@ def create_app() -> FastAPI:
     @app.post(
         "/llm/analyze-alerts",
         response_model=AnalyzeAlertsResponse,
-        dependencies=[Depends(get_universal_nids_api_key)],
+        dependencies=[Depends(require_write_access)],
     )
     async def llm_analyze_alerts(request: AnalyzeAlertsRequest, http_request: Request) -> AnalyzeAlertsResponse:
         try:
