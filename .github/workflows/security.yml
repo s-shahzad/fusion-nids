@@ -130,6 +130,7 @@ jobs:
           name: dashboard-ci-log
           path: dashboard-ci.log
           if-no-files-found: warn
+          retention-days: 7
 
   tls-endpoint-audit:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.https_url != '' }}
