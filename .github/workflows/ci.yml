@@ -57,14 +57,9 @@ jobs:
           python -m pip install scapy==2.6.0
           python -m pytest -q tests/test_live_worker_lifecycle.py tests/test_live_capture_operational.py tests/test_live_ingest.py
 
-  # The Dockerfile ships with the project but nothing ever built it. Not CI, and not
-  # locally either - the last local build was 2026-06-08. So a base-image bump like
-  # "python:3.11-slim -> 3.14-slim" (dependabot #18) had no test anywhere that could
-  # catch a break before it reached a public repo.
-  #
-  # This builds the image and runs the packaged entrypoint's help, which is enough to
-  # prove the base image, apt packages and pip install all still resolve together.
-  # No registry push: the point is verification, not distribution.
+  # Build the shipped image on every pull request and verify its Python runtime,
+  # dependency graph, and packaged CLI entrypoint. No registry push: this job is
+  # runtime verification, not distribution.
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -84,12 +79,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # Deliberately not invoking the nids CLI here. `python -m nids --help` goes through
-      # `from src.nids.cli import main` and pulls in scapy, so a failure would be
-      # ambiguous between "the image is broken" and "the CLI needs a capture context".
-      # These two checks cannot fail for reasons unrelated to the image: the first proves
-      # the base image runs, the second proves the installed dependency graph is
-      # self-consistent. The build step above already proves apt and pip resolve.
+      # The runtime check exercises the packaged CLI import path in addition to the
+      # interpreter and dependency consistency checks above.
       - name: Smoke test the built image
         run: |
           docker run --rm fusion-nids:ci python -c "import sys; print(sys.version)"
