@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import math
 import socket
 import ssl
 from dataclasses import dataclass
@@ -38,11 +39,18 @@ def _parse_https_target(url: str) -> tuple[str, int]:
     if host == "":
         raise ValueError("Target URL must include a hostname")
 
-    port = int(parsed.port or 443)
+    port = int(443 if parsed.port is None else parsed.port)
     if port <= 0 or port > 65535:
         raise ValueError("Target URL has an invalid port")
 
     return host, port
+
+
+def _validate_numeric_inputs(timeout: float, min_days_valid: float) -> None:
+    if not math.isfinite(timeout) or timeout <= 0:
+        raise ValueError("Timeout must be a finite value greater than zero")
+    if not math.isfinite(min_days_valid) or min_days_valid < 0:
+        raise ValueError("Minimum validity must be a finite value greater than or equal to zero")
 
 
 def _collect_tls_snapshot(host: str, port: int, timeout: float) -> TLSSnapshot:
@@ -106,6 +114,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        _validate_numeric_inputs(float(args.timeout), float(args.min_days_valid))
         host, port = _parse_https_target(str(args.url))
     except Exception as exc:
         print(f"FAIL tls_target: {exc}")
