@@ -145,5 +145,8 @@ jobs:
           python-version: "3.12"
 
       - name: TLS endpoint audit
+        env:
+          TLS_AUDIT_URL: ${{ inputs.https_url }}
+          TLS_AUDIT_MIN_DAYS_VALID: ${{ inputs.min_days_valid }}
         run: |
-          python scripts/tls_endpoint_audit.py --url "${{ inputs.https_url }}" --min-days-valid "${{ inputs.min_days_valid }}"
+          python scripts/tls_endpoint_audit.py --url "$TLS_AUDIT_URL" --min-days-valid "$TLS_AUDIT_MIN_DAYS_VALID"
