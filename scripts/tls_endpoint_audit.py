@@ -34,6 +34,8 @@ def _parse_https_target(url: str) -> tuple[str, int]:
     scheme = str(parsed.scheme or "").lower()
     if scheme != "https":
         raise ValueError("Target URL must use https scheme")
+    if parsed.username is not None or parsed.password is not None:
+        raise ValueError("Target URL must not contain credentials")
 
     host = str(parsed.hostname or "").strip()
     if host == "":

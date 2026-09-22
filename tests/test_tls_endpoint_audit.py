@@ -23,3 +23,9 @@ def test_accepts_zero_validity_threshold_and_default_port():
 def test_rejects_explicit_zero_port():
     with pytest.raises(ValueError, match="invalid port"):
         _parse_https_target("https://example.test:0")
+
+
+@pytest.mark.parametrize("url", ["https://user@example.test", "https://user:secret@example.test"])
+def test_rejects_credentials_in_target(url):
+    with pytest.raises(ValueError, match="credentials"):
+        _parse_https_target(url)
