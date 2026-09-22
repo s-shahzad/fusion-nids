@@ -94,4 +94,5 @@ jobs:
         run: |
           docker run --rm fusion-nids:ci python -c "import sys; print(sys.version)"
           docker run --rm fusion-nids:ci pip check
+          docker run --rm fusion-nids:ci python -m nids --help >/dev/null
 
