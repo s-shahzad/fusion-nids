@@ -124,6 +124,14 @@ jobs:
           python scripts/dashboard_security_smoke.py --host 127.0.0.1 --port 8000 --view-token ci-view-token --action-token ci-action-token
           python scripts/dashboard_load_probe.py --host 127.0.0.1 --port 8000 --path /api/realtime --token ci-view-token --requests 80 --warmup 10 --p95-max-ms 900 --max-error-rate 0.01
 
+      - name: Upload dashboard log
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: dashboard-ci-log
+          path: dashboard-ci.log
+          if-no-files-found: warn
+
   tls-endpoint-audit:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.https_url != '' }}
     runs-on: ubuntu-latest
