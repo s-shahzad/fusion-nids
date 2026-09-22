@@ -889,10 +889,10 @@ def file_drop_scan() -> Any:
     try:
         result = build_file_response(uploaded.filename or "uploaded.zip", raw)
     except (zipfile.BadZipFile, tarfile.ReadError, ValueError) as exc:
-        # These are validation failures with messages we author, so returning
-        # the text is useful to the caller and discloses nothing.
-        logger.info("Rejected uploaded archive: %s", exc)
-        return jsonify({"error": str(exc)}), 400
+        # Keep validation details in server logs; archive/parser messages can
+        # contain paths or library internals that must not reach the client.
+        logger.info("Rejected uploaded archive: %s", _safe_for_log(exc))
+        return jsonify({"error": "Uploaded file could not be scanned."}), 400
     except Exception:
         # An unexpected exception's text can carry filesystem paths, library
         # internals, or fragments of the uploaded data. Log it in full and
