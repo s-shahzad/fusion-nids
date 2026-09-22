@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 
 from .router_v1 import router as v1_router
+from .dependencies import require_read_access
 from ..platform.errors import register_exception_handlers
 from ..platform.logging_config import configure_logging
 from ..platform.settings import PlatformSettings
@@ -30,7 +31,7 @@ def create_app() -> FastAPI:
         status = HealthService(settings).live()
         return {"name": status.name, "ok": status.ok, "detail": status.detail}
 
-    @app.get("/health/ready", tags=["health"])
+    @app.get("/health/ready", tags=["health"], dependencies=[Depends(require_read_access)])
     def health_ready() -> dict:
         checks = HealthService(settings).ready()
         return {

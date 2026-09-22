@@ -20,7 +20,7 @@ This matrix formalizes how the current offline replay workflow is expected to be
 | Comparison baseline mode failure | one ablation-mode run fails | comparison helper currently fails the study rather than emitting partial success | deterministic helper exists, but partial-mode continuation is not implemented | medium |
 | Artifact triage failure | staged artifacts cannot be processed or reported | artifact-specific command failure should be visible in scenario logs and verdict | scenario runner command logs and artifact tests | medium |
 | Malformed live-style input | malformed packets during prepared-environment validation | runtime should survive and continue processing valid traffic | documented prepared-environment evidence in `docs/testing_validation_master.md` | low for documented path, medium for broader untested malformed cases |
-| API auth failure | missing or invalid `X-API-Key` | controlled `401` or `503` response | `tests/test_control_layer_api.py` | low |
+| API auth failure | missing or invalid read/action token | controlled `401`, `403`, or `503` response | `tests/test_control_layer_api.py` | low |
 | API rate limit failure | repeated calls to protected or bounded routes | controlled `429` JSON response | `tests/test_control_layer_api.py` | low |
 | Partial bundle generation | scenario run produces some but not all expected artifacts | manifest, logs, and status should expose the partial state | scenario runner verdict logic and bundle logs | medium |
 

@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from html import escape
+
 
 def render_dashboard_html(default_run_name: str | None = None) -> str:
-    run_value = default_run_name or ""
+    run_value = escape(default_run_name or "", quote=True)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -162,7 +164,18 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
     </section>
 
     <section class="panel">
-      <h2>Run Control</h2>
+      <h2>API Access</h2>
+      <div class="tools">
+        <label>Read token
+          <input id="read-token" type="password" autocomplete="off" spellcheck="false">
+        </label>
+        <label>Action token (explain and export)
+          <input id="action-token" type="password" autocomplete="off" spellcheck="false">
+        </label>
+        <button id="connect-btn" type="button">Connect / refresh</button>
+      </div>
+      <p class="muted">Tokens stay in this page and are cleared when you reload it.</p>
+      <h2 style="margin-top:18px;">Run Control</h2>
       <div class="tools">
         <label>Run name
           <select id="run-select"></select>
@@ -188,7 +201,7 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
     <section class="grid">
       <section class="panel">
         <h2>Recent Runs</h2>
-        <div id="recent-runs" class="muted">Loading…</div>
+        <div id="recent-runs" class="muted">Enter your read token and connect to load runs.</div>
       </section>
       <section class="panel">
         <h2>Run Summary</h2>
@@ -241,7 +254,22 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
   </main>
   <script>
     async function fetchJson(url, options) {{
-      const response = await fetch(url, Object.assign({{ headers: {{ Accept: "application/json" }} }}, options || {{}}));
+      const target = new URL(url, window.location.href);
+      if (target.origin !== window.location.origin) {{
+        throw new Error("API requests must use this page's origin.");
+      }}
+      const requestOptions = Object.assign({{}}, options || {{}});
+      const headers = new Headers(requestOptions.headers || {{}});
+      headers.set("Accept", "application/json");
+      const readToken = document.getElementById("read-token").value;
+      const actionToken = document.getElementById("action-token").value;
+      if (readToken) headers.set("X-API-Token", readToken);
+      if ((requestOptions.method || "GET").toUpperCase() === "POST" && actionToken) {{
+        headers.set("X-Action-Token", actionToken);
+      }}
+      requestOptions.headers = headers;
+      requestOptions.redirect = "error";
+      const response = await fetch(target.href, requestOptions);
       const payload = await response.json().catch(() => ({{}}));
       if (!response.ok) {{
         throw new Error(payload.detail || payload.message || "Request failed.");
@@ -255,8 +283,14 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
       return manual || select.value;
     }}
 
+    function escapeHtml(value) {{
+      return String(value ?? "").replace(/[&<>"']/g, (character) => ({{
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }})[character]);
+    }}
+
     function renderKv(target, rows) {{
-      target.innerHTML = rows.map(([k, v]) => `<dt>${{k}}</dt><dd>${{v ?? ""}}</dd>`).join("");
+      target.innerHTML = rows.map(([k, v]) => `<dt>${{escapeHtml(k)}}</dt><dd>${{escapeHtml(v)}}</dd>`).join("");
     }}
 
     function renderDistribution(targetId, data) {{
@@ -266,7 +300,7 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
         target.innerHTML = '<span class="muted">No data</span>';
         return;
       }}
-      target.innerHTML = entries.map(([key, value]) => `<span class="pill">${{key}}: ${{value}}</span>`).join("");
+      target.innerHTML = entries.map(([key, value]) => `<span class="pill">${{escapeHtml(key)}}: ${{escapeHtml(value)}}</span>`).join("");
     }}
 
     function showError(message) {{
@@ -286,13 +320,13 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
       const runs = payload.runs || [];
       const select = document.getElementById("run-select");
       const compare = document.getElementById("compare-run");
-      select.innerHTML = runs.map((item) => `<option value="${{item.run_name}}">${{item.run_name}}</option>`).join("");
-      compare.innerHTML = '<option value="">None</option>' + runs.map((item) => `<option value="${{item.run_name}}">${{item.run_name}}</option>`).join("");
+      select.innerHTML = runs.map((item) => `<option value="${{escapeHtml(item.run_name)}}">${{escapeHtml(item.run_name)}}</option>`).join("");
+      compare.innerHTML = '<option value="">None</option>' + runs.map((item) => `<option value="${{escapeHtml(item.run_name)}}">${{escapeHtml(item.run_name)}}</option>`).join("");
       if (!document.getElementById("run-name").value && runs.length) {{
         document.getElementById("run-name").value = runs[0].run_name;
       }}
       document.getElementById("recent-runs").innerHTML = runs.map((item) =>
-        `<div><strong>${{item.run_name}}</strong> <span class="muted">flows=${{item.flows}} alerts=${{item.alerts}} status=${{item.status}}</span></div>`
+        `<div><strong>${{escapeHtml(item.run_name)}}</strong> <span class="muted">flows=${{escapeHtml(item.flows)}} alerts=${{escapeHtml(item.alerts)}} status=${{escapeHtml(item.status)}}</span></div>`
       ).join("");
     }}
 
@@ -334,12 +368,12 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
         ["Alert ratio delta", metrics.baseline_comparison.delta.alert_ratio],
       ]);
       document.getElementById("metric-pills").innerHTML =
-        `<span class="pill">flows=${{metrics.flows}}</span><span class="pill">alerts=${{metrics.alerts}}</span>`;
+        `<span class="pill">flows=${{escapeHtml(metrics.flows)}}</span><span class="pill">alerts=${{escapeHtml(metrics.alerts)}}</span>`;
       renderDistribution("engine-distribution", metrics.engine_distribution);
       renderDistribution("severity-distribution", metrics.severity_distribution);
       const tbody = document.getElementById("alerts-body");
       tbody.innerHTML = (alerts.alerts || []).map((item) =>
-        `<tr><td class="mono">${{item.timestamp || ""}}</td><td>${{item.severity || ""}}</td><td>${{item.engine || ""}}</td><td>${{item.rule_name || ""}}</td><td>${{item.summary || ""}}</td></tr>`
+        `<tr><td class="mono">${{escapeHtml(item.timestamp || "")}}</td><td>${{escapeHtml(item.severity || "")}}</td><td>${{escapeHtml(item.engine || "")}}</td><td>${{escapeHtml(item.rule_name || "")}}</td><td>${{escapeHtml(item.summary || "")}}</td></tr>`
       ).join("");
       if (!tbody.innerHTML) {{
         tbody.innerHTML = '<tr><td colspan="5" class="muted">No alerts found for this run.</td></tr>';
@@ -379,6 +413,15 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
       document.getElementById("export-result").textContent = JSON.stringify(payload, null, 2);
     }}
 
+    document.getElementById("connect-btn").addEventListener("click", async () => {{
+      clearError();
+      try {{
+        await loadRuns();
+        if (activeRunName()) await inspectRun();
+      }} catch (error) {{
+        showError(error.message);
+      }}
+    }});
     document.getElementById("inspect-btn").addEventListener("click", () => inspectRun().catch((error) => showError(error.message)));
     document.getElementById("explain-btn").addEventListener("click", () => explainRun().catch((error) => showError(error.message)));
     document.getElementById("export-btn").addEventListener("click", () => exportBundle().catch((error) => showError(error.message)));
@@ -386,7 +429,7 @@ def render_dashboard_html(default_run_name: str | None = None) -> str:
       document.getElementById("run-name").value = event.target.value;
     }});
 
-    Promise.all([loadBaseline(), loadRuns()]).then(() => inspectRun()).catch((error) => showError(error.message));
+    loadBaseline().catch((error) => showError(error.message));
   </script>
 </body>
 </html>"""

@@ -218,6 +218,7 @@ def test_run_summary_alerts_and_metrics_endpoints(tmp_path: Path, monkeypatch) -
 
 def test_run_alerts_apply_privacy_filter_when_enabled(tmp_path: Path, monkeypatch) -> None:
     _seed_run(tmp_path, "run-private")
+    monkeypatch.setenv("NIDS_API_TOKEN", "expected-key")
     monkeypatch.setenv("NIDS_PRIVACY_MODE", "review")
     monkeypatch.setenv("NIDS_REDACT_IP_ADDRESSES", "true")
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
@@ -269,7 +270,7 @@ def test_explainer_service_falls_back_when_ollama_is_unavailable(monkeypatch) ->
 
 def test_run_local_requires_configured_api_key(tmp_path: Path, monkeypatch) -> None:
     _seed_baseline_profile(tmp_path)
-    monkeypatch.delenv("UNIVERSAL_NIDS_API_KEY", raising=False)
+    monkeypatch.delenv("NIDS_API_TOKEN", raising=False)
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
     app = app_module.create_app()
     status_code, _, payload = asyncio.run(
@@ -285,12 +286,14 @@ def test_run_local_requires_configured_api_key(tmp_path: Path, monkeypatch) -> N
     )
 
     assert status_code == 503
-    assert "UNIVERSAL_NIDS_API_KEY" in str(payload["detail"])
+    assert "NIDS_API_TOKEN" in str(payload["detail"])
 
 
 def test_run_local_requires_valid_api_key(tmp_path: Path, monkeypatch) -> None:
     _seed_baseline_profile(tmp_path)
-    monkeypatch.setenv("UNIVERSAL_NIDS_API_KEY", "expected-key")
+    monkeypatch.setenv("NIDS_API_TOKEN", "expected-key")
+    monkeypatch.setenv("NIDS_ACTION_TOKEN", "action-key")
+    monkeypatch.setenv("NIDS_ALLOW_MUTATING_ROUTES", "true")
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
     app = app_module.create_app()
     payload = {
@@ -300,18 +303,20 @@ def test_run_local_requires_valid_api_key(tmp_path: Path, monkeypatch) -> None:
 
     missing_status, _, missing_payload = asyncio.run(_asgi_request(app, "POST", "/run-local", json_body=payload))
     assert missing_status == 401
-    assert missing_payload["detail"] == "Invalid or missing API key."
+    assert missing_payload["detail"] == "invalid api token"
 
     wrong_status, _, wrong_payload = asyncio.run(
-        _asgi_request(app, "POST", "/run-local", json_body=payload, headers={"X-API-Key": "wrong-key"})
+        _asgi_request(app, "POST", "/run-local", json_body=payload, headers={"X-API-Token": "wrong-key"})
     )
     assert wrong_status == 401
-    assert wrong_payload["detail"] == "Invalid or missing API key."
+    assert wrong_payload["detail"] == "invalid api token"
 
 
 def test_run_local_accepts_correct_api_key(tmp_path: Path, monkeypatch) -> None:
     _seed_baseline_profile(tmp_path)
-    monkeypatch.setenv("UNIVERSAL_NIDS_API_KEY", "expected-key")
+    monkeypatch.setenv("NIDS_API_TOKEN", "expected-key")
+    monkeypatch.setenv("NIDS_ACTION_TOKEN", "action-key")
+    monkeypatch.setenv("NIDS_ALLOW_MUTATING_ROUTES", "true")
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
 
     def fake_run_local(request) -> LocalPipelineResult:
@@ -345,7 +350,7 @@ def test_run_local_accepts_correct_api_key(tmp_path: Path, monkeypatch) -> None:
             app,
             "POST",
             "/run-local",
-            headers={"X-API-Key": "expected-key"},
+            headers={"X-API-Token": "expected-key", "X-Action-Token": "action-key"},
             json_body={
                 "pcap_path": "lab/pcaps/sample.pcap",
                 "output_dir": "output/api-test-run",
@@ -362,10 +367,10 @@ def test_run_local_accepts_correct_api_key(tmp_path: Path, monkeypatch) -> None:
 def test_health_open_but_run_data_requires_configured_api_key(tmp_path: Path, monkeypatch) -> None:
     # After the auth hardening: /health, /version, /baseline stay open, but the
     # run-data endpoints (summary/alerts) fail closed with 503 until
-    # UNIVERSAL_NIDS_API_KEY is configured.
+    # NIDS_API_TOKEN is configured.
     _seed_baseline_profile(tmp_path)
     _seed_run(tmp_path, "run-open")
-    monkeypatch.delenv("UNIVERSAL_NIDS_API_KEY", raising=False)
+    monkeypatch.delenv("NIDS_API_TOKEN", raising=False)
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
     app = app_module.create_app()
     health_status, _, _ = asyncio.run(_asgi_request(app, "GET", "/health"))
@@ -384,6 +389,7 @@ def test_health_open_but_run_data_requires_configured_api_key(tmp_path: Path, mo
 def test_status_endpoint_reports_operating_profile(tmp_path: Path, monkeypatch) -> None:
     _seed_baseline_profile(tmp_path)
     _seed_run(tmp_path, "run-status")
+    monkeypatch.setenv("NIDS_API_TOKEN", "expected-key")
     monkeypatch.setenv("NIDS_PRIVACY_MODE", "review")
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
     (tmp_path / "config").mkdir(parents=True, exist_ok=True)
@@ -392,7 +398,7 @@ def test_status_endpoint_reports_operating_profile(tmp_path: Path, monkeypatch) 
         encoding="utf-8",
     )
     app = app_module.create_app()
-    status_code, _, payload = asyncio.run(_asgi_request(app, "GET", "/status"))
+    status_code, _, payload = asyncio.run(_asgi_request(app, "GET", "/status", headers={"X-API-Token": "expected-key"}))
     assert status_code == 200
     assert payload["api_health"] == "ok"
     assert payload["privacy_mode"] == "review"
@@ -402,7 +408,9 @@ def test_status_endpoint_reports_operating_profile(tmp_path: Path, monkeypatch) 
 
 def test_run_local_rate_limit_returns_429(tmp_path: Path, monkeypatch) -> None:
     _seed_baseline_profile(tmp_path)
-    monkeypatch.setenv("UNIVERSAL_NIDS_API_KEY", "expected-key")
+    monkeypatch.setenv("NIDS_API_TOKEN", "expected-key")
+    monkeypatch.setenv("NIDS_ACTION_TOKEN", "action-key")
+    monkeypatch.setenv("NIDS_ALLOW_MUTATING_ROUTES", "true")
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
     monkeypatch.setattr(app_module, "_run_local_request", lambda request: LocalPipelineResult(
         output_dir=(tmp_path / "output" / "limited-run").resolve(),
@@ -422,7 +430,7 @@ def test_run_local_rate_limit_returns_429(tmp_path: Path, monkeypatch) -> None:
     clock = FakeClock()
     app.state.rate_limit_clock = clock
     payload = {"pcap_path": "lab/pcaps/sample.pcap", "output_dir": "output/limited-run"}
-    headers = {"X-API-Key": "expected-key"}
+    headers = {"X-API-Token": "expected-key", "X-Action-Token": "action-key"}
 
     first_status, _, _ = asyncio.run(_asgi_request(app, "POST", "/run-local", headers=headers, json_body=payload))
     second_status, _, _ = asyncio.run(_asgi_request(app, "POST", "/run-local", headers=headers, json_body=payload))
@@ -437,12 +445,14 @@ def test_run_local_rate_limit_returns_429(tmp_path: Path, monkeypatch) -> None:
 def test_summary_rate_limit_resets_after_window_expiry(tmp_path: Path, monkeypatch) -> None:
     _seed_baseline_profile(tmp_path)
     _seed_run(tmp_path, "run-rate")
-    monkeypatch.setenv("UNIVERSAL_NIDS_API_KEY", "expected-key")
+    monkeypatch.setenv("NIDS_API_TOKEN", "expected-key")
+    monkeypatch.setenv("NIDS_ACTION_TOKEN", "action-key")
+    monkeypatch.setenv("NIDS_ALLOW_MUTATING_ROUTES", "true")
     monkeypatch.setattr(app_module, "_repo_root", lambda: tmp_path)
     app = app_module.create_app()
     clock = FakeClock()
     app.state.rate_limit_clock = clock
-    headers = {"X-API-Key": "expected-key"}
+    headers = {"X-API-Token": "expected-key", "X-Action-Token": "action-key"}
 
     for _ in range(30):
         response_status, _, _ = asyncio.run(_asgi_request(app, "GET", "/runs/run-rate/summary", headers=headers))

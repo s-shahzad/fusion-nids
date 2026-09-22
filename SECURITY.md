@@ -27,21 +27,23 @@ This policy covers:
 
 Stated accurately so reports can be scoped against what actually exists.
 
-**Authentication fails closed for non-loopback callers.** Loopback
-(`127.0.0.1`, `::1`, `localhost`) is always permitted without a token — a
-deliberate development-ergonomics choice, and a real trust assumption. Any other
-caller must present a token, and enabling `NIDS_ALLOW_REMOTE_API` or
-`NIDS_ALLOW_MUTATING_ROUTES` **without** configuring the matching token returns
-503 rather than serving unauthenticated requests.
+**Both FastAPI applications share one authentication policy.** Protected routes
+require `NIDS_API_TOKEN` through `X-API-Token` or `Authorization: Bearer`, even
+on loopback. Privileged POST operations additionally require
+`NIDS_ALLOW_MUTATING_ROUTES=true` and `X-Action-Token` matching
+`NIDS_ACTION_TOKEN`. Remote access requires `NIDS_ALLOW_REMOTE_API=true`.
+Missing configuration returns 503, invalid credentials 401, and disabled
+remote or privileged access 403. Credentials are loaded at app creation.
 
-**Protected endpoints are authenticated.** `/run-local`, the per-run routes,
-exports, and all `/llm/*` routes require `UNIVERSAL_NIDS_API_KEY` through
-`get_universal_nids_api_key`, which returns 503 when no key is configured.
-Several also carry rate limits.
+**Protected data includes** `/status`, `/runs`, per-run data, exports, LLM
+operations, `/v1/*`, and production `/health/ready`. Public endpoints are
+`/health`, `/health/live`, `/version`, `/baseline`, `/routes`, dashboard HTML,
+and API schemas/docs. This policy concerns the two FastAPI apps; the separate
+capture dashboard server retains its own documented token configuration.
 
-**Unauthenticated by design:** `/health`, `/version`, `/baseline`, `/routes`,
-`/status`, `/dashboard`, `/runs`. If you believe one of these discloses
-something it should not, that is worth reporting.
+**Migration:** `UNIVERSAL_NIDS_API_KEY` and `X-API-Key` no longer authenticate.
+See [API authentication migration](docs/api_authentication.md) for configuration
+and client examples. No legacy credential is silently granted write authority.
 
 **Model artefacts are integrity-checked.** All three `joblib.load` sites verify
 a configured SHA-256 before unpickling, because unpickling executes arbitrary

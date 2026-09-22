@@ -1,14 +1,11 @@
 from __future__ import annotations
 
 import hmac
-import os
 import time
 from collections.abc import Callable
 
-from fastapi import Depends, Header, HTTPException, Request, status
-from fastapi.security import APIKeyHeader
+from fastapi import Header, HTTPException, Request, status
 
-from ..platform.errors import RouteDisabledError
 from ..platform.settings import PlatformSettings
 
 
@@ -50,24 +47,26 @@ def require_read_access(
     if not settings.allow_remote_api and not _is_loopback(host):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="remote access disabled")
 
-    # Fail closed for non-loopback callers. Previously the token check was
-    # skipped entirely when no token was configured, so enabling remote access
-    # without also setting a token silently served an unauthenticated API. This
-    # mirrors the policy scripts/run_dashboard_container.sh already enforces:
-    # loopback is always allowed, anything else needs a token.
-    if not _is_loopback(host) and not settings.api_token:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="remote access is enabled but NIDS_API_TOKEN is not configured; refusing to serve unauthenticated requests",
-        )
+    if not settings.api_token:
+        raise HTTPException(status_code=503, detail="NIDS_API_TOKEN is not configured")
 
-    if settings.api_token:
-        supplied = _header_value(x_api_token)
-        auth = _header_value(authorization)
-        if auth and auth.lower().startswith("bearer "):
-            supplied = auth.split(" ", 1)[1].strip()
-        if not supplied or not hmac.compare_digest(supplied, settings.api_token):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="invalid api token")
+    supplied = _header_value(x_api_token)
+    auth = _header_value(authorization)
+    if auth is not None:
+        scheme, separator, token = auth.partition(" ")
+        token = token.strip()
+        if scheme.lower() != "bearer" or not separator or not token:
+            raise HTTPException(status_code=401, detail="invalid api token")
+        if supplied is not None and not _tokens_equal(supplied, token):
+            raise HTTPException(status_code=401, detail="conflicting api credentials")
+        supplied = token
+    if not supplied or not _tokens_equal(supplied, settings.api_token):
+        raise HTTPException(status_code=401, detail="invalid api token")
+
+
+def _tokens_equal(supplied: str, expected: str) -> bool:
+    # Byte comparison also handles non-ASCII input without raising TypeError.
+    return hmac.compare_digest(supplied.encode("utf-8"), expected.encode("utf-8"))
 
 
 def require_write_access(
@@ -76,49 +75,15 @@ def require_write_access(
     x_api_token: str | None = Header(default=None),
     x_action_token: str | None = Header(default=None),
 ) -> None:
-    # x_api_token must be forwarded: without it the read check below saw a
-    # Header sentinel instead of the caller's token, so a remote client
-    # authenticating with X-API-Token was rejected on every write route even
-    # when the token was correct.
     require_read_access(request, authorization=authorization, x_api_token=x_api_token)
     settings = get_settings(request)
     if not settings.allow_mutating_routes:
-        raise RouteDisabledError("mutating routes are disabled")
-
-    # Same fail-closed rule for mutations: a remote caller must present an
-    # action token, and an unset token means the route is unavailable rather
-    # than unguarded.
-    if not _is_loopback(_client_host(request)) and not settings.action_token:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="mutating routes are enabled but NIDS_ACTION_TOKEN is not configured; refusing to serve unauthenticated writes",
-        )
-
-    if settings.action_token:
-        supplied = _header_value(x_action_token)
-        auth = _header_value(authorization)
-        if auth and auth.lower().startswith("bearer "):
-            supplied = auth.split(" ", 1)[1].strip()
-        if not supplied or not hmac.compare_digest(supplied, settings.action_token):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="invalid action token")
-
-
-api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
-
-
-def get_universal_nids_api_key(provided_api_key: str | None = Depends(api_key_header)) -> None:
-    expected = str(os.getenv("UNIVERSAL_NIDS_API_KEY", "") or "").strip()
-    if not expected:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Protected endpoints are disabled until UNIVERSAL_NIDS_API_KEY is configured.",
-        )
-    provided = str(provided_api_key or "").strip()
-    if not provided or not hmac.compare_digest(provided, expected):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or missing API key.",
-        )
+        raise HTTPException(status_code=403, detail="mutating routes are disabled")
+    if not settings.action_token:
+        raise HTTPException(status_code=503, detail="NIDS_ACTION_TOKEN is not configured")
+    supplied = _header_value(x_action_token)
+    if not supplied or not _tokens_equal(supplied, settings.action_token):
+        raise HTTPException(status_code=401, detail="invalid action token")
 
 
 def enforce_rate_limit(*, limit: int, window_sec: int) -> Callable[[Request], None]:
